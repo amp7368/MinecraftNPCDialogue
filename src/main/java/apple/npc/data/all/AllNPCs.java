@@ -28,5 +28,11 @@ public class AllNPCs {
             NPCData npc = new NPCData(config);
             allNpcs.put(npc.uid, npc);
         }
+        for (Integer uid : allNpcs.keySet()) {
+            System.out.println(uid);
+            String[] strings = allNpcs.get(uid).toString().split("\n");
+            for (String string : strings)
+                System.out.println(string);
+        }
     }
 }

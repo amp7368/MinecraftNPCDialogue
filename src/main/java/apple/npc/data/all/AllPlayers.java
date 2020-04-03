@@ -2,6 +2,7 @@ package apple.npc.data.all;
 
 import apple.npc.data.single.PlayerData;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -23,6 +24,11 @@ public class AllPlayers {
             File file = new File(String.format("%s%s%s%s%s", plugin.getDataFolder(), File.separator, "playerData", File.separator, pathName));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             allPlayers.add(new PlayerData(config));
+        }
+        for (PlayerData player : allPlayers) {
+            String[] strings = player.toString().split("\n");
+            for (String string : strings)
+                System.out.println(string);
         }
     }
 }

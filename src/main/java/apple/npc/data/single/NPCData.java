@@ -17,6 +17,7 @@ public class NPCData {
     public Map<String, NPCPlayerData> playerDataMap;
 
     public NPCData(YamlConfiguration config) {
+        playerDataMap = new HashMap<>();
         uid = config.getInt("uid");
         name = config.getString("name");
         gameUID = config.getString("gameUID");
@@ -28,7 +29,6 @@ public class NPCData {
         for (String uid : playersUIDs) {
             playerDataMap.put(uid, new NPCPlayerData(playersUIDsConfig.getConfigurationSection(uid)));
         }
-
     }
 
     private Map<String, Integer> mapConclusionsToConvo(ConfigurationSection config) {
@@ -38,5 +38,9 @@ public class NPCData {
             map.put(conclusion, config.getInt(conclusion));
         }
         return map;
+    }
+
+    public String toString() {
+        return String.format("uid:%d, name:%s, gameUID:%s", uid, name, gameUID);
     }
 }
