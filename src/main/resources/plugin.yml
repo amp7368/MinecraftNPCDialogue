@@ -1,0 +1,9 @@
+name: NPCDialogue
+version: 1.0
+api-version: 1.15
+author: Apple
+main: apple.npc.NPCDialogueMain
+description: allow the player to teleport using player made paper scrolls
+commands:
+  scroll_create:
+    description: creates a scroll with the players current location
