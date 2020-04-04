@@ -1,6 +1,6 @@
 package apple.npc.data.single;
 
-import apple.npc.data.utils.VarsConclusionMap;
+import apple.npc.data.components.VarsConclusionMap;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 

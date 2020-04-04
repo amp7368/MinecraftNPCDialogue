@@ -1,11 +1,9 @@
 package apple.npc.data.single;
 
-import apple.npc.data.utils.Variable;
-import apple.npc.data.utils.VariableCategory;
+import apple.npc.data.category.VariableCategory;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Set;
 

@@ -1,9 +1,7 @@
 package apple.npc.data.single;
 
-import apple.npc.data.utils.Opinion;
+import apple.npc.data.components.Opinion;
 import org.bukkit.configuration.ConfigurationSection;
-
-import java.sql.Timestamp;
 
 public class NPCPlayerData {
     public String playerUID;

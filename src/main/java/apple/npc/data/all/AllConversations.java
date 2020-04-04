@@ -1,6 +1,6 @@
 package apple.npc.data.all;
 
-import apple.npc.data.utils.ConversationGlobalCategory;
+import apple.npc.data.category.ConversationGlobalCategory;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,9 +23,6 @@ public class AllConversations {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
             allConversations.put(globalCategory, global);
-        }
-        for (String key : allConversations.keySet()) {
-            System.out.println(key + ":\n" + allConversations.get(key).toString());
         }
     }
 }
