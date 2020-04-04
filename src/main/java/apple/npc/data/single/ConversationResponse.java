@@ -1,6 +1,6 @@
 package apple.npc.data.single;
 
-import apple.npc.data.components.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.components.PostPlayerResponse;
 import org.bukkit.configuration.ConfigurationSection;
 

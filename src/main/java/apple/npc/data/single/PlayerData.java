@@ -33,4 +33,8 @@ public class PlayerData {
         }
         return string.toString();
     }
+
+    public int getVarVal(String varGlobal, int varUID) {
+        return variables.get(varGlobal).getVarVal(varUID);
+    }
 }

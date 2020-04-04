@@ -32,4 +32,8 @@ public class VariableCategory {
         }
         return string.toString();
     }
+
+    public int getVarVal(int varUID) {
+        return variables.get(varUID).value;
+    }
 }

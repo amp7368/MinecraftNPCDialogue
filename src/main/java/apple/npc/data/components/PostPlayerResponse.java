@@ -1,5 +1,6 @@
 package apple.npc.data.components;
 
+import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashSet;
