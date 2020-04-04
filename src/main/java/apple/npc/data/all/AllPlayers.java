@@ -30,5 +30,6 @@ public class AllPlayers {
             for (String string : strings)
                 System.out.println(string);
         }
+        System.out.println("\n");
     }
 }

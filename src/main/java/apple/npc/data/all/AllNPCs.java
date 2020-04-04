@@ -34,5 +34,6 @@ public class AllNPCs {
             for (String string : strings)
                 System.out.println(string);
         }
+        System.out.println("\n");
     }
 }
