@@ -9,19 +9,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class NPCDialogueMain extends JavaPlugin {
     @Override
-    public void onLoad(){
-        AllNPCs.initialize(this);
-        AllPlayers.initialize(this);
-        AllConversations.initialize(this);
+    public void onLoad() {
+        AllNPCs.initialize(this.getDataFolder());
+        AllPlayers.initialize(this.getDataFolder());
+        AllConversations.initialize(this.getDataFolder());
         System.out.println("[NPCDialogue] loaded");
     }
+
     @Override
     public void onEnable() {
         new CreateCommand(this);
         new ClickListener(this);
-        AllNPCs.initialize(this);
-        AllPlayers.initialize(this);
-        AllConversations.initialize(this);
+        AllNPCs.initialize(this.getDataFolder());
+        AllPlayers.initialize(this.getDataFolder());
+        AllConversations.initialize(this.getDataFolder());
         System.out.println("[NPCDialogue] enabled");
     }
 }

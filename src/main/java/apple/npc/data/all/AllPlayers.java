@@ -12,19 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AllPlayers {
-    private static JavaPlugin plugin;
 
     public static Map<String, PlayerData> allPlayers = new HashMap<>();
 
-    public static void initialize(JavaPlugin plugin) {
-        File directory = new File(String.format("%s%s%s", plugin.getDataFolder(), File.separator, "playerData"));
+    public static void initialize(File dataFolder) {
+        File directory = new File(String.format("%s%s%s", dataFolder, File.separator, "playerData"));
         String[] pathNameList = directory.list();
         if (pathNameList == null) {
-            System.err.println(String.format("%s%s%s", "Could not get any files with path name of \"", String.format("%s%s%s", plugin.getDataFolder(), File.separator, "playerData"), "\""));
+            System.err.println(String.format("%s%s%s", "Could not get any files with path name of \"", String.format("%s%s%s", dataFolder, File.separator, "playerData"), "\""));
             return;
         }
         for (String pathName : pathNameList) {
-            File file = new File(String.format("%s%s%s%s%s", plugin.getDataFolder(), File.separator, "playerData", File.separator, pathName));
+            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, "playerData", File.separator, pathName));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             allPlayers.put(pathName.replace(".yml", ""), new PlayerData(config));
         }
