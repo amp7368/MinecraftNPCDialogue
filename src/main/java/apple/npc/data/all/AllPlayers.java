@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class AllPlayers {
 
-    public static Map<String, PlayerData> allPlayers = new HashMap<>();
+    private static Map<String, PlayerData> allPlayers = new HashMap<>();
 
     public static void initialize(File dataFolder) {
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, "playerData"));
@@ -33,5 +33,9 @@ public class AllPlayers {
 
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
         return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
+    }
+
+    public static PlayerData getPlayer(String uid) {
+        return allPlayers.get(uid);
     }
 }

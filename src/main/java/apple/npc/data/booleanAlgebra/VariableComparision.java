@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class VariableComparision implements Evaluateable {
     private boolean isNoted;
+    private boolean isConclusionVar;
     private int comparisonType;
     private int comparisonValue;
     private String comparisonVarGlobal;
@@ -14,13 +15,23 @@ public class VariableComparision implements Evaluateable {
         isNoted = config.getBoolean("isNoted");
         comparisonType = config.getInt("comparisonType");
         comparisonValue = config.getInt("comparisonValue");
-        comparisonVarGlobal = config.getString("comparisonVar:globalCategory");
-        comparisonVarUID = config.getInt("comparisonVar.varUID");
+        if (config.contains("isConclusionVar")) {
+            isConclusionVar = true;
+        } else {
+            isConclusionVar = false;
+            comparisonVarGlobal = config.getString("comparisonVar:globalCategory");
+            comparisonVarUID = config.getInt("comparisonVar.varUID");
+        }
     }
 
     @Override
-    public boolean evaluate(String playerUID) {
-        int varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
+    public boolean evaluate(String playerUID, int currentConclusion) {
+        int varVal;
+        if (isConclusionVar)
+            varVal = currentConclusion;
+        else
+            varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
+
         boolean result;
         switch (comparisonType) {
             case -2:

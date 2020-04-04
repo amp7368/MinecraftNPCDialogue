@@ -16,9 +16,9 @@ public class BooleanExp implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID) {
-        boolean exp1Bool = exp1.evaluate(playerUID);
-        boolean exp2Bool = exp2.evaluate(playerUID);
+    public boolean evaluate(String playerUID, int currentConclusion) {
+        boolean exp1Bool = exp1.evaluate(playerUID, currentConclusion);
+        boolean exp2Bool = exp2.evaluate(playerUID, currentConclusion);
         boolean result;
         if (isAndOp)
             result = exp1Bool && exp2Bool;

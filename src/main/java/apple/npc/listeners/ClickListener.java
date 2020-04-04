@@ -1,17 +1,19 @@
 package apple.npc.listeners;
 
 import apple.npc.NPCDialogueMain;
+import apple.npc.data.all.AllNPCs;
+import apple.npc.data.all.AllPlayers;
+import apple.npc.data.single.NPCData;
+import apple.npc.data.single.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class ClickListener implements Listener {
@@ -28,8 +30,18 @@ public class ClickListener implements Listener {
         UUID uuid = entity.getUniqueId();
         Player player = event.getPlayer();
         player.getUniqueId();
-
+        if (entity.getType() == EntityType.ARMOR_STAND) {
+            doConversation(entity, player);
+            player.sendMessage("armorStand");
+        }
         player.sendMessage(uuid.toString());
         player.sendMessage("hi");
+    }
+
+    private void doConversation(Entity entity, Player p) {
+        NPCData npc = AllNPCs.getNPC(entity.getUniqueId().toString());
+        PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());
+
+        npc.doConversation(player);
     }
 }

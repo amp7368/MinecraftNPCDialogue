@@ -1,6 +1,7 @@
 package apple.npc.data.single;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.components.PostPlayerResponse;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 public class ConversationResponse {
     private final PostPlayerResponse defaultPostReponse;
     private int uid;
-    private BooleanExpRequirement preResponseRequirement;
+    private Evaluateable preResponseRequirement;
     private List<String> response;
     private List<PostPlayerResponse> postResponses;
 

@@ -1,4 +1,4 @@
-package apple.npc.data.components;
+package apple.npc.data.reference;
 
 import org.bukkit.configuration.ConfigurationSection;
 
