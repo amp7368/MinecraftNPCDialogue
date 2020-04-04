@@ -21,7 +21,7 @@ public class AllConversations {
             File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, "conversationData", File.separator, globalCategory));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
-            allConversations.put(globalCategory, global);
+            allConversations.put(globalCategory.replace(".yml", ""), global);
         }
     }
 }

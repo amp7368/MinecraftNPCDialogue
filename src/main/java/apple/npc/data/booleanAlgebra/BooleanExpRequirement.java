@@ -12,21 +12,21 @@ public class BooleanExpRequirement implements Evaluateable {
         ConfigurationSection exp1 = config.getConfigurationSection("exp1");
         if (exp1 == null) {
             // then we should get either the default value or the variable comparison
-            ConfigurationSection comparisonType = config.getConfigurationSection("comparisionType");
-            if (comparisonType == null) {
+            if (!config.contains("comparisonType")) {
                 // we should get the default value
                 isDefault = true;
                 defaultVal = config.getBoolean("default");
             } else {
                 // we should get the variable comparison
                 isDefault = false;
+                not = false;
                 exp = new VariableComparision(config);
-                not = config.getBoolean("isNoted");
             }
         } else {
             // we should get the BooleanExp
+            isDefault = false;
+            not = false;
             exp = new BooleanExp(config);
-            not = config.getBoolean("isNoted");
         }
     }
 

@@ -9,14 +9,14 @@ import java.util.Set;
 public class PostPlayerResponse {
     private final HashSet<VariableChange> variableChanges;
     private final String responseGlobal;
-    private final String responseLocal;
-    private final String conversationUID;
+    private final int responseLocal;
+    private final int conversationUID;
     private final BooleanExpRequirement redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
         this.responseGlobal = config.getString("globalCategory");
-        this.responseLocal = config.getString("localCategoryUID");
-        this.conversationUID = config.getString("conversationUID");
+        this.responseLocal = config.getInt("localCategoryUID");
+        this.conversationUID = config.getInt("conversationUID");
         this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection("redirectRequirement"));
 
         this.variableChanges = new HashSet<>();
