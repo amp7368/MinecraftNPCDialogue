@@ -16,10 +16,12 @@ public class YMLConversationNavigate {
     public static final String CONVERSATION_LOCAL_ID = "convoLocalId";
     public static final String CONVERSATION_UID_ID = "convoUID";
     public static final String OPTIONS = "options";
-    public static final String PRE_RESPONSE_REQUIREMENT ="preResponseRequirement" ;
+    public static final String PRE_RESPONSE_REQUIREMENT = "preResponseRequirement";
     public static final String POST_RESPONSES = "postResponses";
     public static final String DEFAULT_POST_RESPONSE = "defaultPostResponse";
     public static final String RESPONSE_GLOBAL_CATEGORY = "globalCategory";
     public static final String RESPONSE_LOCAL_CATEGORY_UID = "localCategoryUID";
     public static final String RESPONSE_CONVERSATION_UID = "conversationUID";
+    public static final String RESPONSE_UID = "uid";
+    public static final String RESPONSE_TEXT = "response";
 }

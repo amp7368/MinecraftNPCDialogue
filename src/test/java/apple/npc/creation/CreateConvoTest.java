@@ -1,7 +1,6 @@
 package apple.npc.creation;
 
-import apple.npc.YMLTest;
-import apple.npc.ymlNavigate.YMLConversationNavigate;
+import apple.npc.ymlNavigate.YMLTestConvo;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.junit.Test;
 
@@ -12,10 +11,11 @@ public class CreateConvoTest {
 
     @Test
     public void createTest() {
-        File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, YMLTest.CONVO_GLOBAL, ".yml"));
+        File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, YMLTestConvo.CONVO_GLOBAL, ".yml"));
         assert file.delete();
         assert (new CreateConvoGlobalTest()).createTest(folder);
         assert (new CreateConvoLocalTest()).createTest(folder);
         assert (new CreateConvoConversation()).createTest(folder);
+        assert (new CreateConvoResponseTest()).createTest(folder);
     }
 }

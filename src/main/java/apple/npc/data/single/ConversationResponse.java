@@ -18,9 +18,9 @@ public class ConversationResponse implements Evaluateable {
     private List<PostPlayerResponse> postResponses;
 
     public ConversationResponse(ConfigurationSection config) {
-        this.uid = config.getInt("uid");
+        this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
         this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
-        this.response = config.getStringList("response");
+        this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
         this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(YMLConversationNavigate.DEFAULT_POST_RESPONSE));
     }

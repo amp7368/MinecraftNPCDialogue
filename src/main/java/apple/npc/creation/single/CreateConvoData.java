@@ -14,8 +14,11 @@ public class CreateConvoData {
         File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, globalName, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection convoConfigOrig = config.getConfigurationSection(String.format("%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS));
-        convoConfigOrig.createSection(String.valueOf(convoInfo.uid));
-        ConfigurationSection convoConfig = convoConfigOrig.getConfigurationSection(String.valueOf(convoInfo.uid));
+        String convoInfoUidString = String.valueOf(convoInfo.uid);
+        if(convoConfigOrig.contains(convoInfoUidString))
+            return false;
+        convoConfigOrig.createSection(convoInfoUidString);
+        ConfigurationSection convoConfig = convoConfigOrig.getConfigurationSection(convoInfoUidString);
         convoConfig.set(YMLConversationNavigate.CONVERSATION_UID, convoInfo.uid);
         convoConfig.set(YMLConversationNavigate.NAME, convoInfo.name);
         convoConfig.set(YMLConversationNavigate.CONVERSATION_TEXT, convoInfo.text);
