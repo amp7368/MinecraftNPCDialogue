@@ -1,5 +1,6 @@
 package apple.npc.data.single;
 
+import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
@@ -12,10 +13,10 @@ public class ConversationData {
 
     public ConversationData(ConfigurationSection config) {
         conversationText = new ArrayList<>();
-        this.uid = config.getInt("uid");
-        this.name = config.getString("name");
-        this.conversationText = config.getStringList("conversationText");
-        this.responses = getResponses(config.getConfigurationSection("options"));
+        this.uid = config.getInt(YMLConversationNavigate.LOCAL_UID);
+        this.name = config.getString(YMLConversationNavigate.NAME);
+        this.conversationText = config.getStringList(YMLConversationNavigate.CONVERSATION_TEXT);
+        this.responses = getResponses(config.getConfigurationSection(YMLConversationNavigate.OPTIONS));
     }
 
     private List<ConversationResponse> getResponses(ConfigurationSection config) {

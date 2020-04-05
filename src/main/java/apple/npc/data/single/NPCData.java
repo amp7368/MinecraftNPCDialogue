@@ -3,6 +3,7 @@ package apple.npc.data.single;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.components.VarsConclusionMap;
 import apple.npc.data.reference.ConvoID;
+import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,21 +27,21 @@ public class NPCData {
 
     public NPCData(YamlConfiguration config) {
         playerDataMap = new HashMap<>();
-        uid = config.getInt("uid");
-        name = config.getString("name");
-        gameUID = config.getString("gameUID");
-        startingConclusion = config.getInt("startingConclusion");
+        uid = config.getInt(YMLNpcNavigate.NPC_UID);
+        name = config.getString(YMLNpcNavigate.NPC_NAME);
+        gameUID = config.getString(YMLNpcNavigate.NPC_GAME_UID);
+        startingConclusion = config.getInt(YMLNpcNavigate.STARTING_CONCLUSION);
 
         varsToConclusion = new ArrayList<>();
-        ConfigurationSection varConcluConfig = config.getConfigurationSection("varsToConclusions");
+        ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
         for (String varConcluKey : varConcluKeys) {
             System.out.println(varConcluKey);
             varsToConclusion.add(new VarsConclusionMap(varConcluConfig.getConfigurationSection(varConcluKey)));
         }
-        conclusionsToConvo = mapConclusionsToConvo(config.getConfigurationSection("conclusionsToConvoUid"));
+        conclusionsToConvo = mapConclusionsToConvo(config.getConfigurationSection(YMLNpcNavigate.CONCLUSIONS_TO_CONVO));
 
-        ConfigurationSection playersUIDsConfig = config.getConfigurationSection("playersuid");
+        ConfigurationSection playersUIDsConfig = config.getConfigurationSection(YMLNpcNavigate.PLAYERS_UID);
         Set<String> playersUIDs = playersUIDsConfig.getKeys(false);
         for (String uid : playersUIDs) {
             playerDataMap.put(uid, new NPCPlayerData(playersUIDsConfig.getConfigurationSection(uid)));

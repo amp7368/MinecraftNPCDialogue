@@ -1,6 +1,7 @@
 package apple.npc.data.all;
 
 import apple.npc.data.single.NPCData;
+import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -13,14 +14,14 @@ public class AllNPCs {
     private static Map<String, NPCData> allGameUIDToNpcs = new HashMap<>();
 
     public static void initialize(File dataFolder) {
-        File directory = new File(String.format("%s%s%s", dataFolder, File.separator, "npcData"));
+        File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER));
         String[] pathNameList = directory.list();
         if (pathNameList == null) {
-            System.err.println(String.format("%s%s%s", "Could not get any files with path name of \"", String.format("%s%s%s", dataFolder, File.separator, "npcData"), "\""));
+            System.err.println(String.format("%s%s%s", "Could not get any files with path name of \"", String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER), "\""));
             return;
         }
         for (String pathName : pathNameList) {
-            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, "npcData", File.separator, pathName));
+            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, pathName));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             NPCData npc = new NPCData(config);
             allGameUIDToNpcs.put(npc.gameUID, npc);

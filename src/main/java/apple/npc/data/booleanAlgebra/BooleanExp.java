@@ -1,5 +1,6 @@
 package apple.npc.data.booleanAlgebra;
 
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class BooleanExp implements Evaluateable {
@@ -9,10 +10,10 @@ public class BooleanExp implements Evaluateable {
     private Evaluateable exp2;
 
     public BooleanExp(ConfigurationSection config) {
-        isAndOp = config.getBoolean("isAndOp");
-        isNoted = config.getBoolean("isNoted");
-        exp1 = new BooleanExpRequirement(config.getConfigurationSection("exp1"));
-        exp2 = new BooleanExpRequirement(config.getConfigurationSection("exp2"));
+        isAndOp = config.getBoolean(YMLBooleanNavigate.IS_AND_OP);
+        isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
+        exp1 = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1));
+        exp2 = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_2));
     }
 
     @Override

@@ -2,6 +2,7 @@ package apple.npc.data.components;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.reference.VariableChange;
+import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashSet;
@@ -15,13 +16,13 @@ public class PostPlayerResponse {
     private final BooleanExpRequirement redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
-        this.responseGlobal = config.getString("globalCategory");
-        this.responseLocal = config.getInt("localCategoryUID");
-        this.conversationUID = config.getInt("conversationUID");
-        this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection("redirectRequirement"));
+        this.responseGlobal = config.getString(YMLConversationNavigate.GLOBAL_CATEGORY);
+        this.responseLocal = config.getInt(YMLConversationNavigate.LOCAL_CATEGORY_UID);
+        this.conversationUID = config.getInt(YMLConversationNavigate.CONVERSATION_UID);
+        this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
 
         this.variableChanges = new HashSet<>();
-        ConfigurationSection changesConfig = config.getConfigurationSection("variableChanges");
+        ConfigurationSection changesConfig = config.getConfigurationSection(YMLConversationNavigate.VARIABLE_CHANGES);
         if (changesConfig == null) {
             return;
         }

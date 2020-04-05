@@ -1,6 +1,7 @@
 package apple.npc.data.single;
 
 import apple.npc.data.category.VariableCategory;
+import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -13,9 +14,9 @@ public class PlayerData {
 
     public PlayerData(YamlConfiguration config) {
         variables = new HashMap<>();
-        String uid = config.getString("uid");
+        String uid = config.getString(YMLPlayerVariable.PLAYER_UID);
         this.uid = uid;
-        ConfigurationSection varConfig = config.getConfigurationSection("variables");
+        ConfigurationSection varConfig = config.getConfigurationSection(YMLPlayerVariable.VARIABLES);
         Set<String> globalCategories = varConfig.getKeys(false);
         for (String global : globalCategories) {
             variables.put(global, new VariableCategory(varConfig.getConfigurationSection(global)));

@@ -1,6 +1,7 @@
 package apple.npc.data.booleanAlgebra;
 
 import apple.npc.data.all.AllPlayers;
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class VariableComparision implements Evaluateable {
@@ -12,15 +13,15 @@ public class VariableComparision implements Evaluateable {
     private int comparisonVarUID;
 
     public VariableComparision(ConfigurationSection config) {
-        isNoted = config.getBoolean("isNoted");
-        comparisonType = config.getInt("comparisonType");
-        comparisonValue = config.getInt("comparisonValue");
-        if (config.contains("isConclusionVar")) {
+        isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
+        comparisonType = config.getInt(YMLBooleanNavigate.COMPARISON_TYPE);
+        comparisonValue = config.getInt(YMLBooleanNavigate.COMPARISON_VALUE);
+        if (config.contains(YMLBooleanNavigate.IS_CONCLUSION_VAR)) {
             isConclusionVar = true;
         } else {
             isConclusionVar = false;
-            comparisonVarGlobal = config.getString("comparisonVar:globalCategory");
-            comparisonVarUID = config.getInt("comparisonVar.varUID");
+            comparisonVarGlobal = config.getString(String.format("%s%c%s",YMLBooleanNavigate.COMPARISON_VAR,'.',YMLBooleanNavigate.GLOBAL_CATEGORY));
+            comparisonVarUID = config.getInt(String.format("%s%c%s",YMLBooleanNavigate.COMPARISON_VAR,'.',YMLBooleanNavigate.VAR_UID));
         }
     }
 

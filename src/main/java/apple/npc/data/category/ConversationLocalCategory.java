@@ -1,6 +1,7 @@
 package apple.npc.data.category;
 
 import apple.npc.data.single.ConversationData;
+import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -15,9 +16,9 @@ public class ConversationLocalCategory {
 
     public ConversationLocalCategory(ConfigurationSection config) {
         conversations = new HashMap<>();
-        uid = config.getInt("uid");
-        name = config.getString("name");
-        ConfigurationSection conversationsConfig = config.getConfigurationSection("conversations");
+        uid = config.getInt(YMLConversationNavigate.LOCAL_UID);
+        name = config.getString(YMLConversationNavigate.NAME);
+        ConfigurationSection conversationsConfig = config.getConfigurationSection(YMLConversationNavigate.CONVERSATIONS);
         Set<String> conversationUIDs = conversationsConfig.getKeys(false);
         for (String conversation : conversationUIDs) {
             if (!StringUtils.isNumeric(conversation))
@@ -30,13 +31,13 @@ public class ConversationLocalCategory {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("uid: ");
+        string.append(YMLConversationNavigate.LOCAL_UID + ": ");
         string.append(uid);
-        string.append(" name: ");
+        string.append(" " + YMLConversationNavigate.NAME + ": ");
         string.append(name);
-        string.append("\nconversations:\n");
+        string.append("\n"+YMLConversationNavigate.CONVERSATIONS+":\n");
         for (Integer key : conversations.keySet()) {
-            string.append("key: ");
+            string.append(YMLConversationNavigate.KEY+": ");
             string.append(key);
             string.append("\n");
             string.append(conversations.get(key).toString());

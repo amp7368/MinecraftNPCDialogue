@@ -1,6 +1,7 @@
 package apple.npc.data.single;
 
 import apple.npc.data.components.Opinion;
+import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class NPCPlayerData {
@@ -10,9 +11,9 @@ public class NPCPlayerData {
     public Opinion opinion;
 
     public NPCPlayerData(ConfigurationSection config) {
-        playerUID = config.getString("uid");
-        currentConvoUID = config.getInt("currentConvoUID");
-        lastTalked = config.getLong("timeLastTalked");
-        opinion = new Opinion(config.getConfigurationSection("opinion"));
+        playerUID = config.getString(YMLPlayerVariable.PLAYER_UID);
+        currentConvoUID = config.getInt(YMLPlayerVariable.CURRENT_CONVERSATION_ID);
+        lastTalked = config.getLong(YMLPlayerVariable.TIME_LAST_TALKED);
+        opinion = new Opinion(config.getConfigurationSection(YMLPlayerVariable.OPINION));
     }
 }

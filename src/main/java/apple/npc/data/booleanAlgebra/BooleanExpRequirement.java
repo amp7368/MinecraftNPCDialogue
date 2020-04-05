@@ -1,5 +1,6 @@
 package apple.npc.data.booleanAlgebra;
 
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class BooleanExpRequirement implements Evaluateable {
@@ -9,13 +10,13 @@ public class BooleanExpRequirement implements Evaluateable {
     private boolean not;
 
     public BooleanExpRequirement(ConfigurationSection config) {
-        ConfigurationSection exp1 = config.getConfigurationSection("exp1");
+        ConfigurationSection exp1 = config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1);
         if (exp1 == null) {
             // then we should get either the default value or the variable comparison
-            if (!config.contains("comparisonType")) {
+            if (!config.contains(YMLBooleanNavigate.COMPARISON_TYPE)) {
                 // we should get the default value
                 isDefault = true;
-                defaultVal = config.getBoolean("default");
+                defaultVal = config.getBoolean(YMLBooleanNavigate.DEFAULT);
             } else {
                 // we should get the variable comparison
                 isDefault = false;
