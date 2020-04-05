@@ -17,5 +17,6 @@ public class CreateConvoTest {
         assert (new CreateConvoLocalTest()).createTest(folder);
         assert (new CreateConvoConversation()).createTest(folder);
         assert (new CreateConvoResponseTest()).createTest(folder);
+        assert (new CreateConvoPreReqTest()).createTest(folder);
     }
 }

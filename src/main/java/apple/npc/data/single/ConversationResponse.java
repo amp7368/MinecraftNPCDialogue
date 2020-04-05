@@ -3,6 +3,7 @@ package apple.npc.data.single;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.components.PostPlayerResponse;
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -22,7 +23,8 @@ public class ConversationResponse implements Evaluateable {
         this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
         this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
-        this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(YMLConversationNavigate.DEFAULT_POST_RESPONSE));
+        this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s%c%s",
+                YMLConversationNavigate.DEFAULT_POST_RESPONSE, '.', YMLBooleanNavigate.EXPRESSION)));
     }
 
     private List<PostPlayerResponse> getPostResponses(ConfigurationSection config) {

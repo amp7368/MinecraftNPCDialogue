@@ -29,4 +29,22 @@ public class BooleanExp implements Evaluateable {
             result = !result;
         return result;
     }
+
+    public boolean isAndOp() {
+        return isAndOp;
+    }
+
+    public boolean isNot() {
+        return isNoted;
+    }
+
+    public Evaluateable getExp1() {
+        return exp1;
+    }
+
+    public Evaluateable getExp2() {
+        return exp2;
+    }
+
+
 }

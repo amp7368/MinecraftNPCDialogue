@@ -7,7 +7,6 @@ public class BooleanExpRequirement implements Evaluateable {
     private boolean isDefault;
     private boolean defaultVal;
     private Evaluateable exp;
-    private boolean not;
 
     public BooleanExpRequirement(ConfigurationSection config) {
         ConfigurationSection exp1 = config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1);
@@ -20,13 +19,11 @@ public class BooleanExpRequirement implements Evaluateable {
             } else {
                 // we should get the variable comparison
                 isDefault = false;
-                not = false;
                 exp = new VariableComparision(config);
             }
         } else {
             // we should get the BooleanExp
             isDefault = false;
-            not = false;
             exp = new BooleanExp(config);
         }
     }
@@ -35,9 +32,18 @@ public class BooleanExpRequirement implements Evaluateable {
     public boolean evaluate(String playerUID, int currentConclusion) {
         if (isDefault)
             return defaultVal;
-        boolean expbool = exp.evaluate(playerUID, currentConclusion);
-        if (not)
-            expbool = !expbool;
-        return expbool;
+        return exp.evaluate(playerUID, currentConclusion);
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public boolean isDefaultVal() {
+        return defaultVal;
+    }
+
+    public Evaluateable getExp() {
+        return exp;
     }
 }

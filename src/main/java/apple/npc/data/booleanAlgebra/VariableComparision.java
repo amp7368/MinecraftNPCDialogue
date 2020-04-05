@@ -9,6 +9,7 @@ public class VariableComparision implements Evaluateable {
     private boolean isConclusionVar;
     private int comparisonType;
     private int comparisonValue;
+
     private String comparisonVarGlobal;
     private int comparisonVarUID;
 
@@ -53,5 +54,30 @@ public class VariableComparision implements Evaluateable {
         if (isNoted)
             result = !result;
         return result;
+    }
+
+
+    public boolean isNot() {
+        return isNoted;
+    }
+
+    public boolean isConclusionVar() {
+        return isConclusionVar;
+    }
+
+    public int getComparisonType() {
+        return comparisonType;
+    }
+
+    public int getComparisonValue() {
+        return comparisonValue;
+    }
+
+    public String getComparisonVarGlobal() {
+        return comparisonVarGlobal;
+    }
+
+    public int getComparisonVarUID() {
+        return comparisonVarUID;
     }
 }
