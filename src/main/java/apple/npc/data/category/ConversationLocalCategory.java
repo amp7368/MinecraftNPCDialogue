@@ -35,9 +35,9 @@ public class ConversationLocalCategory {
         string.append(uid);
         string.append(" " + YMLConversationNavigate.NAME + ": ");
         string.append(name);
-        string.append("\n"+YMLConversationNavigate.CONVERSATIONS+":\n");
+        string.append("\n" + YMLConversationNavigate.CONVERSATIONS + ":\n");
         for (Integer key : conversations.keySet()) {
-            string.append(YMLConversationNavigate.KEY+": ");
+            string.append("key" + ": ");
             string.append(key);
             string.append("\n");
             string.append(conversations.get(key).toString());

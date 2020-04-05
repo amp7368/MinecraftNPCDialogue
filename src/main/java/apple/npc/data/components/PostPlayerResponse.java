@@ -16,9 +16,9 @@ public class PostPlayerResponse {
     private final BooleanExpRequirement redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
-        this.responseGlobal = config.getString(YMLConversationNavigate.GLOBAL_CATEGORY);
-        this.responseLocal = config.getInt(YMLConversationNavigate.LOCAL_CATEGORY_UID);
-        this.conversationUID = config.getInt(YMLConversationNavigate.CONVERSATION_UID);
+        this.responseGlobal = config.getString(YMLConversationNavigate.RESPONSE_GLOBAL_CATEGORY);
+        this.responseLocal = config.getInt(YMLConversationNavigate.RESPONSE_LOCAL_CATEGORY_UID);
+        this.conversationUID = config.getInt(YMLConversationNavigate.RESPONSE_CONVERSATION_UID);
         this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
 
         this.variableChanges = new HashSet<>();
