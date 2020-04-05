@@ -36,7 +36,6 @@ public class NPCData {
         ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
         for (String varConcluKey : varConcluKeys) {
-            System.out.println(varConcluKey);
             varsToConclusion.add(new VarsConclusionMap(varConcluConfig.getConfigurationSection(varConcluKey)));
         }
         conclusionsToConvo = mapConclusionsToConvo(config.getConfigurationSection(YMLNpcNavigate.CONCLUSIONS_TO_CONVO));

@@ -7,7 +7,7 @@ import java.io.File;
 public class AllConversationsTest {
     private File dataFolder = new File("src\\NPCDialogue");
 
-    @Test
+//    @Test
     public void conversationReading() {
         AllConversations.initialize(dataFolder);
     }

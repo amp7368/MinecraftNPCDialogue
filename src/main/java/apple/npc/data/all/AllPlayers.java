@@ -24,12 +24,6 @@ public class AllPlayers {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             allPlayers.put(pathName.replace(".yml", ""), new PlayerData(config));
         }
-        for (PlayerData player : allPlayers.values()) {
-            String[] strings = player.toString().split("\n");
-            for (String string : strings)
-                System.out.println(string);
-        }
-        System.out.println("\n");
     }
 
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {

@@ -1,6 +1,6 @@
 package apple.npc.creation.category;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import apple.npc.ymlNavigate.YMLFileNavigate;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ public class CreateConvoGlobal {
     }
 
     public static boolean create(String globalName) {
-        String folder = String.format("%s%s%s", dataFolder, File.separator, "conversationData");
+        String folder = String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER);
         File directory = new File(folder);
         String[] pathNameList = directory.list();
         boolean doesContain = false;
@@ -28,7 +28,7 @@ public class CreateConvoGlobal {
             return false;
         File newFile;
         try {
-            newFile = new File(String.format("%s%s%s%s", folder, File.separator, globalName, ".yml"));
+            newFile = new File(String.format("%s%s%s%s", folder, File.separator, globalName, YMLFileNavigate.YML));
             boolean didCreate = newFile.createNewFile();
             if (!didCreate)
                 return false;
