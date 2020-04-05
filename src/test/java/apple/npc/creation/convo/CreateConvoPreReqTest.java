@@ -1,4 +1,4 @@
-package apple.npc.creation;
+package apple.npc.creation.convo;
 
 import apple.npc.creation.components.PreResponseRequirements;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
