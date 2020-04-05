@@ -1,9 +1,8 @@
 package apple.npc.creation.convo;
 
-import apple.npc.creation.components.CreatePostDefault;
-import apple.npc.creation.components.CreatePostResponse;
-import apple.npc.creation.info.ConvoRespPostInfo;
-import apple.npc.creation.info.VariableChangeInfo;
+import apple.npc.creation.convo.components.CreatePostDefault;
+import apple.npc.creation.convo.info.ConvoRespPostInfo;
+import apple.npc.creation.convo.info.VariableChangeInfo;
 import apple.npc.ymlNavigate.YMLTestConvo;
 
 import java.util.ArrayList;

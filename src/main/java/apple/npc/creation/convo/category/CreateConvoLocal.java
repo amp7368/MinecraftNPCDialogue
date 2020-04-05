@@ -1,6 +1,6 @@
-package apple.npc.creation.category;
+package apple.npc.creation.convo.category;
 
-import apple.npc.creation.info.ConvoLocalInfo;
+import apple.npc.creation.convo.info.ConvoLocalInfo;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.ConfigurationSection;

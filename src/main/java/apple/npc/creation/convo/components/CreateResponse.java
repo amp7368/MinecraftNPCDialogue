@@ -1,7 +1,7 @@
-package apple.npc.creation.components;
+package apple.npc.creation.convo.components;
 
-import apple.npc.creation.info.ConvoRespPostInfo;
-import apple.npc.creation.info.VariableChangeInfo;
+import apple.npc.creation.convo.info.ConvoRespPostInfo;
+import apple.npc.creation.convo.info.VariableChangeInfo;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;

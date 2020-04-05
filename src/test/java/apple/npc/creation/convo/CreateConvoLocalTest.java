@@ -1,8 +1,8 @@
 package apple.npc.creation.convo;
 
 import apple.npc.ymlNavigate.YMLTestConvo;
-import apple.npc.creation.category.CreateConvoLocal;
-import apple.npc.creation.info.ConvoLocalInfo;
+import apple.npc.creation.convo.category.CreateConvoLocal;
+import apple.npc.creation.convo.info.ConvoLocalInfo;
 
 public class CreateConvoLocalTest {
     public boolean createTest(String folder) {

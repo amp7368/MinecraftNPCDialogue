@@ -1,10 +1,8 @@
-package apple.npc.creation.components;
+package apple.npc.creation.convo.components;
 
-import apple.npc.data.booleanAlgebra.BooleanExp;
+import apple.npc.creation.convo.info.ConvoRespPostInfo;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
-import apple.npc.data.booleanAlgebra.VariableComparision;
-import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,17 +11,18 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public class PreResponseRequirements {
-    public static boolean set(String folder, String globalName, int localCategory, int conversationUID,
-                              int responseUID, Evaluateable reqInfo) {
+public class CreatePostDefault {
+    public static boolean set(String folder, String globalName, int localCategory, int conversationUID, int responseUID,
+                              ConvoRespPostInfo postInfo) {
         File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER,
                 File.separator, globalName, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        ConfigurationSection requireConfigOrig = config.getConfigurationSection(
+        ConfigurationSection postConfig = config.getConfigurationSection(
                 String.format("%d%s%s%s%d%s%s%s%d%c%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
-                        conversationUID, ".", YMLConversationNavigate.OPTIONS, ".", responseUID, '.', YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
-        ConfigurationSection requireConfig = requireConfigOrig.createSection(YMLBooleanNavigate.EXPRESSION);
-        CreateBooleanExp.setBooleanExp(requireConfig, reqInfo);
+                        conversationUID, ".", YMLConversationNavigate.OPTIONS, ".", responseUID, '.',
+                        YMLConversationNavigate.DEFAULT_POST_RESPONSE));
+        Evaluateable redirectReq = new BooleanExpRequirement(true);
+        CreateResponse.create(postConfig, postInfo, redirectReq);
         try {
             config.save(file);
         } catch (IOException e) {
@@ -31,4 +30,5 @@ public class PreResponseRequirements {
         }
         return true;
     }
+
 }

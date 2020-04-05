@@ -1,8 +1,8 @@
 package apple.npc.creation.convo;
 
 import apple.npc.ymlNavigate.YMLTestConvo;
-import apple.npc.creation.info.ConvoRespInfo;
-import apple.npc.creation.single.CreateConvoResponse;
+import apple.npc.creation.convo.info.ConvoRespInfo;
+import apple.npc.creation.convo.single.CreateConvoResponse;
 
 import java.util.ArrayList;
 import java.util.List;

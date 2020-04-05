@@ -1,4 +1,4 @@
-package apple.npc.creation.info;
+package apple.npc.creation.convo.info;
 
 import java.util.List;
 

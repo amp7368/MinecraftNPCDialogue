@@ -1,4 +1,4 @@
-package apple.npc.creation.category;
+package apple.npc.creation.convo.category;
 
 import apple.npc.ymlNavigate.YMLFileNavigate;
 
@@ -7,13 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CreateConvoGlobal {
-    private static String dataFolder;
 
-    public static void initialize(String folder) {
-        dataFolder = folder;
-    }
 
-    public static boolean create(String globalName) {
+    public static boolean create(String dataFolder, String globalName) {
         String folder = String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER);
         File directory = new File(folder);
         String[] pathNameList = directory.list();

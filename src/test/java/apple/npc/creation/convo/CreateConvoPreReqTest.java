@@ -1,6 +1,6 @@
 package apple.npc.creation.convo;
 
-import apple.npc.creation.components.PreResponseRequirements;
+import apple.npc.creation.convo.components.PreResponseRequirements;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
