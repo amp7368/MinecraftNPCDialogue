@@ -1,5 +1,6 @@
 package apple.npc.creation.convo.components;
 
+import apple.npc.creation.CreateBooleanExp;
 import apple.npc.creation.convo.info.ConvoRespPostInfo;
 import apple.npc.creation.convo.info.VariableChangeInfo;
 import apple.npc.data.booleanAlgebra.Evaluateable;

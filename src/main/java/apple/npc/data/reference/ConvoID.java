@@ -13,4 +13,10 @@ public class ConvoID {
         local = config.getInt(YMLConversationNavigate.CONVERSATION_LOCAL_ID);
         uid = config.getInt(YMLConversationNavigate.CONVERSATION_UID_ID);
     }
+
+    public ConvoID(String global, int local, int uid) {
+        this.global = global;
+        this.local = local;
+        this.uid = uid;
+    }
 }

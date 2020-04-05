@@ -1,0 +1,34 @@
+package apple.npc.creation.npc.components;
+
+import apple.npc.creation.npc.info.ConcluToConvoInfo;
+import apple.npc.ymlNavigate.YMLFileNavigate;
+import apple.npc.ymlNavigate.YMLNpcNavigate;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+
+public class CreateConcluToConvo {
+    public static boolean set(String folder, String personalUID, String globalName, ConcluToConvoInfo concluToConvoInfo) {
+        File file = new File(String.format("%s%s%s%s%s%c%s%s", folder, File.separator, YMLFileNavigate.NPC_FOLDER, File.separator,
+                personalUID, ',', globalName, YMLFileNavigate.YML));
+        YamlConfiguration configFile = YamlConfiguration.loadConfiguration(file);
+        ConfigurationSection configOrig = configFile.getConfigurationSection(YMLNpcNavigate.CONCLUSIONS_TO_CONVO);
+        ConfigurationSection config;
+        if (configOrig.contains(concluToConvoInfo.key)) {
+            config = configOrig.getConfigurationSection(concluToConvoInfo.key);
+        } else {
+            config = configOrig.createSection(concluToConvoInfo.key);
+        }
+        config.set(YMLNpcNavigate.CONVO_GLOBAL, concluToConvoInfo.convoId.global);
+        config.set(YMLNpcNavigate.CONVO_LOCAL, concluToConvoInfo.convoId.local);
+        config.set(YMLNpcNavigate.CONVO_UID, concluToConvoInfo.convoId.uid);
+        try {
+            configFile.save(file);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+}

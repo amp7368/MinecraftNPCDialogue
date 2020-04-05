@@ -4,6 +4,7 @@ import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
+import apple.npc.ymlNavigate.YMLNpcNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class VarsConclusionMap implements Evaluateable {
@@ -12,7 +13,7 @@ public class VarsConclusionMap implements Evaluateable {
 
     public VarsConclusionMap(ConfigurationSection config) {
         exp = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION));
-        conclusionResult = config.getInt(YMLBooleanNavigate.CONCLUSION_ID);
+        conclusionResult = config.getInt(YMLNpcNavigate.CONCLUSION_ID);
     }
 
     @Override

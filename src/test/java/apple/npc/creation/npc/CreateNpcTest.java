@@ -14,7 +14,9 @@ public class CreateNpcTest {
     @Test
     public void createTest() {
         File file = new File(String.format("%s%s%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, YMLTestNpc.PERSONAL_UID, ",", YMLTestNpc.GLOBAL_NAME, ".yml"));
-        assert file.delete();
+        file.delete();
         assert (new CreateNpcDataTest()).createTest(folder);
+        assert (new CreateVarsToConcluTest()).createTest(folder);
+        assert (new CreateConcluToConvoTest()).createTest(folder);
     }
 }

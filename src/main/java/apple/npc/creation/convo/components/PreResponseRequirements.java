@@ -1,5 +1,6 @@
 package apple.npc.creation.convo.components;
 
+import apple.npc.creation.CreateBooleanExp;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;

@@ -12,7 +12,7 @@ public class CreateConvoTest {
     @Test
     public void createTest() {
         File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, YMLTestConvo.CONVO_GLOBAL, ".yml"));
-        assert file.delete();
+        file.delete();
         assert (new CreateConvoGlobalTest()).createTest(folder);
         assert (new CreateConvoLocalTest()).createTest(folder);
         assert (new CreateConvoConversation()).createTest(folder);
