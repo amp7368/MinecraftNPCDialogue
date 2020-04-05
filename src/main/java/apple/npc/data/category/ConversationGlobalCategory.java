@@ -1,5 +1,6 @@
 package apple.npc.data.category;
 
+import apple.npc.data.single.ConversationData;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -31,5 +32,9 @@ public class ConversationGlobalCategory {
             string.append("\n");
         }
         return string.toString();
+    }
+
+    public ConversationData get(int local, int uid) {
+        return localCategoryConversations.get(local).get(uid);
     }
 }

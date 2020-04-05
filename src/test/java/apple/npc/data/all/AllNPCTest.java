@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.File;
 
 public class AllNPCTest {
-    private File dataFolder = new File("src\\test\\NPCDialogue");
+    private File dataFolder = new File("src\\NPCDialogue");
 
     @Test
     public void conversationReading() {

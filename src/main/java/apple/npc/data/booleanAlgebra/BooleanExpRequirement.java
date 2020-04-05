@@ -31,10 +31,10 @@ public class BooleanExpRequirement implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID,int currentConclusion) {
+    public boolean evaluate(String playerUID, int currentConclusion) {
         if (isDefault)
             return defaultVal;
-        boolean expbool = exp.evaluate(playerUID,currentConclusion);
+        boolean expbool = exp.evaluate(playerUID, currentConclusion);
         if (not)
             expbool = !expbool;
         return expbool;

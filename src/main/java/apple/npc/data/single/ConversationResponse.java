@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ConversationResponse {
+public class ConversationResponse implements Evaluateable {
     private final PostPlayerResponse defaultPostReponse;
     private int uid;
     private Evaluateable preResponseRequirement;
-    private List<String> response;
+    public List<String> response;
     private List<PostPlayerResponse> postResponses;
 
     public ConversationResponse(ConfigurationSection config) {
@@ -55,5 +55,10 @@ public class ConversationResponse {
         string.append(defaultPostReponse.toString());
         string.append("\n");
         return string.toString();
+    }
+
+    @Override
+    public boolean evaluate(String playerUID, int currentConclusion) {
+        return preResponseRequirement.evaluate(playerUID, currentConclusion);
     }
 }

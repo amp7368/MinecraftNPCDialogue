@@ -1,6 +1,8 @@
 package apple.npc.data.all;
 
 import apple.npc.data.category.ConversationGlobalCategory;
+import apple.npc.data.reference.ConvoID;
+import apple.npc.data.single.ConversationData;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -23,5 +25,9 @@ public class AllConversations {
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
             allConversations.put(globalCategory.replace(".yml", ""), global);
         }
+    }
+
+    public static ConversationData get(ConvoID convoID) {
+        return allConversations.get(convoID.global).get(convoID.local,convoID.uid);
     }
 }

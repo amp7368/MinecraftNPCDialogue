@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ClickListener implements Listener {
@@ -41,7 +42,6 @@ public class ClickListener implements Listener {
     private void doConversation(Entity entity, Player p) {
         NPCData npc = AllNPCs.getNPC(entity.getUniqueId().toString());
         PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());
-
-        npc.doConversation(player);
+        npc.doConversation(player,p);
     }
 }

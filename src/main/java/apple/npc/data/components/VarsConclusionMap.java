@@ -9,6 +9,7 @@ public class VarsConclusionMap implements Evaluateable {
     private Evaluateable exp;
 
     public VarsConclusionMap(ConfigurationSection config) {
+        System.out.println(config);
         exp = new BooleanExpRequirement(config.getConfigurationSection("exp"));
         conclusionResult = config.getInt("conclusionId");
     }

@@ -45,4 +45,8 @@ public class ConversationLocalCategory {
         string.append("\n");
         return string.toString();
     }
+
+    public ConversationData get(int uid) {
+        return conversations.get(uid);
+    }
 }
