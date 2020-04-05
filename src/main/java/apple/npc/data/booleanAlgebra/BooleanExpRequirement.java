@@ -28,6 +28,11 @@ public class BooleanExpRequirement implements Evaluateable {
         }
     }
 
+    public BooleanExpRequirement(boolean setDefault) {
+        isDefault = true;
+        defaultVal = setDefault;
+    }
+
     @Override
     public boolean evaluate(String playerUID, int currentConclusion) {
         if (isDefault)

@@ -1,6 +1,6 @@
 package apple.npc.creation;
 
-import apple.npc.creation.components.CreatePostRequirements;
+import apple.npc.creation.components.CreatePostResponse;
 import apple.npc.creation.info.ConvoRespPostInfo;
 import apple.npc.creation.info.VariableChangeInfo;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
@@ -32,6 +32,6 @@ public class CreateConvoPostReqTest {
         File file = new File(folder + File.separator + YMLTestBoolean.BOOLEAN_EXP_LOC_1);
         ConfigurationSection config = YamlConfiguration.loadConfiguration(file).getConfigurationSection(YMLBooleanNavigate.EXPRESSION);
         Evaluateable redirectReqInfo = new BooleanExpRequirement(config);
-        return CreatePostRequirements.create(folder, globalName, localCategory, conversationUID, responseUID, postInfo, redirectReqInfo);
+        return CreatePostResponse.create(folder, globalName, localCategory, conversationUID, responseUID, postInfo, redirectReqInfo);
     }
 }
