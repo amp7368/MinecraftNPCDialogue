@@ -1,5 +1,6 @@
 package apple.npc.data.reference;
 
+import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -9,9 +10,9 @@ public class VariableChange {
     public final int newValue;
 
     public VariableChange(ConfigurationSection config) {
-        this.globalVar = config.getString(YMLPlayerVariable.VARIABLE_CHANGE_GLOBAL);
-        this.varUID = config.getInt(YMLPlayerVariable.VARIABLE_CHANGE_VAR_UID);
-        this.newValue = config.getInt(YMLPlayerVariable.VARIABLE_CHANGE_NEW_VALUE);
+        this.globalVar = config.getString(YMLConversationNavigate.VARIABLE_CHANGE_GLOBAL);
+        this.varUID = config.getInt(YMLConversationNavigate.VARIABLE_CHANGE_VAR_UID);
+        this.newValue = config.getInt(YMLConversationNavigate.VARIABLE_CHANGE_NEW_VALUE);
     }
 
     @Override

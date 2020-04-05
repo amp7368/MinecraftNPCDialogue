@@ -9,9 +9,6 @@ public class YMLConversationNavigate {
     public static final String CONVERSATION_UID = "uid";
     public static final String REDIRECT_REQUIREMENT = "redirectRequirement";
     public static final String VARIABLE_CHANGES = "variableChanges";
-    public static final String VARIABLE_UID = "uid";
-    public static final String VARIABLE_NAME = "name";
-    public static final String VARIABLE_VALUE = "value";
     public static final String CONVERSATION_GLOBAL_ID = "convoGlobalId";
     public static final String CONVERSATION_LOCAL_ID = "convoLocalId";
     public static final String CONVERSATION_UID_ID = "convoUID";
@@ -24,4 +21,7 @@ public class YMLConversationNavigate {
     public static final String RESPONSE_CONVERSATION_UID = "conversationUID";
     public static final String RESPONSE_UID = "uid";
     public static final String RESPONSE_TEXT = "response";
+    public static final String VARIABLE_CHANGE_GLOBAL = "globalCategory";
+    public static final String VARIABLE_CHANGE_VAR_UID = "varUID";
+    public static final String VARIABLE_CHANGE_NEW_VALUE = "newValue";
 }
