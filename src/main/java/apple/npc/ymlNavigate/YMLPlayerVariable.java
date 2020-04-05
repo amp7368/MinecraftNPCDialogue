@@ -10,4 +10,8 @@ public class YMLPlayerVariable {
     public static final String VARIABLE_UID = "uid";
     public static final String VARIABLE_NAME = "name";
     public static final String VARIABLE_VALUE = "value";
+    public static final String GLOBAL = "globalVar";
+    public static final int UID = 0;
+    public static final String NAME = "localName";
+    public static final int VALUE = 1;
 }

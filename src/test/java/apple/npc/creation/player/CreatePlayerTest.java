@@ -19,5 +19,6 @@ public class CreatePlayerTest {
                 File.separator, YMLTestPlayer.PLAYER_UID, ".yml"));
         file.delete();
         assert (new CreatePlayerDataTest()).createTest(folder);
+        assert (new CreatePlayerDataVarsTest()).createTest(folder);
     }
 }
