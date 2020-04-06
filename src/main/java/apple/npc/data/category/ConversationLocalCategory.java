@@ -5,9 +5,7 @@ import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConversationLocalCategory {
     public int uid;
@@ -55,4 +53,22 @@ public class ConversationLocalCategory {
     public ConversationData get(int uid) {
         return conversations.get(uid);
     }
+
+    public List<Integer> getConvoUIDs(String convoName) {
+        List<Integer> convoUIDs = new ArrayList<>();
+        for (ConversationData conversation : conversations.values()) {
+            if (conversation.name.equals(convoName))
+                convoUIDs.add(conversation.uid);
+        }
+        return convoUIDs;
+    }
+
+    public boolean equalsLocalName(String local) {
+        return name.equals(local);
+    }
+
+    public boolean convoUIDExists(int convoUID) {
+        return uid == convoUID;
+    }
+
 }

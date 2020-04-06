@@ -12,6 +12,8 @@ commands:
   make_con:
     description: creates conversation
   make_con_response:
-    deszcription: creates a response for a given conversations
+    description: creates a response for a given conversations
+  con_stop:
+    description: stops text from being entered by the user
   ping:
     description: just ping
