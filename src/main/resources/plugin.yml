@@ -15,5 +15,7 @@ commands:
     description: creates a response for a given conversations
   con_stop:
     description: stops text from being entered by the user
+  make_npc:
+    description: makes an npc with no conversation associated with it
   ping:
     description: just ping

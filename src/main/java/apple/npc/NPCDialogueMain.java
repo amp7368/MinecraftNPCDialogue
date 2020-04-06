@@ -25,6 +25,7 @@ public class NPCDialogueMain extends JavaPlugin {
         AllNPCs.initialize(this.getDataFolder());
         AllPlayers.initialize(this.getDataFolder());
         AllConversations.initialize(this.getDataFolder());
+        new ClickListener(this);
         System.out.println("[NPCDialogue] enabled");
     }
 }

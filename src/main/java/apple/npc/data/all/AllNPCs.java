@@ -1,8 +1,15 @@
 package apple.npc.data.all;
 
+import apple.npc.creation.npc.info.NpcInfo;
+import apple.npc.creation.npc.single.CreateNpcData;
 import apple.npc.data.single.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 
 import java.io.File;
 import java.util.HashMap;
@@ -12,8 +19,10 @@ public class AllNPCs {
 
     private static Map<Integer, NPCData> allUIDToNpcs = new HashMap<>();
     private static Map<String, NPCData> allGameUIDToNpcs = new HashMap<>();
+    private static File folder;
 
     public static void initialize(File dataFolder) {
+        folder = dataFolder;
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER));
         String[] pathNameList = directory.list();
         if (pathNameList == null) {
@@ -29,11 +38,42 @@ public class AllNPCs {
         }
     }
 
+
+    public static boolean makeNPC(String name, Location location) {
+        int uid = 0;
+        while (getNPC(uid) != null) {
+            uid++;
+        }
+        World world = location.getWorld();
+        if (world == null) {
+            System.out.println("The player doesn't exist in a world?");
+            return false;
+        }
+        Entity stand = world.spawnEntity(location, EntityType.ARMOR_STAND);
+        stand.setInvulnerable(true);
+        stand.setCustomNameVisible(true);
+        stand.setCustomName(name);
+        String gameUID = stand.getUniqueId().toString();
+        if (CreateNpcData.create(folder.getPath(), name, new NpcInfo(name, uid, gameUID, -1))) {
+            File file = new File(String.format("%s%s%s%s%s%c%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, uid, ',', name, YMLFileNavigate.YML));
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+            NPCData npc = new NPCData(config);
+            allUIDToNpcs.put(uid, npc);
+            allGameUIDToNpcs.put(gameUID, npc);
+        }
+        return true;
+    }
+
     public static NPCData getNPC(String uid) {
+        if (!allGameUIDToNpcs.containsKey(uid))
+            return null;
         return allGameUIDToNpcs.get(uid);
     }
 
     public static NPCData getNPC(int uid) {
+        if (!allUIDToNpcs.containsKey(uid))
+            return null;
         return allUIDToNpcs.get(uid);
     }
+
 }

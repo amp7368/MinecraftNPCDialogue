@@ -1,6 +1,7 @@
 package apple.npc.commands;
 
 import apple.npc.commands.makeCon.*;
+import apple.npc.commands.makeNpc.MakeNpc;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Commands {
@@ -11,5 +12,6 @@ public class Commands {
         new MakeConResponse(plugin);
         new CommandPing(plugin);
         new ConStopCommand(plugin);
+        new MakeNpc(plugin);
     }
 }

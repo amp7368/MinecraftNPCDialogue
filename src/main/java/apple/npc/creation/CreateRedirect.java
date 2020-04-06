@@ -2,6 +2,7 @@ package apple.npc.creation;
 
 import apple.npc.commands.makeCon.ConStopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.all.AllNPCs;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
 import org.bukkit.entity.Player;
@@ -137,5 +138,11 @@ public class CreateRedirect {
             throw new NoUIDException("There is no uid with name " + convoName);
         }
         return convoUIDs;
+    }
+
+    public static void createNpc(String name, Player player) {
+        if (AllNPCs.makeNPC(name, player.getLocation())) {
+
+        }
     }
 }
