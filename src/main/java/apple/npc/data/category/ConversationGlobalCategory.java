@@ -2,6 +2,7 @@ package apple.npc.data.category;
 
 import apple.npc.data.single.ConversationData;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.HashMap;
@@ -18,7 +19,8 @@ public class ConversationGlobalCategory {
             if (!StringUtils.isNumeric(local))
                 continue;
             int localInt = Integer.parseInt(local);
-            localCategoryConversations.put(localInt, new ConversationLocalCategory(config.getConfigurationSection(local)));
+            ConfigurationSection configLocal = config.getConfigurationSection(local);
+            localCategoryConversations.put(localInt, new ConversationLocalCategory(configLocal));
         }
     }
 

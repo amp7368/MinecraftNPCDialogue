@@ -2,13 +2,19 @@ package apple.npc.data.booleanAlgebra;
 
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 
 public class BooleanExpRequirement implements Evaluateable {
     private boolean isDefault;
     private boolean defaultVal;
     private Evaluateable exp;
 
-    public BooleanExpRequirement(ConfigurationSection config) {
+    public BooleanExpRequirement(@Nullable ConfigurationSection config) {
+        if (config == null) {
+            isDefault = true;
+            defaultVal = false;
+            return;
+        }
         ConfigurationSection exp1 = config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1);
         if (exp1 == null) {
             // then we should get either the default value or the variable comparison

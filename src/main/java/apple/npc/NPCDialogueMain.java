@@ -1,6 +1,8 @@
 package apple.npc;
 
-import apple.npc.commands.CreateCommand;
+import apple.npc.commands.CommandPing;
+import apple.npc.commands.Commands;
+import apple.npc.creation.CreateRedirect;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
@@ -18,8 +20,8 @@ public class NPCDialogueMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new CreateCommand(this);
-        new ClickListener(this);
+        CreateRedirect.initialize(this.getDataFolder().getPath());
+        Commands.initialize(this);
         AllNPCs.initialize(this.getDataFolder());
         AllPlayers.initialize(this.getDataFolder());
         AllConversations.initialize(this.getDataFolder());

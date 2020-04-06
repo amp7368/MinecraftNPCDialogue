@@ -5,5 +5,13 @@ author: Apple
 main: apple.npc.NPCDialogueMain
 description: allow the player to teleport using player made paper scrolls
 commands:
-  scroll_create:
-    description: creates a scroll with the players current location
+  make_con_global:
+    description: creates a global category for conversations
+  make_con_local:
+    description: creates a local category for conversations
+  make_con:
+    description: creates conversation
+  make_con_response:
+    deszcription: creates a response for a given conversations
+  ping:
+    description: just ping

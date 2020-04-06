@@ -1,6 +1,5 @@
 package apple.npc.creation.convo.components;
 
-import apple.npc.creation.CreateBooleanExp;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
@@ -20,6 +19,8 @@ public class PreResponseRequirements {
         ConfigurationSection requireConfigOrig = config.getConfigurationSection(
                 String.format("%d%s%s%s%d%s%s%s%d%c%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
                         conversationUID, ".", YMLConversationNavigate.OPTIONS, ".", responseUID, '.', YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
+        if (requireConfigOrig == null)
+            return false;
         ConfigurationSection requireConfig = requireConfigOrig.createSection(YMLBooleanNavigate.EXPRESSION);
         CreateBooleanExp.setBooleanExp(requireConfig, reqInfo);
         try {

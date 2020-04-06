@@ -17,11 +17,12 @@ public class CreateConvoResponse {
         ConfigurationSection respConfigOrig = config.getConfigurationSection(
                 String.format("%d%s%s%s%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
                         conversationUID, ".", YMLConversationNavigate.OPTIONS));
+        if(respConfigOrig == null)
+            return false;
         String responseUidString = String.valueOf(respInfo.uid);
         if (respConfigOrig.contains(responseUidString))
             return false;
-        respConfigOrig.createSection(responseUidString);
-        ConfigurationSection respConfig = respConfigOrig.getConfigurationSection(responseUidString);
+        ConfigurationSection respConfig = respConfigOrig.createSection(responseUidString);
         respConfig.set(YMLConversationNavigate.RESPONSE_UID, respInfo.uid);
         respConfig.createSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT);
         respConfig.set(YMLConversationNavigate.RESPONSE_TEXT, respInfo.text);

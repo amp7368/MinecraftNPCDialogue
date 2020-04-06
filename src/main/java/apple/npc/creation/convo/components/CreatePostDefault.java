@@ -21,6 +21,8 @@ public class CreatePostDefault {
                 String.format("%d%s%s%s%d%s%s%s%d%c%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
                         conversationUID, ".", YMLConversationNavigate.OPTIONS, ".", responseUID, '.',
                         YMLConversationNavigate.DEFAULT_POST_RESPONSE));
+        if (postConfig == null)
+            return false;
         Evaluateable redirectReq = new BooleanExpRequirement(true);
         CreateResponse.create(postConfig, postInfo, redirectReq);
         try {

@@ -1,4 +1,4 @@
-package apple.npc.creation;
+package apple.npc.creation.convo.components;
 
 import apple.npc.data.booleanAlgebra.BooleanExp;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;

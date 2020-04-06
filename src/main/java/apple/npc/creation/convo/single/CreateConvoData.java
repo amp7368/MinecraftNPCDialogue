@@ -15,10 +15,11 @@ public class CreateConvoData {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection convoConfigOrig = config.getConfigurationSection(String.format("%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS));
         String convoInfoUidString = String.valueOf(convoInfo.uid);
-        if(convoConfigOrig.contains(convoInfoUidString))
+        if (convoConfigOrig == null)
             return false;
-        convoConfigOrig.createSection(convoInfoUidString);
-        ConfigurationSection convoConfig = convoConfigOrig.getConfigurationSection(convoInfoUidString);
+        if (convoConfigOrig.contains(convoInfoUidString))
+            return false;
+        ConfigurationSection convoConfig = convoConfigOrig.createSection(convoInfoUidString);
         convoConfig.set(YMLConversationNavigate.CONVERSATION_UID, convoInfo.uid);
         convoConfig.set(YMLConversationNavigate.NAME, convoInfo.name);
         convoConfig.set(YMLConversationNavigate.CONVERSATION_TEXT, convoInfo.text);

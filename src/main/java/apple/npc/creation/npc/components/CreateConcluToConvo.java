@@ -16,11 +16,15 @@ public class CreateConcluToConvo {
         YamlConfiguration configFile = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection configOrig = configFile.getConfigurationSection(YMLNpcNavigate.CONCLUSIONS_TO_CONVO);
         ConfigurationSection config;
+        if (configOrig == null)
+            return false;
         if (configOrig.contains(concluToConvoInfo.key)) {
             config = configOrig.getConfigurationSection(concluToConvoInfo.key);
         } else {
             config = configOrig.createSection(concluToConvoInfo.key);
         }
+        if (config == null)
+            return false;
         config.set(YMLNpcNavigate.CONVO_GLOBAL, concluToConvoInfo.convoId.global);
         config.set(YMLNpcNavigate.CONVO_LOCAL, concluToConvoInfo.convoId.local);
         config.set(YMLNpcNavigate.CONVO_UID, concluToConvoInfo.convoId.uid);

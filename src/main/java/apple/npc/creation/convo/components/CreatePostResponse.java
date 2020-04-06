@@ -19,11 +19,15 @@ public class CreatePostResponse {
         ConfigurationSection postConfigOrig = config.getConfigurationSection(
                 String.format("%d%s%s%s%d%s%s%s%d%c%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
                         conversationUID, ".", YMLConversationNavigate.OPTIONS, ".", responseUID, '.', YMLConversationNavigate.POST_RESPONSES));
+        if (postConfigOrig == null)
+            return false;
         if (postConfigOrig.contains(postInfo.responseId)) {
             return false;
         }
         postConfigOrig.createSection(postInfo.responseId);
         ConfigurationSection postConfig = postConfigOrig.getConfigurationSection(postInfo.responseId);
+        if (postConfig == null)
+            return false;
         CreateResponse.create(postConfig, postInfo, redirectReqInfo);
 
         try {

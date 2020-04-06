@@ -9,10 +9,10 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CreateCommand implements CommandExecutor {
+public class CommandPing implements CommandExecutor {
     JavaPlugin plugin;
 
-    public CreateCommand(NPCDialogueMain plugin) {
+    public CommandPing(JavaPlugin plugin) {
         this.plugin = plugin;
         PluginCommand command = plugin.getCommand("ping");
         if (command == null) {

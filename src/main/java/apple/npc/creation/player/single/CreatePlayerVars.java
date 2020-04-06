@@ -18,11 +18,15 @@ public class CreatePlayerVars {
         YamlConfiguration configOrig = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection config = configOrig.getConfigurationSection(YMLPlayerVariable.VARIABLES);
 
+        if (config == null)
+            return false;
         if (config.contains(var.global)) {
             config = config.getConfigurationSection(var.global);
         } else {
             config = config.createSection(var.global);
         }
+        if (config == null)
+            return false;
         config = config.createSection(String.valueOf(var.uid));
         config.set(YMLPlayerVariable.VARIABLE_UID, var.uid);
         config.set(YMLPlayerVariable.VARIABLE_NAME, var.name);
