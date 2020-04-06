@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
     private final PostPlayerResponse defaultPostReponse;
-    private int uid;
+    public int uid;
     private Evaluateable preResponseRequirement;
     public List<String> response;
     private List<PostPlayerResponse> postResponses;
@@ -64,4 +64,5 @@ public class ConversationResponse implements Evaluateable {
     public boolean evaluate(String playerUID, int currentConclusion) {
         return preResponseRequirement.evaluate(playerUID, currentConclusion);
     }
+
 }

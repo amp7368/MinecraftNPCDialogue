@@ -49,5 +49,13 @@ public class ConversationData {
         string.append("\n");
         return string.toString();
     }
+
+    public boolean contains(int responseId) {
+        for (ConversationResponse response : responses) {
+            if (response.uid == responseId)
+                return true;
+        }
+        return false;
+    }
 }
 

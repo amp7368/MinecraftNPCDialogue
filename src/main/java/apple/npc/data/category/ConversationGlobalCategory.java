@@ -18,8 +18,10 @@ public class ConversationGlobalCategory {
         localCategoryConversations = new HashMap<>();
         Set<String> localCategories = config.getKeys(false);
         for (String local : localCategories) {
-            if (!StringUtils.isNumeric(local))
+            if (!StringUtils.isNumeric(local)) {
+                System.err.println("not numeric");
                 continue;
+            }
             int localInt = Integer.parseInt(local);
             ConfigurationSection configLocal = config.getConfigurationSection(local);
             if (configLocal == null)

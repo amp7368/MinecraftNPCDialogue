@@ -28,6 +28,7 @@ public class CreateRedirect {
     }
 
     public static void createConvoLocal(String global, String local, Player player) {
+        System.out.println("Starting to create convoLocal for " + global + " " + local);
         if (AllConversations.createConvoLocal(global, local)) {
             player.sendMessage(String.format("Successfully made a conversation %s.%s", global, local));
         } else {

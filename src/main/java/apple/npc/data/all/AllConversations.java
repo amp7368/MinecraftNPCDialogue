@@ -4,7 +4,9 @@ import apple.npc.creation.convo.category.CreateConvoGlobal;
 import apple.npc.creation.convo.category.CreateConvoLocal;
 import apple.npc.creation.convo.info.ConvoDataInfo;
 import apple.npc.creation.convo.info.ConvoLocalInfo;
+import apple.npc.creation.convo.info.ConvoRespInfo;
 import apple.npc.creation.convo.single.CreateConvoData;
+import apple.npc.creation.convo.single.CreateConvoResponse;
 import apple.npc.data.category.ConversationGlobalCategory;
 import apple.npc.data.category.ConversationLocalCategory;
 import apple.npc.data.reference.ConvoID;
@@ -24,7 +26,7 @@ public class AllConversations {
     public static void initialize(File folder) {
         dataFolder = folder;
         allConversations = new HashMap<>();
-        File directory = new File(String.format("%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER));
+        File directory = new File(String.format("%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER));
         String[] pathNameList = directory.list();
         if (pathNameList == null) {
             System.err.println(String.format("%s%s%s", "Could not get any files with path name of \"", String.format("%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER), "\""));
@@ -40,8 +42,9 @@ public class AllConversations {
 
     private static void readGlobal(String global) {
         // read that category in
-        File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
+        File file = new File(String.format("%s%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        System.out.println("putting " + global + " from " + String.format("%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
@@ -56,17 +59,24 @@ public class AllConversations {
 
 
     public static boolean createConvoLocal(String global, String local) {
-        if (!hasGlobalCategory(global))
+        if (!hasGlobalCategory(global)) {
+            System.out.println("this global category doesn't exist");
             return false;
+        }
         ConversationGlobalCategory globalCategory = allConversations.get(global);
         // iterate until you find an empty local uid
         int nextLocalUID = 0;
         while (globalCategory.hasLocalCategory(nextLocalUID)) {
             nextLocalUID++;
         }
-        ;
+        System.out.println("nextLocalUID: " + nextLocalUID);
         if (CreateConvoLocal.create(dataFolder.getPath(), global, new ConvoLocalInfo(nextLocalUID, local))) {
+            System.out.println("saved!");
             readGlobal(global);
+            for (ConversationGlobalCategory cat : allConversations.values()) {
+                System.out.println("there is a conversation here");
+                System.out.println(cat.toString());
+            }
             return true;
         } else {
             return false;
@@ -86,7 +96,27 @@ public class AllConversations {
         while (localCategory.convoUIDExists(convoUID)) {
             convoUID++;
         }
-        return CreateConvoData.create(dataFolder.getPath(), global, local, new ConvoDataInfo(convoUID, convo, text));
+        if (CreateConvoData.create(dataFolder.getPath(), global, local, new ConvoDataInfo(convoUID, convo, text))) {
+            readGlobal(global);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean createResponse(String global, int local, int convo, List<String> text) {
+        ConversationData conversation = get(new ConvoID(global, local, convo));
+        if (conversation == null)
+            return false;
+
+        int reponseUID = 0;
+        while (conversation.contains(reponseUID)) {
+            reponseUID++;
+        }
+        if (CreateConvoResponse.create(dataFolder.getPath(), global, local, convo, new ConvoRespInfo(reponseUID, text))) {
+            readGlobal(global);
+            return true;
+        }
+        return false;
     }
 
     public static ConversationData get(ConvoID convoID) {
@@ -106,6 +136,16 @@ public class AllConversations {
             return allConversations.get(global).getConvoUIDs(localUID, convoName);
         } else
             return null;
+    }
+
+    public static String getLocalName(String global, int local) {
+        if (hasLocalCategory(global, local)) {
+            ConversationLocalCategory cat = allConversations.get(global).get(local);
+            if (cat == null)
+                return null;
+            return cat.name;
+        }
+        return null;
     }
 
     public static boolean hasGlobalCategory(String global) {

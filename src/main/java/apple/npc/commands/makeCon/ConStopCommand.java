@@ -20,6 +20,7 @@ public class ConStopCommand implements CommandExecutor, Listener {
     private static HashMap<Player, ReadingText> texts;
 
     public ConStopCommand(JavaPlugin plugin) {
+        texts = new HashMap<>();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         PluginCommand command = plugin.getCommand("con_stop");
         if (command == null) {
@@ -42,7 +43,7 @@ public class ConStopCommand implements CommandExecutor, Listener {
             return false;
         }
         // otherwise finish what you were doing with the text
-        texts.remove(player).dealWithStop();
+        texts.remove(player).dealWithStop(player);
         return true;
     }
 

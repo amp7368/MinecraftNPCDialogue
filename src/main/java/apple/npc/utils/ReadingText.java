@@ -1,5 +1,7 @@
 package apple.npc.utils;
 
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,6 @@ public class ReadingText {
         text.add(message);
     }
 
-    public void dealWithStop() {
+    public void dealWithStop(Player player) {
     }
 }
