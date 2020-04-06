@@ -24,6 +24,15 @@ public class CreateRedirect {
     }
 
     public static void createConvoLocal(String global, String local, Player player) {
+        if (AllConversations.createConvoLocal(global, local)) {
+            player.sendMessage(String.format("Successfully made a conversation local category of %s in global category of %s", local, global));
+        } else {
+            if (!AllConversations.hasGlobalCategory(global)) {
+                player.sendMessage(String.format("The conversation global category of %s does not exist.", global));
+            } else {
+                player.sendMessage("Something went wrong making a conversation local category of " + local);
+            }
+        }
     }
 
     public static void createConvo(String global, String local, String convoName, Player player) {

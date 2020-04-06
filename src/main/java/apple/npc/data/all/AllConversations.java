@@ -1,6 +1,8 @@
 package apple.npc.data.all;
 
 import apple.npc.creation.convo.category.CreateConvoGlobal;
+import apple.npc.creation.convo.category.CreateConvoLocal;
+import apple.npc.creation.convo.info.ConvoLocalInfo;
 import apple.npc.data.category.ConversationGlobalCategory;
 import apple.npc.data.reference.ConvoID;
 import apple.npc.data.single.ConversationData;
@@ -35,12 +37,35 @@ public class AllConversations {
         return allConversations.get(convoID.global).get(convoID.local, convoID.uid);
     }
 
+    private static void readGlobal(String global) {
+        // read that category in
+        File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        allConversations.put(global, new ConversationGlobalCategory(config));
+    }
+
     public static boolean createConvoGlobal(String global) {
         if (CreateConvoGlobal.create(dataFolder.getPath(), global)) {
-            // read that category in
-            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-            allConversations.put(global, new ConversationGlobalCategory(config));
+            readGlobal(global);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static boolean createConvoLocal(String global, String local) {
+        int nextLocalUID = 0;
+        if(!hasGlobalCategory(global))
+            return false;
+        ConversationGlobalCategory globalCategory = allConversations.get(global);
+        // iterate until you find an empty local uid
+        while (globalCategory.hasLocalCategory(nextLocalUID)) {
+            nextLocalUID++;
+        }
+        ;
+        if (CreateConvoLocal.create(dataFolder.getPath(), global, new ConvoLocalInfo(nextLocalUID, local))) {
+            readGlobal(global);
             return true;
         } else {
             return false;
@@ -49,5 +74,11 @@ public class AllConversations {
 
     public static boolean hasGlobalCategory(String global) {
         return allConversations.containsKey(global);
+    }
+
+    public static boolean hasLocalCategory(String global, int local) {
+        if (!hasGlobalCategory(global))
+            return false;
+        return allConversations.get(global).hasLocalCategory(local);
     }
 }

@@ -41,4 +41,8 @@ public class ConversationGlobalCategory {
     public ConversationData get(int local, int uid) {
         return localCategoryConversations.get(local).get(uid);
     }
+
+    public boolean hasLocalCategory(int local) {
+        return localCategoryConversations.containsKey(local);
+    }
 }

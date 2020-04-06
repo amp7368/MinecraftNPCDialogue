@@ -19,6 +19,11 @@ public class ConversationLocalCategory {
         uid = config.getInt(YMLConversationNavigate.LOCAL_UID);
         name = config.getString(YMLConversationNavigate.NAME);
         ConfigurationSection conversationsConfig = config.getConfigurationSection(YMLConversationNavigate.CONVERSATIONS);
+        if (conversationsConfig == null) {
+            // todo show and error message
+            config.createSection(YMLConversationNavigate.CONVERSATIONS);
+            return;
+        }
         Set<String> conversationUIDs = conversationsConfig.getKeys(false);
         for (String conversation : conversationUIDs) {
             if (!StringUtils.isNumeric(conversation))
