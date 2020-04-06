@@ -20,6 +20,8 @@ public class ConversationGlobalCategory {
                 continue;
             int localInt = Integer.parseInt(local);
             ConfigurationSection configLocal = config.getConfigurationSection(local);
+            if (configLocal == null)
+                continue; // wtf happened if this happens?
             localCategoryConversations.put(localInt, new ConversationLocalCategory(configLocal));
         }
     }

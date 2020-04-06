@@ -36,7 +36,15 @@ public class AllConversations {
     }
 
     public static boolean createConvoGlobal(String global) {
-        return CreateConvoGlobal.create(dataFolder.getPath(), global);
+        if (CreateConvoGlobal.create(dataFolder.getPath(), global)) {
+            // read that category in
+            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+            allConversations.put(global, new ConversationGlobalCategory(config));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static boolean hasGlobalCategory(String global) {
