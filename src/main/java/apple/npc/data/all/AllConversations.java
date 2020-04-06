@@ -11,11 +11,11 @@ import apple.npc.data.category.ConversationGlobalCategory;
 import apple.npc.data.category.ConversationLocalCategory;
 import apple.npc.data.reference.ConvoID;
 import apple.npc.data.single.ConversationData;
+import apple.npc.defaults.CreateConvoResponseRedirectDefault;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -113,6 +113,7 @@ public class AllConversations {
             reponseUID++;
         }
         if (CreateConvoResponse.create(dataFolder.getPath(), global, local, convo, new ConvoRespInfo(reponseUID, text))) {
+            CreateConvoResponseRedirectDefault.create(dataFolder.getPath(), global, local, convo, reponseUID);
             readGlobal(global);
             return true;
         }

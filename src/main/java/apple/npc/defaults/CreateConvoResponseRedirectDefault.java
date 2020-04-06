@@ -1,0 +1,14 @@
+package apple.npc.defaults;
+
+
+import apple.npc.creation.convo.components.CreatePostDefault;
+import apple.npc.creation.convo.info.ConvoRespPostInfo;
+
+import java.util.ArrayList;
+
+public class CreateConvoResponseRedirectDefault {
+    public static void create(String path, String global, int local, int convo, int reponseUID) {
+        CreatePostDefault.set(path, global, local, convo, reponseUID,
+                new ConvoRespPostInfo(reponseUID, global, local, convo, new ArrayList<>()));
+    }
+}
