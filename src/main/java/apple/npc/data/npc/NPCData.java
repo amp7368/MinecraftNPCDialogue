@@ -3,7 +3,7 @@ package apple.npc.data.npc;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
-import apple.npc.data.convo.ConvoID;
+import apple.npc.data.convo.NpcConvoID;
 import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -20,10 +20,10 @@ public class NPCData {
     public String name;
     public String gameUID;
     private int startingConclusion;
-    private Map<String, Integer> conclusion;
     private ArrayList<VarsConclusionMap> varsToConclusion;
-    private Map<Integer, ConvoID> conclusionsToConvo;
+    private Map<Integer, NpcConvoID> conclusionsToConvo;
     private Map<String, NPCPlayerData> playerDataMap;
+    private long maxTimeSinceTalk;
 
     public NPCData(YamlConfiguration config) {
         playerDataMap = new HashMap<>();
@@ -31,7 +31,7 @@ public class NPCData {
         name = config.getString(YMLNpcNavigate.NPC_NAME);
         gameUID = config.getString(YMLNpcNavigate.NPC_GAME_UID);
         startingConclusion = config.getInt(YMLNpcNavigate.STARTING_CONCLUSION);
-
+        maxTimeSinceTalk = config.getInt(YMLNpcNavigate.MAX_TIME_SINCE_LAST_TALK);
         varsToConclusion = new ArrayList<>();
         ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
@@ -47,48 +47,82 @@ public class NPCData {
         }
     }
 
-    private Map<Integer, ConvoID> mapConclusionsToConvo(ConfigurationSection config) {
-        Map<Integer, ConvoID> map = new HashMap<>();
+    private Map<Integer, NpcConvoID> mapConclusionsToConvo(ConfigurationSection config) {
+        Map<Integer, NpcConvoID> map = new HashMap<>();
         Set<String> conclusions = config.getKeys(false);
         for (String conclusion : conclusions) {
-            map.put(config.getInt(conclusion), new ConvoID(config.getConfigurationSection(conclusion)));
+            int conclusionNum;
+            try {
+                conclusionNum = Integer.parseInt(conclusion);
+            } catch (NumberFormatException e) {
+                System.out.println("there was a conclusion that was not a number");
+                continue;
+            }
+            map.put(conclusionNum, new NpcConvoID(config.getConfigurationSection(conclusion)));
         }
         return map;
     }
-
-    public void setConcluToConvo(int concluNum, String global, int local, int convo) {
-        conclusionsToConvo.put(concluNum, new ConvoID(global, local, convo));
-    }
-
 
     public String toString() {
         return String.format("uid:%d, name:%s, gameUID:%s", uid, name, gameUID);
     }
 
+    /**
+     * do a conversation
+     * if the time limit is up, recheck what we should do
+     * else do a normal conversation segment
+     *
+     * @param playerData
+     * @param realPlayer
+     */
     public void doConversation(PlayerData playerData, Player realPlayer) {
-        doConclusion(playerData);
-        ConvoID conversation = null;
-        String playerUID = playerData.uid;
-        if (conclusionsToConvo.containsKey(conclusion.get(playerUID))) {
-            conversation = conclusionsToConvo.get(conclusion.get(playerUID));
-        } else {
-            // pick a random conclusion
-            for (Integer key : conclusionsToConvo.keySet())
-                conversation = conclusionsToConvo.get(key);
-            if (conversation == null) {
-                // todo really log this fail
-                return;
+        String playerUID = realPlayer.getUniqueId().toString();
+
+        int currentOpinion;
+        // if we talked to the player before
+        if (playerDataMap.containsKey(playerUID)) {
+            if (System.currentTimeMillis() - playerDataMap.get(playerUID).lastTalked > maxTimeSinceTalk) {
+                // the player waited too long
+                currentOpinion = doConclusion(playerUID);
+            } else {
+                currentOpinion = playerDataMap.get(playerUID).opinion.opinionUID;
             }
-            // todo log this fail
+        } else {
+            // check what we should say
+            currentOpinion = doConclusion(playerUID);
         }
-        talkAtPlayer(realPlayer, conversation);
-        givePlayerResponses(playerData, realPlayer, conversation);
+        System.out.println(currentOpinion);
+        NpcConvoID conversation = doConclusionToConvo(currentOpinion);
+        if (!playerDataMap.containsKey(playerUID)) {
+            playerDataMap.put(playerUID, new NPCPlayerData(playerUID, conversation, System.currentTimeMillis(),
+                    new Opinion(currentOpinion, "name will be made eventually")));
+        }
+
+        if (conversation != null) {
+            conversation = conclusionsToConvo.get(playerDataMap.get(playerUID).opinion.opinionUID);
+            talkAtPlayer(realPlayer, conversation);
+            givePlayerResponses(playerData, realPlayer, conversation);
+        } else {
+            // the author said the player should never talk to this npc again
+            realPlayer.sendMessage(ChatColor.RED + "sorry, author said no talking right now");
+        }
     }
 
-    private void givePlayerResponses(PlayerData playerData, Player realPlayer, ConvoID convoId) {
+    /**
+     * figure out what convo we need based on the convo
+     *
+     * @param currentOpinion
+     */
+    private NpcConvoID doConclusionToConvo(int currentOpinion) {
+        return conclusionsToConvo.getOrDefault(currentOpinion, null);
+    }
+
+
+    private void givePlayerResponses(PlayerData playerData, Player realPlayer, NpcConvoID convoId) {
+        String playerUID = realPlayer.getUniqueId().toString();
         List<ConversationResponse> responses = AllConversations.get(convoId).responses;
         for (ConversationResponse resp : responses) {
-            if (resp.evaluate(playerData.uid, conclusion.get(playerData.uid))) {
+            if (resp.evaluate(playerUID, playerDataMap.get(playerUID).opinion.opinionUID)) {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ping"));
@@ -99,23 +133,35 @@ public class NPCData {
         realPlayer.sendMessage("i sent you stuff");
     }
 
-    private void talkAtPlayer(Player realPlayer, ConvoID convoID) {
+    private void talkAtPlayer(Player realPlayer, NpcConvoID convoID) {
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
     }
 
-    private void doConclusion(PlayerData playerData) {
-        String playerUID = playerData.uid;
+    /**
+     * never talked to the player or the time limit was reached
+     * so we need to recheck what the npc should say
+     *
+     * @param playerUID the uid of the player
+     * @return the value of the new opinion
+     */
+    private int doConclusion(String playerUID) {
+        int opinion;
+        if (playerDataMap.containsKey(playerUID)) {
+            opinion = playerDataMap.get(playerUID).opinion.opinionUID;
+        } else {
+            opinion = startingConclusion;
+        }
         for (VarsConclusionMap map : varsToConclusion) {
-            if (map.evaluate(playerUID, conclusion.get(playerUID))) {
-                // update the conclusion
-                conclusion.put(playerUID, map.conclusionResult);
-                return;
+            if (map.evaluate(playerUID, opinion)) {
+                // return the conclusion
+                return map.conclusionResult;
             }
         }
         // otherwise do nothing to the conclusion
+        return opinion;
     }
 
 }

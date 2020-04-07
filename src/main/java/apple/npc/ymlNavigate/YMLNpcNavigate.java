@@ -14,4 +14,5 @@ public class YMLNpcNavigate {
     public static final String CONVO_GLOBAL = "global";
     public static final String CONVO_LOCAL = "localUID";
     public static final String CONVO_UID = "convoUID";
+    public static final String MAX_TIME_SINCE_LAST_TALK = "maxTimeSinceTalk";
 }

@@ -9,9 +9,6 @@ public class YMLConversationNavigate {
     public static final String CONVERSATION_UID = "uid";
     public static final String REDIRECT_REQUIREMENT = "redirectRequirement";
     public static final String VARIABLE_CHANGES = "variableChanges";
-    public static final String CONVERSATION_GLOBAL_ID = "convoGlobalId";
-    public static final String CONVERSATION_LOCAL_ID = "convoLocalId";
-    public static final String CONVERSATION_UID_ID = "convoUID";
     public static final String OPTIONS = "options";
     public static final String PRE_RESPONSE_REQUIREMENT = "preResponseRequirement";
     public static final String POST_RESPONSES = "postResponses";

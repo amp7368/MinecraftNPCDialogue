@@ -20,6 +20,7 @@ import java.util.Map;
 
 public class AllNPCs {
 
+    private static final long MINUTES_5 = 300000;
     private static Map<Integer, NPCData> allUIDToNpcs = new HashMap<>();
     private static Map<String, NPCData> allGameUIDToNpcs = new HashMap<>();
     private static File folder;
@@ -61,7 +62,7 @@ public class AllNPCs {
         stand.setCustomNameVisible(true);
         stand.setCustomName(name);
         String gameUID = stand.getUniqueId().toString();
-        if (CreateNpcData.create(folder.getPath(), name, new NpcInfo(name, uid, gameUID, -1))) {
+        if (CreateNpcData.create(folder.getPath(), name, new NpcInfo(name, uid, gameUID, -1, MINUTES_5))) {
             File file = new File(String.format("%s%s%s%s%s%c%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, uid, ',', name, YMLFileNavigate.YML));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             NPCData npc = new NPCData(config);
@@ -74,7 +75,7 @@ public class AllNPCs {
     public static void setConcluToConvo(int npcUID, int concluNum, String global, int local, int convo) {
         if (allUIDToNpcs.containsKey(npcUID)) {
             CreateConcluToConvo.set(folder.getPath().toString(), String.valueOf(npcUID), allUIDToNpcs.get(npcUID).name,
-                    new ConcluToConvoInfo(String.valueOf(concluNum), global, local, convo));
+                    new ConcluToConvoInfo(concluNum, global, local, convo));
             readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);
         }
 

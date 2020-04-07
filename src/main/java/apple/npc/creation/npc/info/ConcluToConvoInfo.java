@@ -1,12 +1,12 @@
 package apple.npc.creation.npc.info;
 
-import apple.npc.data.convo.ConvoID;
+import apple.npc.data.convo.NpcConvoID;
 
 public class ConcluToConvoInfo {
-    public String key;
-    public ConvoID convoId;
-    public ConcluToConvoInfo(String key,String global,int local,int uid){
+    public int key;
+    public NpcConvoID convoId;
+    public ConcluToConvoInfo(int key,String global,int local,int uid){
         this.key = key;
-        this.convoId = new ConvoID(global,local,uid);
+        this.convoId = new NpcConvoID(global,local,uid);
     }
 }

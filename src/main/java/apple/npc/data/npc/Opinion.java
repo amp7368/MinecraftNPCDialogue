@@ -10,4 +10,9 @@ public class Opinion {
         opinionUID = config.getInt("opinionNum");
         opinionName = config.getString("opinionName");
     }
+
+    public Opinion(int currentOpinion, String name) {
+        this.opinionUID = currentOpinion;
+        this.opinionName = name;
+    }
 }

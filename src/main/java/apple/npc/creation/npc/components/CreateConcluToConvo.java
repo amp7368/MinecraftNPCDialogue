@@ -18,10 +18,10 @@ public class CreateConcluToConvo {
         ConfigurationSection config;
         if (configOrig == null)
             return false;
-        if (configOrig.contains(concluToConvoInfo.key)) {
-            config = configOrig.getConfigurationSection(concluToConvoInfo.key);
+        if (configOrig.contains(String.valueOf(concluToConvoInfo.key))) {
+            config = configOrig.getConfigurationSection(String.valueOf(concluToConvoInfo.key));
         } else {
-            config = configOrig.createSection(concluToConvoInfo.key);
+            config = configOrig.createSection(String.valueOf(concluToConvoInfo.key));
         }
         if (config == null)
             return false;

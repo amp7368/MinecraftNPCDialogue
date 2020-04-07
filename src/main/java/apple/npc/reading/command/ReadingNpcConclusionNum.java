@@ -1,11 +1,7 @@
 package apple.npc.reading.command;
 
 import apple.npc.commands.StopCommand;
-import apple.npc.reading.Reading;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
-
-import java.io.IOException;
 
 public class ReadingNpcConclusionNum extends ReadingCommand {
     private int npcUID;

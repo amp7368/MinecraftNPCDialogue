@@ -8,7 +8,7 @@ public class CreateNpcDataTest {
 
     public boolean createTest(String folder) {
         String globalName = YMLTestNpc.GLOBAL_NAME;
-        NpcInfo npcInfo = new NpcInfo(globalName,YMLTestNpc.PERSONAL_UID,YMLTestNpc.GAME_UID,YMLTestNpc.STARTING_CONCLUSION);
-        return CreateNpcData.create(folder,globalName,npcInfo);
+        NpcInfo npcInfo = new NpcInfo(globalName, YMLTestNpc.PERSONAL_UID, YMLTestNpc.GAME_UID, YMLTestNpc.STARTING_CONCLUSION, 300000);
+        return CreateNpcData.create(folder, globalName, npcInfo);
     }
 }

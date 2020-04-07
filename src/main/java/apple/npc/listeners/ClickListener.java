@@ -32,10 +32,7 @@ public class ClickListener implements Listener {
         player.getUniqueId();
         if (entity.getType() == EntityType.ARMOR_STAND) {
             doConversation(entity, player);
-            player.sendMessage("armorStand");
         }
-        player.sendMessage(uuid.toString());
-        player.sendMessage("hi");
     }
 
     private void doConversation(Entity entity, Player p) {

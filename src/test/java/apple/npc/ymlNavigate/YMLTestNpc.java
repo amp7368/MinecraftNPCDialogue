@@ -7,7 +7,7 @@ public class YMLTestNpc {
     public static final int STARTING_CONCLUSION = -1;
     public static final String VARS_KEY = "concluA";
     public static final int CONCLUSION_ID = 0;
-    public static final String CONCLU_KEY = "a";
+    public static final int CONCLU_KEY = 0;
     public static final String CONCLU_CONVO_GLOBAL = YMLTestConvo.CONVO_GLOBAL;
     public static final int CONCLU_CONVO_LOCAL = 0;
     public static final int CONCLU_CONVO_UID = 0;

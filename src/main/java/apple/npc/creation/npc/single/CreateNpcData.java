@@ -25,6 +25,7 @@ public class CreateNpcData {
         config.set(YMLNpcNavigate.NPC_UID, npcInfo.personalUID);
         config.set(YMLNpcNavigate.NPC_GAME_UID, npcInfo.gameUID);
         config.set(YMLNpcNavigate.STARTING_CONCLUSION, npcInfo.startingConclu);
+        config.set(YMLNpcNavigate.MAX_TIME_SINCE_LAST_TALK,npcInfo.maxTimeSinceTalk);
 
         config.createSection(YMLNpcNavigate.START_LOCATION);
         config.createSection(YMLNpcNavigate.START_POSITION);

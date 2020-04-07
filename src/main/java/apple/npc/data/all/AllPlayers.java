@@ -4,6 +4,7 @@ import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class AllPlayers {
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
         return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
     }
+
 
     public static PlayerData getPlayer(String uid) {
         return allPlayers.get(uid);
