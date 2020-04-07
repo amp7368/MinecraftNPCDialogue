@@ -10,11 +10,12 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for creating a local category for conversations given global and a local name
+ */
 public class MakeConLocal implements CommandExecutor, TabCompleter {
-    JavaPlugin plugin;
 
     public MakeConLocal(JavaPlugin plugin) {
-        this.plugin = plugin;
         PluginCommand command = plugin.getCommand("make_con_local");
         if (command == null) {
             System.err.println("[NPCDialogue] could not get the make_con_local command");
@@ -35,7 +36,7 @@ public class MakeConLocal implements CommandExecutor, TabCompleter {
             commandSender.sendMessage(String.format("args length of %d is not valid.", args.length));
             return true;
         }
-        CreateRedirect.createConvoLocal(args[0], args[1],player);
+        CreateRedirect.createConvoLocal(args[0], args[1], player);
         return true;
     }
 

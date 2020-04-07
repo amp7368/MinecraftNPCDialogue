@@ -14,15 +14,25 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * a class for reading text or commands from the player during editing sessions
+ */
 public class StopCommand implements CommandExecutor, Listener {
     private static HashMap<UUID, Reading> reading;
     private static JavaPlugin plugin;
 
+    /**
+     * initiates the StopCommand ChatListener and CommandExecutor
+     *
+     * @param pl the npc plugin
+     */
     public StopCommand(JavaPlugin pl) {
-        reading = new HashMap<java.util.UUID, Reading>();
+        reading = new HashMap<>();
         plugin = pl;
         Bukkit.getPluginManager().registerEvents(this, plugin);
         PluginCommand command = plugin.getCommand("stop_reading");
@@ -33,9 +43,17 @@ public class StopCommand implements CommandExecutor, Listener {
         command.setExecutor(this);
     }
 
-
+    /**
+     * when the player says stop listening to me and write down what I said
+     *
+     * @param commandSender the sender of the command
+     * @param command       the command that was sent (ignored)
+     * @param s             the String? (ignored
+     * @param args          the args of the command (ignored)
+     * @return whether the command worked as the player intended
+     */
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+    public boolean onCommand(CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         Player player = Bukkit.getPlayer(commandSender.getName());
         if (player == null) {
             commandSender.sendMessage("nope");
@@ -51,6 +69,12 @@ public class StopCommand implements CommandExecutor, Listener {
         return false;
     }
 
+    /**
+     * Listens for any chat event and if we're listening to the player, record what they say
+     * todo make it so that there is a timeout of an hour or so
+     *
+     * @param event the chat event
+     */
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
@@ -67,6 +91,12 @@ public class StopCommand implements CommandExecutor, Listener {
         }
     }
 
+    /**
+     * start listening for the event and give a link to the class that will be called when we're done listening
+     *
+     * @param read   what class deals with stopping
+     * @param player the player we're listening to
+     */
     public static void startListening(Reading read, Player player) {
         reading.put(player.getUniqueId(), read);
     }

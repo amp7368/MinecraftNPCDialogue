@@ -9,6 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * a class that deals with the npc session for editing npcs
+ */
 public class NpcCommand implements CommandExecutor, TabCompleter {
     public NpcCommand(JavaPlugin plugin) {
         PluginCommand command = plugin.getCommand("npc");

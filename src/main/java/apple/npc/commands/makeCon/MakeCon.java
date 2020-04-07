@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * a class for creating a conversation given a global, local, and the conversation name that is requested
+ */
 public class MakeCon implements CommandExecutor, TabCompleter {
     JavaPlugin plugin;
 

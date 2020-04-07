@@ -19,7 +19,6 @@ public class NPCDialogueMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        CreateRedirect.initialize(this.getDataFolder().getPath());
         Commands.initialize(this);
         AllNPCs.initialize(this.getDataFolder());
         AllPlayers.initialize(this.getDataFolder());

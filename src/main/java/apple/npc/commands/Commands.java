@@ -6,6 +6,9 @@ import apple.npc.commands.makeCon.*;
 import apple.npc.commands.makeNpc.MakeNpc;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * initializes all of the commands
+ */
 public class Commands {
     public static void initialize(JavaPlugin plugin) {
         new MakeCon(plugin);

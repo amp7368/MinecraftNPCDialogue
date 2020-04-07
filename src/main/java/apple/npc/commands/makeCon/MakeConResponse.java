@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for dealing with creating responses for a conversation given a global, local String, and convo String
+ */
 public class MakeConResponse implements CommandExecutor, TabCompleter {
     JavaPlugin plugin;
 

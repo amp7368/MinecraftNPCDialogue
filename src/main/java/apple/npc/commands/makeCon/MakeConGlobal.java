@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for dealing with making a global category for conversations
+ */
 public class MakeConGlobal implements CommandExecutor, TabCompleter {
     JavaPlugin plugin;
 
