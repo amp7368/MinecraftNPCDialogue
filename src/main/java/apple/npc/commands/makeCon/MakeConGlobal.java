@@ -1,6 +1,6 @@
 package apple.npc.commands.makeCon;
 
-import apple.npc.creation.CreateRedirect;
+import apple.npc.commands.CreateRedirect;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;

@@ -1,10 +1,11 @@
-package apple.npc.creation;
+package apple.npc.commands;
 
-import apple.npc.commands.makeCon.ConStopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
+import apple.npc.reading.text.ReadingTextConvo;
+import apple.npc.reading.text.ReadingTextResponse;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class CreateRedirect {
         } else {
             localUID = localUIDs.get(0);
         }
-        ConStopCommand.startListening(global, localUID, convoName, player);
+        StopCommand.startListening(new ReadingTextConvo(global, localUID, convoName), player);
     }
 
 
@@ -110,7 +111,7 @@ public class CreateRedirect {
         } else {
             convoUID = convoUIDs.get(0);
         }
-        ConStopCommand.startListening(global, localUID, convoUID, player);
+        StopCommand.startListening(new ReadingTextResponse(global, localUID, convoUID),player);
     }
 
 

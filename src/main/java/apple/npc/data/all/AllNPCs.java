@@ -7,12 +7,13 @@ import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AllNPCs {
@@ -41,7 +42,7 @@ public class AllNPCs {
 
     public static boolean makeNPC(String name, Location location) {
         int uid = 0;
-        while (getNPC(uid) != null) {
+        while (getNPCFromUID(uid) != null) {
             uid++;
         }
         World world = location.getWorld();
@@ -64,16 +65,25 @@ public class AllNPCs {
         return true;
     }
 
-    public static NPCData getNPC(String uid) {
+    public static NPCData getNPCFromUID(String uid) {
         if (!allGameUIDToNpcs.containsKey(uid))
             return null;
         return allGameUIDToNpcs.get(uid);
     }
 
-    public static NPCData getNPC(int uid) {
+    public static NPCData getNPCFromUID(int uid) {
         if (!allUIDToNpcs.containsKey(uid))
             return null;
         return allUIDToNpcs.get(uid);
     }
 
+    public static List<Integer> getNpcUids(String npcName) {
+        List<Integer> uids = new ArrayList<>();
+        for (NPCData npc : allUIDToNpcs.values()) {
+            if (npc.name.equals(npcName)) {
+                uids.add(npc.uid);
+            }
+        }
+        return uids;
+    }
 }

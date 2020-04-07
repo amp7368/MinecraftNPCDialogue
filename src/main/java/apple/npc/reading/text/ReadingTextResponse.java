@@ -1,4 +1,4 @@
-package apple.npc.utils;
+package apple.npc.reading.text;
 
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.reference.ConvoID;

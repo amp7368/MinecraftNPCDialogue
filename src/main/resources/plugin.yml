@@ -17,5 +17,7 @@ commands:
     description: stops text from being entered by the user
   make_npc:
     description: makes an npc with no conversation associated with it
+  npc:
+    description: edits a the concluToConvo of an npc
   ping:
     description: just ping

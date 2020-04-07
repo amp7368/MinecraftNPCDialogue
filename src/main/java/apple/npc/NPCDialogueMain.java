@@ -1,8 +1,7 @@
 package apple.npc;
 
-import apple.npc.commands.CommandPing;
 import apple.npc.commands.Commands;
-import apple.npc.creation.CreateRedirect;
+import apple.npc.commands.CreateRedirect;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;

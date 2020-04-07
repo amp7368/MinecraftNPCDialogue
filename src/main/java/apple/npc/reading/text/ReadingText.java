@@ -1,11 +1,12 @@
-package apple.npc.utils;
+package apple.npc.reading.text;
 
+import apple.npc.reading.Reading;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadingText {
+public abstract class ReadingText extends Reading {
     protected List<String> text = new ArrayList<>();
 
 
@@ -13,6 +14,4 @@ public class ReadingText {
         text.add(message);
     }
 
-    public void dealWithStop(Player player) {
-    }
 }

@@ -39,7 +39,7 @@ public class ClickListener implements Listener {
     }
 
     private void doConversation(Entity entity, Player p) {
-        NPCData npc = AllNPCs.getNPC(entity.getUniqueId().toString());
+        NPCData npc = AllNPCs.getNPCFromUID(entity.getUniqueId().toString());
         PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());
         npc.doConversation(player,p);
     }

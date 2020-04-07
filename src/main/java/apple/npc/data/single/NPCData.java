@@ -17,7 +17,7 @@ import java.util.*;
 
 public class NPCData {
     public int uid;
-    private String name;
+    public String name;
     public String gameUID;
     private int startingConclusion;
     private Map<String, Integer> conclusion;
