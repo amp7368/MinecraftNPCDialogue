@@ -8,6 +8,12 @@ import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class CreateBooleanExp {
+    /**
+     * *sets* a config to follow the given expression (used to update a config file and then update the model)
+     *
+     * @param config the configuration section we're editing to follow the expression
+     * @param exp    the expression we're following
+     */
     public static void setBooleanExp(ConfigurationSection config, Evaluateable exp) {
         if (exp == null) {
             return;
