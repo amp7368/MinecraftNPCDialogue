@@ -10,6 +10,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class CreateConvoResponse {
+    /**
+     * Create a player's base conversation response without post responses
+     *
+     * @param folder          the base folder in which the file resides (not including CONVERSATION_FOLDER)
+     * @param globalName      the global category for which the conversation resides
+     * @param localCategory   the local category for which the conversation resides
+     * @param conversationUID the conversation for which the response resides
+     * @param respInfo        the response information about the response
+     * @return whether the creation was successful
+     */
     public static boolean create(String folder, String globalName, int localCategory, int conversationUID, ConvoRespInfo respInfo) {
         File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER,
                 File.separator, globalName, YMLFileNavigate.YML));
@@ -17,7 +27,7 @@ public class CreateConvoResponse {
         ConfigurationSection respConfigOrig = config.getConfigurationSection(
                 String.format("%d%s%s%s%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS, ".",
                         conversationUID, ".", YMLConversationNavigate.OPTIONS));
-        if(respConfigOrig == null)
+        if (respConfigOrig == null)
             return false;
         String responseUidString = String.valueOf(respInfo.uid);
         if (respConfigOrig.contains(responseUidString))

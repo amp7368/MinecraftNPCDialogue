@@ -38,7 +38,7 @@ public class CreatePostDefault {
         if (postConfig == null)
             return false;
         Evaluateable redirectReq = new BooleanExpRequirement(true);
-        CreateResponse.create(postConfig, postInfo, redirectReq);
+        CreateResponse.set(postConfig, postInfo, redirectReq);
         try {
             config.save(file);
         } catch (IOException e) {

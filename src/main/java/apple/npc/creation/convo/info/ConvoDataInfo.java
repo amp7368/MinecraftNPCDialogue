@@ -2,6 +2,9 @@ package apple.npc.creation.convo.info;
 
 import java.util.List;
 
+/**
+ * A base default conversation info (used for the creation of a conversation)
+ */
 public class ConvoDataInfo {
     public int uid;
     public String name;

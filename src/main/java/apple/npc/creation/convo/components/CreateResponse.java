@@ -7,7 +7,13 @@ import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class CreateResponse {
-    public static void create(ConfigurationSection postConfig, ConvoRespPostInfo postInfo, Evaluateable redirectReq) {
+    /**
+     * sets the configuration section to follow postInfo and redirectRequirements
+     * @param postConfig the configuration section we're setting
+     * @param postInfo info about the post response
+     * @param redirectReq a boolean expresion for the requirements for this particular option
+     */
+    public static void set(ConfigurationSection postConfig, ConvoRespPostInfo postInfo, Evaluateable redirectReq) {
         postConfig.set(YMLConversationNavigate.RESPONSE_GLOBAL_CATEGORY, postInfo.globalCategory);
         postConfig.set(YMLConversationNavigate.RESPONSE_LOCAL_CATEGORY_UID, postInfo.localCategoryUID);
         postConfig.set(YMLConversationNavigate.RESPONSE_CONVERSATION_UID, postInfo.conversationUID);

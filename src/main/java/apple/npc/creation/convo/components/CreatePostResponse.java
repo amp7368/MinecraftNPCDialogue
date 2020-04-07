@@ -39,7 +39,7 @@ public class CreatePostResponse {
         ConfigurationSection postConfig = postConfigOrig.getConfigurationSection(postInfo.responseId);
         if (postConfig == null)
             return false;
-        CreateResponse.create(postConfig, postInfo, redirectReqInfo);
+        CreateResponse.set(postConfig, postInfo, redirectReqInfo);
 
         try {
             config.save(file);

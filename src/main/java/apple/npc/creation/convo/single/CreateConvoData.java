@@ -9,7 +9,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
+
 public class CreateConvoData {
+    /**
+     * Creates a base conversation in the file
+     *
+     * @param folder        the base folder (not including CONVERSATION_FOLDER)
+     * @param globalName    the global category in which the conversation resides
+     * @param localCategory the local category in whic the conversation resides
+     * @param convoInfo     the convoInfo about the base conversation
+     * @return whether the creation was successful
+     */
     public static boolean create(String folder, String globalName, int localCategory, ConvoDataInfo convoInfo) {
         File file = new File(String.format("%s%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, globalName, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);

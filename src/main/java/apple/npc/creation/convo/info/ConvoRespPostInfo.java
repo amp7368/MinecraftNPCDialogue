@@ -2,6 +2,9 @@ package apple.npc.creation.convo.info;
 
 import java.util.List;
 
+/**
+ * The info for a base ConversationResponsePost (does not include the boolean expression for redirect requirements)
+ */
 public class ConvoRespPostInfo {
     public String responseId;
     public String globalCategory;

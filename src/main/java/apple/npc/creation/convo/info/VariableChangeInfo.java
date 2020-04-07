@@ -1,5 +1,8 @@
 package apple.npc.creation.convo.info;
 
+/**
+ * Information for a variable change (in postResponses or defaultPostResponses)
+ */
 public class VariableChangeInfo {
     public int key;
     public String global;
