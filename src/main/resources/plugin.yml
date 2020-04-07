@@ -13,11 +13,13 @@ commands:
     description: creates conversation
   make_con_response:
     description: creates a response for a given conversations
-  con_stop:
+  stop_reading:
     description: stops text from being entered by the user
   make_npc:
     description: makes an npc with no conversation associated with it
   npc:
-    description: edits a the concluToConvo of an npc
+    description: starts a session of editing an npc
+  npc_edit_conclusionsToConvo:
+    description: starts a session to edit the conclusion to conversation mapping
   ping:
     description: just ping

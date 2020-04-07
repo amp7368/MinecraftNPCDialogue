@@ -15,18 +15,19 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class StopCommand implements CommandExecutor, Listener {
-    private static HashMap<Player, Reading> reading;
+    private static HashMap<UUID, Reading> reading;
     private static JavaPlugin plugin;
 
     public StopCommand(JavaPlugin pl) {
-        reading = new HashMap<>();
+        reading = new HashMap<java.util.UUID, Reading>();
         plugin = pl;
         Bukkit.getPluginManager().registerEvents(this, plugin);
-        PluginCommand command = plugin.getCommand("con_stop");
+        PluginCommand command = plugin.getCommand("stop_reading");
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the con_stop command");
+            System.err.println("[NPCDialogue] could not get the stop_reading command");
             return;
         }
         command.setExecutor(this);
@@ -40,10 +41,10 @@ public class StopCommand implements CommandExecutor, Listener {
             commandSender.sendMessage("nope");
             return false;
         }
-        if (reading.containsKey(player) && reading.get(player) instanceof ReadingText) {
+        if (reading.containsKey(player.getUniqueId()) && reading.get(player.getUniqueId()) instanceof ReadingText) {
             // otherwise finish what you were doing with the text
-            Reading read = reading.remove(player);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> read.dealWithStop(player), 1);
+            Reading read = reading.remove(player.getUniqueId());
+            read.dealWithStop(player);
             return true;
         }
         player.sendMessage("We weren't recording whatever you just wrote");
@@ -53,20 +54,20 @@ public class StopCommand implements CommandExecutor, Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (reading.containsKey(player)) {
-            Reading read = reading.get(player);
-            if (read instanceof ReadingText)
+        if (reading.containsKey(player.getUniqueId())) {
+            Reading read = reading.get(player.getUniqueId());
+            if (read instanceof ReadingText) {
                 ((ReadingText) read).addText(event.getMessage());
-            else if (read instanceof ReadingCommand) {
+            } else if (read instanceof ReadingCommand) {
                 ReadingCommand readCommand = (ReadingCommand) read;
                 readCommand.setCommand(event.getMessage());
+                reading.remove(player.getUniqueId());
                 readCommand.dealWithStop(player);
-                reading.remove(player);
             }
         }
     }
 
-    public static void startListening(Reading readingText, Player player) {
-        reading.put(player, readingText);
+    public static void startListening(Reading read, Player player) {
+        reading.put(player.getUniqueId(), read);
     }
 }

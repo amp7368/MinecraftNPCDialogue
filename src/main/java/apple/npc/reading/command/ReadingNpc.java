@@ -8,17 +8,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ReadingNpcName extends ReadingCommand {
-
-    private String command = "";
-
-    @Override
-    public void setCommand(String string) {
-        this.command = string;
-    }
+public class ReadingNpc extends ReadingCommand {
 
     @Override
     public void dealWithStop(Player player) {
+        String command = super.command;
         List<Integer> uids = AllNPCs.getNpcUids(command);
         if (uids.isEmpty()) {
             player.sendMessage(ChatColor.RED + String.format("There is no %s npc", command));
@@ -64,7 +58,7 @@ public class ReadingNpcName extends ReadingCommand {
         conclusionsToConvoUid.setText("(Conclusion to Convo)");
         conclusionsToConvoUid.setUnderlined(true);
         conclusionsToConvoUid.setColor(ChatColor.GREEN);
-        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_conclusionsToConvoUid " + uid));
+        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_conclusionsToConvo " + uid));
 
         TextComponent separator = new TextComponent();
         separator.setText(" | ");

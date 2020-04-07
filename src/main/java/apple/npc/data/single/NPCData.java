@@ -56,6 +56,11 @@ public class NPCData {
         return map;
     }
 
+    public void setConcluToConvo(int concluNum, String global, int local, int convo) {
+        conclusionsToConvo.put(concluNum, new ConvoID(global, local, convo));
+    }
+
+
     public String toString() {
         return String.format("uid:%d, name:%s, gameUID:%s", uid, name, gameUID);
     }
@@ -112,4 +117,5 @@ public class NPCData {
         }
         // otherwise do nothing to the conclusion
     }
+
 }

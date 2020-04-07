@@ -1,5 +1,7 @@
 package apple.npc.data.all;
 
+import apple.npc.creation.npc.components.CreateConcluToConvo;
+import apple.npc.creation.npc.info.ConcluToConvoInfo;
 import apple.npc.creation.npc.info.NpcInfo;
 import apple.npc.creation.npc.single.CreateNpcData;
 import apple.npc.data.single.NPCData;
@@ -31,12 +33,16 @@ public class AllNPCs {
             return;
         }
         for (String pathName : pathNameList) {
-            File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, pathName));
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-            NPCData npc = new NPCData(config);
-            allGameUIDToNpcs.put(npc.gameUID, npc);
-            allUIDToNpcs.put(npc.uid, npc);
+            readNpc(pathName);
         }
+    }
+
+    private static void readNpc(String fileName) {
+        File file = new File(String.format("%s%s%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, fileName));
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        NPCData npc = new NPCData(config);
+        allGameUIDToNpcs.put(npc.gameUID, npc);
+        allUIDToNpcs.put(npc.uid, npc);
     }
 
 
@@ -65,6 +71,15 @@ public class AllNPCs {
         return true;
     }
 
+    public static void setConcluToConvo(int npcUID, int concluNum, String global, int local, int convo) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            CreateConcluToConvo.set(folder.getPath().toString(), String.valueOf(npcUID), allUIDToNpcs.get(npcUID).name,
+                    new ConcluToConvoInfo(String.valueOf(concluNum), global, local, convo));
+            readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);
+        }
+
+    }
+
     public static NPCData getNPCFromUID(String uid) {
         if (!allGameUIDToNpcs.containsKey(uid))
             return null;
@@ -86,4 +101,9 @@ public class AllNPCs {
         }
         return uids;
     }
+
+    public static boolean hasUID(int npcUID) {
+        return allUIDToNpcs.containsKey(npcUID);
+    }
+
 }

@@ -1,30 +1,25 @@
 package apple.npc.commands;
 
 import apple.npc.data.all.AllNPCs;
-import apple.npc.reading.command.ReadingNpcName;
+import apple.npc.reading.command.ReadingNpc;
+import apple.npc.reading.command.ReadingNpcConclusionNum;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 public class EditRedirect {
     public static void editNpc(Player player) {
-        player.sendMessage("Which npc do you want to edit? ('.display' to display a list of npc names)");
-        StopCommand.startListening(new ReadingNpcName(),player);
+        player.sendMessage(ChatColor.BLUE + "Which npc do you want to edit? ('.display' to display a list of npc names)");
+        StopCommand.startListening(new ReadingNpc(), player);
     }
 
-    public static void editNpcConcluToConvo(String npcName, Player player) {
-        List<Integer> uids = AllNPCs.getNpcUids(npcName);
-        if (uids.isEmpty()) {
-            player.sendMessage(String.format("There is no %s npc", npcName));
-            return;
+    public static void editNpcConcluToConvo(int npcUID, Player player) {
+        if (AllNPCs.hasUID(npcUID)) {
+            player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set? ('.display' to display a list of conclusions)");
+            StopCommand.startListening(new ReadingNpcConclusionNum(npcUID), player);
+        } else {
+            player.sendMessage(ChatColor.RED + "There is no npc with uid " + npcUID);
         }
-        if (uids.size() != 1) {
-            player.sendMessage(String.format("There are %d npc(s) named %s", uids.size(), npcName));
-            return;
-        }
-        int uid = uids.get(0);
 //        StopCommand.startListening(new Reading(), player);
-
     }
 
 }
