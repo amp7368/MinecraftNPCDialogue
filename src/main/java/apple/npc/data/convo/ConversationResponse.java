@@ -1,8 +1,7 @@
-package apple.npc.data.single;
+package apple.npc.data.convo;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
-import apple.npc.data.components.PostPlayerResponse;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,26 +11,26 @@ import java.util.List;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
-    private final PostPlayerResponse defaultPostReponse;
+    private final ConversationData.PostPlayerResponse defaultPostReponse;
     public int uid;
     private Evaluateable preResponseRequirement;
     public List<String> response;
-    private List<PostPlayerResponse> postResponses;
+    private List<ConversationData.PostPlayerResponse> postResponses;
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
         this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
         this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
-        this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s%c%s",
+        this.defaultPostReponse = new ConversationData.PostPlayerResponse(config.getConfigurationSection(String.format("%s%c%s",
                 YMLConversationNavigate.DEFAULT_POST_RESPONSE, '.', YMLBooleanNavigate.EXPRESSION)));
     }
 
-    private List<PostPlayerResponse> getPostResponses(ConfigurationSection config) {
-        List<PostPlayerResponse> post = new ArrayList<>();
+    private List<ConversationData.PostPlayerResponse> getPostResponses(ConfigurationSection config) {
+        List<ConversationData.PostPlayerResponse> post = new ArrayList<>();
         Set<String> responseKeys = config.getKeys(false);
         for (String key : responseKeys) {
-            post.add(new PostPlayerResponse(config.getConfigurationSection(key)));
+            post.add(new ConversationData.PostPlayerResponse(config.getConfigurationSection(key)));
         }
         return post;
     }
@@ -49,7 +48,7 @@ public class ConversationResponse implements Evaluateable {
         }
         string.append("}");
         string.append("postResponses:\n");
-        for (PostPlayerResponse post : postResponses) {
+        for (ConversationData.PostPlayerResponse post : postResponses) {
             string.append(post.toString());
             string.append("\n");
         }

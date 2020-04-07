@@ -1,6 +1,7 @@
-package apple.npc.data.category;
+package apple.npc.data.convo;
 
-import apple.npc.data.single.ConversationData;
+import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConversationLocalCategory;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;

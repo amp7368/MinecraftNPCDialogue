@@ -1,6 +1,5 @@
-package apple.npc.data.single;
+package apple.npc.data.player;
 
-import apple.npc.data.category.VariableCategory;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;

@@ -1,4 +1,4 @@
-package apple.npc.data.reference;
+package apple.npc.data.convo;
 
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;

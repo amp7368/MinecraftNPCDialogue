@@ -1,4 +1,4 @@
-package apple.npc.data.reference;
+package apple.npc.data.npc;
 
 public class NPCID {
     public int globalUID;

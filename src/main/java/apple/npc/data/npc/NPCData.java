@@ -1,13 +1,13 @@
-package apple.npc.data.single;
+package apple.npc.data.npc;
 
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.components.VarsConclusionMap;
-import apple.npc.data.reference.ConvoID;
+import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConversationResponse;
+import apple.npc.data.convo.ConvoID;
+import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.server.v1_14_R1.PacketPlayOutBoss;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;

@@ -4,7 +4,7 @@ import apple.npc.creation.npc.components.CreateConcluToConvo;
 import apple.npc.creation.npc.info.ConcluToConvoInfo;
 import apple.npc.creation.npc.info.NpcInfo;
 import apple.npc.creation.npc.single.CreateNpcData;
-import apple.npc.data.single.NPCData;
+import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.Location;
 import org.bukkit.World;

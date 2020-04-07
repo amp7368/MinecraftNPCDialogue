@@ -1,6 +1,5 @@
-package apple.npc.data.single;
+package apple.npc.data.npc;
 
-import apple.npc.data.components.Opinion;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 

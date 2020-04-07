@@ -1,4 +1,4 @@
-package apple.npc.data.components;
+package apple.npc.data.npc;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;

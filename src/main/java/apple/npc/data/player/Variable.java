@@ -1,4 +1,4 @@
-package apple.npc.data.components;
+package apple.npc.data.player;
 
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLPlayerVariable;

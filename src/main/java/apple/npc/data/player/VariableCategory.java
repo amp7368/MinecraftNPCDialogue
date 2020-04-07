@@ -1,6 +1,6 @@
-package apple.npc.data.category;
+package apple.npc.data.player;
 
-import apple.npc.data.components.Variable;
+import apple.npc.data.player.Variable;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 

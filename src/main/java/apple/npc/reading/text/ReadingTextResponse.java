@@ -1,7 +1,7 @@
 package apple.npc.reading.text;
 
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.reference.ConvoID;
+import apple.npc.data.convo.ConvoID;
 import org.bukkit.entity.Player;
 
 public class ReadingTextResponse extends ReadingText {

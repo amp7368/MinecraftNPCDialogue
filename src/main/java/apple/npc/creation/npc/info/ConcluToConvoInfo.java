@@ -1,6 +1,6 @@
 package apple.npc.creation.npc.info;
 
-import apple.npc.data.reference.ConvoID;
+import apple.npc.data.convo.ConvoID;
 
 public class ConcluToConvoInfo {
     public String key;

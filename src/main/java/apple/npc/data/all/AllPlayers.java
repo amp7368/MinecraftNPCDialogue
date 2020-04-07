@@ -1,6 +1,6 @@
 package apple.npc.data.all;
 
-import apple.npc.data.single.PlayerData;
+import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
