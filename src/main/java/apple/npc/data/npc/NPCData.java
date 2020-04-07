@@ -1,6 +1,8 @@
 package apple.npc.data.npc;
 
+import apple.npc.creation.player.single.CreatePlayerData;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.all.AllNPCs;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.NpcConvoID;
@@ -91,8 +93,9 @@ public class NPCData {
             // check what we should say
             currentOpinion = doConclusion(playerUID);
         }
-        System.out.println(currentOpinion);
+        System.out.println("current opinion" + currentOpinion);
         NpcConvoID conversation = doConclusionToConvo(currentOpinion);
+        AllNPCs.setPlayerData(this.uid, this.name, playerUID, conversation, currentOpinion, "name will be made eventually");
         if (!playerDataMap.containsKey(playerUID)) {
             playerDataMap.put(playerUID, new NPCPlayerData(playerUID, conversation, System.currentTimeMillis(),
                     new Opinion(currentOpinion, "name will be made eventually")));

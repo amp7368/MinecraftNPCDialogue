@@ -14,4 +14,6 @@ public class YMLPlayerVariable {
     public static final int UID = 0;
     public static final String NAME = "localName";
     public static final int VALUE = 1;
+    public static final String OPINION_NUM = "opinionNum";
+    public static final String OPINION_NAME = "opinionName";
 }
