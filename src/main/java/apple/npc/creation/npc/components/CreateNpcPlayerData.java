@@ -11,6 +11,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class CreateNpcPlayerData {
+    /**
+     * the creates
+     *
+     * @param folder
+     * @param npcUID
+     * @param npcName
+     * @param dataInfo
+     * @return
+     */
     public static boolean set(String folder, String npcUID, String npcName, NpcPlayerDataInfo dataInfo) {
         File file = new File(String.format("%s%s%s%c%s%s", folder, File.separator, npcUID, ',', npcName, YMLFileNavigate.YML));
         YamlConfiguration configOrig = YamlConfiguration.loadConfiguration(file);
@@ -21,7 +30,7 @@ public class CreateNpcPlayerData {
         }
         if (config.getKeys(false).contains(dataInfo.playerUID)) {
             config = config.getConfigurationSection(dataInfo.playerUID);
-        }else{
+        } else {
             config = config.createSection(dataInfo.playerUID);
         }
 

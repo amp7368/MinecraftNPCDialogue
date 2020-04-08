@@ -10,6 +10,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class CreateConcluToConvo {
+    /**
+     * sets a single conclusion to conversation
+     *
+     * @param folder            the base folder for which the file resides (not including NPC_FOLDER)
+     * @param personalUID       the uid for the npc
+     * @param globalName        the global name for the npc
+     * @param concluToConvoInfo the conclusionToConvo info including the conclusion and the conversation being redirected to
+     * @return whether the setting was successful
+     */
     public static boolean set(String folder, String personalUID, String globalName, ConcluToConvoInfo concluToConvoInfo) {
         File file = new File(String.format("%s%s%s%s%s%c%s%s", folder, File.separator, YMLFileNavigate.NPC_FOLDER, File.separator,
                 personalUID, ',', globalName, YMLFileNavigate.YML));
