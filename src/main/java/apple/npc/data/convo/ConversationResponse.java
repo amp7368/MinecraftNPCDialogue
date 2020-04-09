@@ -2,6 +2,7 @@ package apple.npc.data.convo;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.npc.Opinion;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -11,26 +12,26 @@ import java.util.List;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
-    private final ConversationData.PostPlayerResponse defaultPostReponse;
+    private final PostPlayerResponse defaultPostReponse;
     public int uid;
     private Evaluateable preResponseRequirement;
     public List<String> response;
-    private List<ConversationData.PostPlayerResponse> postResponses;
+    private List<PostPlayerResponse> postResponses;
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
-        this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT));
+        this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT + "." + YMLBooleanNavigate.EXPRESSION));
         this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
-        this.defaultPostReponse = new ConversationData.PostPlayerResponse(config.getConfigurationSection(String.format("%s%c%s",
-                YMLConversationNavigate.DEFAULT_POST_RESPONSE, '.', YMLBooleanNavigate.EXPRESSION)));
+        this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s",
+                YMLConversationNavigate.DEFAULT_POST_RESPONSE)));
     }
 
-    private List<ConversationData.PostPlayerResponse> getPostResponses(ConfigurationSection config) {
-        List<ConversationData.PostPlayerResponse> post = new ArrayList<>();
+    private List<PostPlayerResponse> getPostResponses(ConfigurationSection config) {
+        List<PostPlayerResponse> post = new ArrayList<>();
         Set<String> responseKeys = config.getKeys(false);
         for (String key : responseKeys) {
-            post.add(new ConversationData.PostPlayerResponse(config.getConfigurationSection(key)));
+            post.add(new PostPlayerResponse(config.getConfigurationSection(key)));
         }
         return post;
     }
@@ -48,7 +49,7 @@ public class ConversationResponse implements Evaluateable {
         }
         string.append("}");
         string.append("postResponses:\n");
-        for (ConversationData.PostPlayerResponse post : postResponses) {
+        for (PostPlayerResponse post : postResponses) {
             string.append(post.toString());
             string.append("\n");
         }
@@ -60,8 +61,19 @@ public class ConversationResponse implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion) {
-        return preResponseRequirement.evaluate(playerUID, currentConclusion);
+    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
+        return preResponseRequirement.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
 
+    public NpcConvoID getPostResponse(Opinion opinion, long lastTalked, String playerUID) {
+        for (PostPlayerResponse postResponse : postResponses) {
+            if (postResponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+                return postResponse.toNpcConvoID();
+            }
+        }
+        if (defaultPostReponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+            return defaultPostReponse.toNpcConvoID();
+        }
+        return null;
+    }
 }

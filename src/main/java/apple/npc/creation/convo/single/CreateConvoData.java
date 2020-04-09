@@ -25,10 +25,14 @@ public class CreateConvoData {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection convoConfigOrig = config.getConfigurationSection(String.format("%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS));
         String convoInfoUidString = String.valueOf(convoInfo.uid);
-        if (convoConfigOrig == null)
+        if (convoConfigOrig == null) {
+            System.out.println("convoConfigOrig is null in CreateConvoData");
             return false;
-        if (convoConfigOrig.contains(convoInfoUidString))
+        }
+        if (convoConfigOrig.contains(convoInfoUidString)) {
+            System.out.println("convoInfoUID already exists in CreateConvoData");
             return false;
+        }
         ConfigurationSection convoConfig = convoConfigOrig.createSection(convoInfoUidString);
         convoConfig.set(YMLConversationNavigate.CONVERSATION_UID, convoInfo.uid);
         convoConfig.set(YMLConversationNavigate.NAME, convoInfo.name);

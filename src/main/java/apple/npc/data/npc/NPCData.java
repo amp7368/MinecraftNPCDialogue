@@ -1,6 +1,5 @@
 package apple.npc.data.npc;
 
-import apple.npc.creation.player.single.CreatePlayerData;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.convo.ConversationData;
@@ -96,15 +95,19 @@ public class NPCData {
         System.out.println("current opinion" + currentOpinion);
         NpcConvoID conversation = doConclusionToConvo(currentOpinion);
         AllNPCs.setPlayerData(this.uid, this.name, playerUID, conversation, currentOpinion, "name will be made eventually");
-        if (!playerDataMap.containsKey(playerUID)) {
-            playerDataMap.put(playerUID, new NPCPlayerData(playerUID, conversation, System.currentTimeMillis(),
-                    new Opinion(currentOpinion, "name will be made eventually")));
-        }
+
 
         if (conversation != null) {
             conversation = conclusionsToConvo.get(playerDataMap.get(playerUID).opinion.opinionUID);
             talkAtPlayer(realPlayer, conversation);
-            givePlayerResponses(playerData, realPlayer, conversation);
+            if (!playerDataMap.containsKey(playerUID)) {
+                NPCPlayerData npcPlayerData = playerDataMap.get(playerUID);
+                ConversationResponse responseGiven = givePlayerResponses(playerData, realPlayer, conversation, npcPlayerData.lastTalked);
+                playerDataMap.put(playerUID, new NPCPlayerData(playerUID, responseGiven.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID), System.currentTimeMillis(),
+                        new Opinion(currentOpinion, "name will be made eventually")));
+            } else {
+                givePlayerResponses(playerData, realPlayer, conversation, -1);
+            }
         } else {
             // the author said the player should never talk to this npc again
             realPlayer.sendMessage(ChatColor.RED + "sorry, author said no talking right now");
@@ -121,19 +124,21 @@ public class NPCData {
     }
 
 
-    private void givePlayerResponses(PlayerData playerData, Player realPlayer, NpcConvoID convoId) {
+    private ConversationResponse givePlayerResponses(PlayerData playerData, Player realPlayer, NpcConvoID convoId, long timeLastTalked) {
         String playerUID = realPlayer.getUniqueId().toString();
         List<ConversationResponse> responses = AllConversations.get(convoId).responses;
         for (ConversationResponse resp : responses) {
-            if (resp.evaluate(playerUID, playerDataMap.get(playerUID).opinion.opinionUID)) {
+            if (resp.evaluate(playerUID, playerDataMap.get(playerUID).opinion.opinionUID, timeLastTalked)) {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ping"));
                     realPlayer.spigot().sendMessage(message);
+                    return resp;
                 }
             }
         }
-        realPlayer.sendMessage("i sent you stuff");
+        realPlayer.sendMessage("i sent you stuff to respond to");
+        return null;
     }
 
     private void talkAtPlayer(Player realPlayer, NpcConvoID convoID) {
@@ -152,13 +157,17 @@ public class NPCData {
      */
     private int doConclusion(String playerUID) {
         int opinion;
+        long timeLastTalked;
         if (playerDataMap.containsKey(playerUID)) {
-            opinion = playerDataMap.get(playerUID).opinion.opinionUID;
+            NPCPlayerData npcPlayerData = playerDataMap.get(playerUID);
+            opinion = npcPlayerData.opinion.opinionUID;
+            timeLastTalked = npcPlayerData.lastTalked;
         } else {
             opinion = startingConclusion;
+            timeLastTalked = -1;
         }
         for (VarsConclusionMap map : varsToConclusion) {
-            if (map.evaluate(playerUID, opinion)) {
+            if (map.evaluate(playerUID, opinion, timeLastTalked)) {
                 // return the conclusion
                 return map.conclusionResult;
             }

@@ -27,7 +27,7 @@ public class VariableComparision implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion) {
+    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
         int varVal;
         if (isConclusionVar)
             varVal = currentConclusion;

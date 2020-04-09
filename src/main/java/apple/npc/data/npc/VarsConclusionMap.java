@@ -3,7 +3,6 @@ package apple.npc.data.npc;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
-import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -17,7 +16,7 @@ public class VarsConclusionMap implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion) {
-        return exp.evaluate(playerUID, currentConclusion);
+    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
+        return exp.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
 }

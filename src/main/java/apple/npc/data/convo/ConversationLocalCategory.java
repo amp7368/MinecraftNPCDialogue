@@ -68,7 +68,11 @@ public class ConversationLocalCategory {
     }
 
     public boolean convoUIDExists(int convoUID) {
-        return uid == convoUID;
+        for (ConversationData conversation : conversations.values()) {
+            if (conversation.uid == convoUID)
+                return true;
+        }
+        return false;
     }
 
 }

@@ -33,6 +33,7 @@ public class AllConversations {
             return;
         }
         for (String globalCategory : pathNameList) {
+            System.out.println("intializing conversations " + globalCategory);
             File file = new File(String.format("%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, globalCategory));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
