@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.commands.CommandReferences;
 import apple.npc.commands.CreateRedirect;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -18,9 +19,9 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
 
     public EditNpcConvo(JavaPlugin plugin) {
         this.plugin = plugin;
-        PluginCommand command = plugin.getCommand("npc_convo_edit");
+        PluginCommand command = plugin.getCommand(CommandReferences.NPC_CONVO_EDIT);
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the npc_convo_edit command");
+            System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC_CONVO_EDIT + " command");
             return;
         }
         command.setExecutor(this);
@@ -34,13 +35,21 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-        player.sendMessage(net.md_5.bungee.api.ChatColor.BLUE + "What would you like to edit about conversations?");
+        TextComponent welcome = new TextComponent();
+        welcome.setText("What would you like to edit about conversations?   ");
+        welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+
+        TextComponent back = new TextComponent();
+        back.setText("(Back)");
+        back.setUnderlined(true);
+        back.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + CommandReferences.NPC));
 
         TextComponent global = new TextComponent();
         global.setText("(Global Categories)");
         global.setUnderlined(true);
         global.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        global.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_global"));
+        global.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + CommandReferences.NPC_CONVO_EDIT_GLOBAL));
 
         TextComponent local = new TextComponent();
         local.setText("(Local Categories)");
@@ -63,6 +72,7 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
         TextComponent separator = new TextComponent();
         separator.setText("   ");
 
+        player.spigot().sendMessage(welcome, back);
         player.spigot().sendMessage(global, separator, local, separator, convo, separator, response);
         player.sendMessage("");
         return true;

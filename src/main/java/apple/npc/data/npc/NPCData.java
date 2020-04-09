@@ -6,7 +6,7 @@ import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
-import apple.npc.data.convo.NpcConvoID;
+import apple.npc.data.convo.ConvoID;
 import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -24,7 +24,7 @@ public class NPCData {
     public String gameUID;
     private int startingConclusion;
     private ArrayList<VarsConclusionMap> varsToConclusion;
-    private Map<Integer, NpcConvoID> conclusionsToConvo;
+    private Map<Integer, ConvoID> conclusionsToConvo;
     private Map<String, NPCPlayerData> playerDataMap;
     private long maxTimeSinceTalk;
 
@@ -50,8 +50,8 @@ public class NPCData {
         }
     }
 
-    private Map<Integer, NpcConvoID> mapConclusionsToConvo(ConfigurationSection config) {
-        Map<Integer, NpcConvoID> map = new HashMap<>();
+    private Map<Integer, ConvoID> mapConclusionsToConvo(ConfigurationSection config) {
+        Map<Integer, ConvoID> map = new HashMap<>();
         Set<String> conclusions = config.getKeys(false);
         for (String conclusion : conclusions) {
             int conclusionNum;
@@ -61,7 +61,7 @@ public class NPCData {
                 System.err.println("there was a conclusion that was not a number");
                 continue;
             }
-            map.put(conclusionNum, new NpcConvoID(config.getConfigurationSection(conclusion)));
+            map.put(conclusionNum, new ConvoID(config.getConfigurationSection(conclusion)));
         }
         return map;
     }
@@ -99,7 +99,7 @@ public class NPCData {
             currentOpinion = doConclusion(playerUID);
         }
         // if we want to go to the next conversation in sequence regardless of opinion
-        NpcConvoID conversation;
+        ConvoID conversation;
         if (!playerLeftEarlier && playerDataMap.containsKey(playerUID)) {
             conversation = AllConversations.get(playerDataMap.get(playerUID).currentConvoUID).immediateConvo.toNpcConvoID();
         } else {
@@ -108,7 +108,7 @@ public class NPCData {
         doConversation(playerUID, conversation, currentOpinion, realPlayer, playerData);
     }
 
-    private void doConversation(String playerUID, NpcConvoID conversation, int currentOpinion, Player realPlayer, PlayerData playerData) {
+    private void doConversation(String playerUID, ConvoID conversation, int currentOpinion, Player realPlayer, PlayerData playerData) {
         AllNPCs.setPlayerData(this.uid, this.name, playerUID, conversation, currentOpinion, "name will be made eventually");
 
 
@@ -131,12 +131,12 @@ public class NPCData {
      *
      * @param currentOpinion
      */
-    private NpcConvoID doConclusionToConvo(int currentOpinion) {
+    private ConvoID doConclusionToConvo(int currentOpinion) {
         return conclusionsToConvo.getOrDefault(currentOpinion, null);
     }
 
 
-    private ConversationResponse givePlayerResponses(Player realPlayer, NpcConvoID convoId, long timeLastTalked) {
+    private ConversationResponse givePlayerResponses(Player realPlayer, ConvoID convoId, long timeLastTalked) {
         String playerUID = realPlayer.getUniqueId().toString();
         List<ConversationResponse> responses = AllConversations.get(convoId).responses;
         for (ConversationResponse resp : responses) {
@@ -160,7 +160,7 @@ public class NPCData {
         return null;
     }
 
-    private void talkAtPlayer(Player realPlayer, NpcConvoID convoID) {
+    private void talkAtPlayer(Player realPlayer, ConvoID convoID) {
         realPlayer.sendMessage(ColorScheme.DASH);
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
@@ -217,7 +217,7 @@ public class NPCData {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                NpcConvoID redirect = response.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 

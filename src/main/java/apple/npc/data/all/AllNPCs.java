@@ -6,7 +6,7 @@ import apple.npc.creation.npc.info.ConcluToConvoInfo;
 import apple.npc.creation.npc.info.NpcInfo;
 import apple.npc.creation.npc.info.NpcPlayerDataInfo;
 import apple.npc.creation.npc.single.CreateNpcData;
-import apple.npc.data.convo.NpcConvoID;
+import apple.npc.data.convo.ConvoID;
 import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.Location;
@@ -115,7 +115,7 @@ public class AllNPCs {
         return allGameUIDToNpcs.containsKey(gameUID);
     }
 
-    public static void setPlayerData(int npcUID, String npcName, String playerUID, NpcConvoID conversation, int currentOpinion, String opinionName) {
+    public static void setPlayerData(int npcUID, String npcName, String playerUID, ConvoID conversation, int currentOpinion, String opinionName) {
         CreateNpcPlayerData.set(String.format("%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER),
                 String.valueOf(npcUID), npcName, new NpcPlayerDataInfo(playerUID, conversation, currentOpinion, opinionName));
         readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);

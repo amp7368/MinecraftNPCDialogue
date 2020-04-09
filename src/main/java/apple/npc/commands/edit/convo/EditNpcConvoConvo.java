@@ -5,6 +5,8 @@ import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.reading.command.convo.ReadingConvoConvo;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -47,7 +49,15 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             return false;
         }
         if (AllConversations.hasLocalCategory(global, local)) {
-            player.sendMessage(ColorScheme.EDITING + "Type what conversation name you would you like to edit.");
+            TextComponent welcome = new TextComponent();
+            welcome.setText("Type what conversation name you would you like to edit.   ");
+            welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+            TextComponent back = new TextComponent();
+            back.setText("(Back)");
+            back.setUnderlined(true);
+            back.setColor(ColorScheme.EDITING_OPTION);
+            back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s", CommandReferences.NPC_CONVO_EDIT_LOCAL, global)));
+            player.spigot().sendMessage(welcome, back);
             StopCommand.startListening(new ReadingConvoConvo(global, local), player);
         } else {
             player.sendMessage(ColorScheme.BAD + String.format("%s:%s is an invalid conversation category", global, local));

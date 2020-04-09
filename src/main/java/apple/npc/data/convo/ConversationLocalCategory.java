@@ -51,7 +51,7 @@ public class ConversationLocalCategory {
     }
 
     public ConversationData get(int uid) {
-        return conversations.get(uid);
+        return conversations.getOrDefault(uid,null);
     }
 
     public List<Integer> getConvoUIDs(String convoName) {

@@ -49,8 +49,8 @@ public class PostPlayerResponse {
         return string.toString();
     }
 
-    public NpcConvoID toNpcConvoID() {
-        return new NpcConvoID(responseGlobal,responseLocal,conversationUID);
+    public ConvoID toNpcConvoID() {
+        return new ConvoID(responseGlobal,responseLocal,conversationUID);
     }
 
     public boolean evaluate(String playerUID,int currentOpinion,long timeLastTalked) {

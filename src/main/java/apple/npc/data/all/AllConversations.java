@@ -9,7 +9,7 @@ import apple.npc.creation.convo.single.CreateConvoData;
 import apple.npc.creation.convo.single.CreateConvoResponse;
 import apple.npc.data.convo.ConversationGlobalCategory;
 import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.data.convo.NpcConvoID;
+import apple.npc.data.convo.ConvoID;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.defaults.CreateConvoResponseRedirectDefault;
 import apple.npc.ymlNavigate.YMLFileNavigate;
@@ -97,7 +97,7 @@ public class AllConversations {
     }
 
     public static boolean createResponse(String global, int local, int convo, List<String> text) {
-        ConversationData conversation = get(new NpcConvoID(global, local, convo));
+        ConversationData conversation = get(new ConvoID(global, local, convo));
         if (conversation == null)
             return false;
 
@@ -113,7 +113,7 @@ public class AllConversations {
         return false;
     }
 
-    public static ConversationData get(NpcConvoID convoID) {
+    public static ConversationData get(ConvoID convoID) {
         if (hasGlobalCategory(convoID.global))
             return allConversations.get(convoID.global).get(convoID.local, convoID.uid);
         return null;
