@@ -1,5 +1,6 @@
 package apple.npc.commands.make.convo;
 
+import apple.npc.commands.CommandReferences;
 import apple.npc.commands.CreateRedirect;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,9 +18,9 @@ import java.util.List;
 public class MakeConLocal implements CommandExecutor, TabCompleter {
 
     public MakeConLocal(JavaPlugin plugin) {
-        PluginCommand command = plugin.getCommand("make_con_local");
+        PluginCommand command = plugin.getCommand(CommandReferences.NPC_CONVO_MAKE_LOCAL);
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the make_con_local command");
+            System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC_CONVO_MAKE_LOCAL + " command");
             return;
         }
         command.setExecutor(this);

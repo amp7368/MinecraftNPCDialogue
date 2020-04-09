@@ -1,5 +1,6 @@
 package apple.npc.data.npc;
 
+import apple.npc.ColorScheme;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
@@ -151,7 +152,7 @@ public class NPCData {
                     message.setColor(net.md_5.bungee.api.ChatColor.GRAY);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/npc_respond %d %d", uid, resp.uid)));
                     realPlayer.spigot().sendMessage(message);
-                    realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
+                    realPlayer.sendMessage(ColorScheme.DASH);
                 }
             }
         }
@@ -160,12 +161,12 @@ public class NPCData {
     }
 
     private void talkAtPlayer(Player realPlayer, NpcConvoID convoID) {
-        realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
+        realPlayer.sendMessage(ColorScheme.DASH);
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
-        realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
+        realPlayer.sendMessage(ColorScheme.DASH);
 
     }
 

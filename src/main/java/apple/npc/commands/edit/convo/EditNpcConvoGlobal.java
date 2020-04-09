@@ -34,7 +34,7 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
             return false;
         }
         player.sendMessage(ChatColor.BLUE + "Type what conversation global category would you like to edit?");
-        StopCommand.startListening(new ReadingConvoGlobal(), player);
+        StopCommand.startListening(new ReadingConvoGlobal(plugin), player);
         return true;
     }
 
