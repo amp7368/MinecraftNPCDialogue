@@ -30,6 +30,7 @@ public class Commands {
         new EditNpcConvoLocal(plugin);
         new EditNpcConvoConvo(plugin);
         new EditNpcConvoResponse(plugin);
+        new EditNpcConvoResponseDetails(plugin);
 
         new EditNpc(plugin);
         new NpcConclusionToConvo(plugin);
