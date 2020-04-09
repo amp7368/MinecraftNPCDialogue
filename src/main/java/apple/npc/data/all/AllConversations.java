@@ -68,53 +68,24 @@ public class AllConversations {
             System.err.println("this global category doesn't exist");
             return false;
         }
-        ConversationGlobalCategory globalCategory = allConversations.get(global);
-        // iterate until you find an empty local uid
-        int nextLocalUID = 0;
-        while (globalCategory.hasLocalCategory(nextLocalUID)) {
-            nextLocalUID++;
-        }
-        if (CreateConvoLocal.create(dataFolder.getPath(), global, new ConvoLocalInfo(nextLocalUID, local))) {
-            readGlobal(global);
-            return true;
-        } else {
-            return false;
-        }
+        allConversations.get(global).createConvoLocal(local);
+        writeGlobal(global);
+        return true;
     }
 
     public static boolean createConvo(String global, int local, String convo, List<String> text) {
         if (!hasLocalCategory(global, local)) {
             return false;
         }
-        ConversationLocalCategory localCategory = allConversations.get(global).get(local);
-        if (localCategory == null)
-            return false; // we already checked this. wtf happened?
-
-        // iterate until you find an empty convo uid
-        int convoUID = 0;
-        while (localCategory.convoUIDExists(convoUID)) {
-            convoUID++;
-        }
-        if (CreateConvoData.create(dataFolder.getPath(), global, local, new ConvoDataInfo(convoUID, convo, text))) {
-            readGlobal(global);
-            return true;
-        }
-        return false;
+        allConversations.get(global).createConvo(global, local, convo, text);
+        writeGlobal(global);
+        return true;
     }
 
     public static boolean createResponse(String global, int local, int convo, List<String> text) {
-        ConversationData conversation = get(new ConvoID(global, local, convo));
-        if (conversation == null)
-            return false;
-
-        int reponseUID = 0;
-        while (conversation.contains(reponseUID)) {
-            reponseUID++;
-        }
-        if (CreateConvoResponse.create(dataFolder.getPath(), global, local, convo, new ConvoRespInfo(reponseUID, text))) {
-            CreateConvoResponseRedirectDefault.create(dataFolder.getPath(), global, local, convo, reponseUID);
-            readGlobal(global);
-            return true;
+        if(hasGlobalCategory(global)){
+            allConversations.get(global).createResponse(global,local,convo,text);
+            writeGlobal(global);
         }
         return false;
     }

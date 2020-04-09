@@ -31,6 +31,14 @@ public class PostPlayerResponse {
         }
     }
 
+    public PostPlayerResponse(String responseGlobal, int responseLocal, int conversationUID) {
+        variableChanges = new HashSet<>();
+        this.responseGlobal = responseGlobal;
+        this.responseLocal = responseLocal;
+        this.conversationUID = conversationUID;
+        redirectRequirements = new BooleanExpRequirement(true);
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -50,11 +58,11 @@ public class PostPlayerResponse {
     }
 
     public ConvoID toNpcConvoID() {
-        return new ConvoID(responseGlobal,responseLocal,conversationUID);
+        return new ConvoID(responseGlobal, responseLocal, conversationUID);
     }
 
-    public boolean evaluate(String playerUID,int currentOpinion,long timeLastTalked) {
-        return redirectRequirements.evaluate(playerUID,currentOpinion,timeLastTalked);
+    public boolean evaluate(String playerUID, int currentOpinion, long timeLastTalked) {
+        return redirectRequirements.evaluate(playerUID, currentOpinion, timeLastTalked);
     }
 
     public HashSet<VariableChange> getVariableChanges() {

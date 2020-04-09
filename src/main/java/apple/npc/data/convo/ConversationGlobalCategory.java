@@ -92,4 +92,24 @@ public class ConversationGlobalCategory {
         return localCategoryConversations;
     }
 
+    public void createConvoLocal(String localName) {
+        // iterate until you find an empty local uid
+        int nextLocalUID = 0;
+        while (hasLocalCategory(nextLocalUID)) {
+            nextLocalUID++;
+        }
+        localCategoryConversations.put(nextLocalUID, new ConversationLocalCategory(nextLocalUID, localName));
+    }
+
+    public void createConvo(String global, int local, String convo, List<String> text) {
+        if (hasLocalCategory(local)) {
+            localCategoryConversations.get(local).createConvo(global, local, convo, text);
+        }
+    }
+
+    public void createResponse(String global, int local, int convo, List<String> text) {
+        if (hasLocalCategory(local)) {
+            localCategoryConversations.get(local).createResponse(global, local, convo, text);
+        }
+    }
 }

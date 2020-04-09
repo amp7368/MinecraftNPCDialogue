@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
-    private final PostPlayerResponse defaultPostReponse;
+    private PostPlayerResponse defaultPostReponse;
     public int uid;
     private Evaluateable preResponseRequirement;
     public List<String> response;
@@ -25,6 +25,14 @@ public class ConversationResponse implements Evaluateable {
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
         this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s",
                 YMLConversationNavigate.DEFAULT_POST_RESPONSE)));
+    }
+
+    public ConversationResponse(String global, int local, int convo, int responseUID, List<String> text) {
+        uid = responseUID;
+        preResponseRequirement = new BooleanExpRequirement(true);
+        response = text;
+        postResponses = new ArrayList<>();
+        defaultPostReponse = new PostPlayerResponse(global, local, convo);
     }
 
     private List<PostPlayerResponse> getPostResponses(ConfigurationSection config) {

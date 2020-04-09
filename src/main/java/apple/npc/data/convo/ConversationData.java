@@ -21,6 +21,15 @@ public class ConversationData {
         this.immediateConvo = new PostPlayerResponse(config.getConfigurationSection(YMLConversationNavigate.IMMEDIATE_CONVO));
     }
 
+    public ConversationData(String global, int local, int uid, String name, List<String> text) {
+        this.uid = uid;
+        this.name = name;
+        this.conversationText = text;
+        responses = new ArrayList<>();
+        immediateConvo = new PostPlayerResponse(global, local, uid);
+
+    }
+
     private List<ConversationResponse> getResponses(ConfigurationSection config) {
         List<ConversationResponse> responses = new ArrayList<>();
         // just loop through 1 to _ because I don't know a better way to do it.
@@ -57,7 +66,9 @@ public class ConversationData {
                 return true;
         }
         return false;
-    }public ConversationResponse get(int responseId) {
+    }
+
+    public ConversationResponse get(int responseId) {
         for (ConversationResponse response : responses) {
             if (response.uid == responseId)
                 return response;
@@ -65,5 +76,12 @@ public class ConversationData {
         return null;
     }
 
+    public void createResponse(String global, int local, int convo, List<String> text) {
+        int responseUID = 0;
+        while (contains(responseUID)) {
+            responseUID++;
+        }
+        responses.add(new ConversationResponse(global, local, convo, responseUID, text));
+    }
 }
 

@@ -33,6 +33,12 @@ public class ConversationLocalCategory {
         }
     }
 
+    public ConversationLocalCategory(int uid, String name) {
+        conversations = new HashMap<>();
+        this.uid = uid;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -87,5 +93,21 @@ public class ConversationLocalCategory {
 
     public Map<Integer, ConversationData> getConversations() {
         return conversations;
+    }
+
+    public void createConvo(String global, int local, String convo, List<String> text) {
+        // iterate until you find an empty convo uid
+        int convoUID = 0;
+        while (conversations.containsKey(convoUID)) {
+            convoUID++;
+        }
+        conversations.put(convoUID, new ConversationData(global, local, convoUID, convo, text));
+
+    }
+
+    public void createResponse(String global,int local, int convo, List<String> text) {
+        if(conversations.containsKey(convo)){
+            conversations.get(convo).createResponse(global,local,convo,text);
+        }
     }
 }
