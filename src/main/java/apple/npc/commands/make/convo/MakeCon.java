@@ -1,4 +1,4 @@
-package apple.npc.commands.makeCon;
+package apple.npc.commands.make.convo;
 
 import apple.npc.commands.CreateRedirect;
 import org.bukkit.Bukkit;
@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class for dealing with making a global category for conversations
+ * a class for creating a conversation given a global, local, and the conversation name that is requested
  */
-public class MakeConGlobal implements CommandExecutor, TabCompleter {
+public class MakeCon implements CommandExecutor, TabCompleter {
     JavaPlugin plugin;
 
-    public MakeConGlobal(JavaPlugin plugin) {
+    public MakeCon(JavaPlugin plugin) {
         this.plugin = plugin;
-        PluginCommand command = plugin.getCommand("make_con_global");
+        PluginCommand command = plugin.getCommand("make_con");
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the make_con_global command");
+            System.err.println("[NPCDialogue] could not get the make_con command");
             return;
         }
         command.setExecutor(this);
@@ -35,11 +35,12 @@ public class MakeConGlobal implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-        if (args.length != 1) {
+
+        if (args.length != 3) {
             commandSender.sendMessage(String.format(ChatColor.RED + "args length of %d is not valid.", args.length));
             return true;
         }
-        CreateRedirect.createConvoGlobal(args[0], player);
+        CreateRedirect.createConvo(args[0], args[1], args[2], player);
         return true;
     }
 

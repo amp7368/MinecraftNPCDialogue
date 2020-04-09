@@ -18,9 +18,9 @@ public class NpcCommand implements CommandExecutor {
 
     public NpcCommand(JavaPlugin plugin) {
         this.plugin = plugin;
-        PluginCommand command = plugin.getCommand("npc");
+        PluginCommand command = plugin.getCommand(CommandReferences.NPC);
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the npc command");
+            System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC + " command");
             return;
         }
         command.setExecutor(this);

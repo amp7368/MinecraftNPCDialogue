@@ -1,4 +1,4 @@
-package apple.npc.commands.makeNpc;
+package apple.npc.commands.make.npc;
 
 import apple.npc.commands.CreateRedirect;
 import org.bukkit.Bukkit;
