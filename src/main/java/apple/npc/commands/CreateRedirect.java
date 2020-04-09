@@ -9,6 +9,7 @@ import apple.npc.reading.text.ReadingTextConvo;
 import apple.npc.reading.text.ReadingTextResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
@@ -212,8 +213,8 @@ public class CreateRedirect {
      *
      * @param player the player requesting this service
      */
-    public static void makeNpc(Player player) {
+    public static void makeNpc(Player player, JavaPlugin plugin) {
         player.sendMessage(ChatColor.BLUE + "What is the name of the Npc you would like to create?");
-        StopCommand.startListening(new ReadingMakeNpc(), player);
+        StopCommand.startListening(new ReadingMakeNpc(plugin), player);
     }
 }

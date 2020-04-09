@@ -19,4 +19,8 @@ public class VarsConclusionMap implements Evaluateable {
     public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
         return exp.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
+
+    public Evaluateable getExpression() {
+        return exp;
+    }
 }

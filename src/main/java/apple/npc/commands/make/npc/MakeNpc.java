@@ -33,7 +33,7 @@ public class MakeNpc implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        CreateRedirect.makeNpc( player);
+        CreateRedirect.makeNpc(player, plugin);
         return true;
     }
 

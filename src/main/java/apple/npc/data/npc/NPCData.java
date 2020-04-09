@@ -36,6 +36,7 @@ public class NPCData {
         startingConclusion = config.getInt(YMLNpcNavigate.STARTING_CONCLUSION);
         maxTimeSinceTalk = config.getInt(YMLNpcNavigate.MAX_TIME_SINCE_LAST_TALK);
         varsToConclusion = new ArrayList<>();
+        System.out.println("Current path: " + config.getCurrentPath());
         ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
         for (String varConcluKey : varConcluKeys) {
@@ -109,7 +110,7 @@ public class NPCData {
     }
 
     private void doConversation(String playerUID, ConvoID conversation, int currentOpinion, Player realPlayer, PlayerData playerData) {
-        AllNPCs.setPlayerData(this.uid, this.name, playerUID, conversation, currentOpinion, "name will be made eventually");
+        AllNPCs.setPlayerData(this.uid, playerUID, conversation, currentOpinion, "name will be made eventually");
 
 
         if (conversation != null) {
@@ -224,4 +225,33 @@ public class NPCData {
 
         }
     }
+
+    public void setConcluToConvo(int concluNum, String global, int local, int convo) {
+        conclusionsToConvo.put(concluNum, new ConvoID(global, local, convo));
+    }
+
+    public void setPlayerData(String playerUID, ConvoID conversation, int currentOpinion, String opinionName) {
+        playerDataMap.put(playerUID, new NPCPlayerData(playerUID, conversation, System.currentTimeMillis(), new Opinion(currentOpinion, opinionName)));
+    }
+
+    public int getStartingConclusion() {
+        return startingConclusion;
+    }
+
+    public ArrayList<VarsConclusionMap> getVarsToConclusion() {
+        return varsToConclusion;
+    }
+
+    public Map<Integer, ConvoID> getConclusionsToConvo() {
+        return conclusionsToConvo;
+    }
+
+    public Map<String, NPCPlayerData> getPlayerDataMap() {
+        return playerDataMap;
+    }
+
+    public long getMaxTimeSinceTalk() {
+        return maxTimeSinceTalk;
+    }
+
 }

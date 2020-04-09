@@ -1,8 +1,7 @@
 package apple.npc.data.all;
 
-import apple.npc.creation.from_scratch.npc.components.CreateConcluToConvo;
+import apple.npc.creation.from_data.npc.WriteNpcAll;
 import apple.npc.creation.from_scratch.npc.components.CreateNpcPlayerData;
-import apple.npc.creation.from_scratch.npc.info.ConcluToConvoInfo;
 import apple.npc.creation.from_scratch.npc.info.NpcInfo;
 import apple.npc.creation.from_scratch.npc.info.NpcPlayerDataInfo;
 import apple.npc.creation.from_scratch.npc.single.CreateNpcData;
@@ -15,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,11 +25,13 @@ import java.util.Map;
 public class AllNPCs {
 
     private static final long MINUTES_5 = 300000;
-    private static Map<Integer, NPCData> allUIDToNpcs = new HashMap<>();
-    private static Map<String, NPCData> allGameUIDToNpcs = new HashMap<>();
+    private static Map<Integer, NPCData> allUIDToNpcs;
+    private static Map<String, NPCData> allGameUIDToNpcs;
     private static File folder;
 
     public static void initialize(File dataFolder) {
+        allUIDToNpcs = new HashMap<>();
+        allGameUIDToNpcs = new HashMap<>();
         folder = dataFolder;
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.NPC_FOLDER));
         String[] pathNameList = directory.list();
@@ -50,6 +52,26 @@ public class AllNPCs {
         allUIDToNpcs.put(npc.uid, npc);
     }
 
+    private static void writeNpc(int npcUID) {
+        WriteNpcAll.write(folder.getPath(), npcUID, allUIDToNpcs.get(npcUID).name);
+        for (String gameUID : allGameUIDToNpcs.keySet()) {
+            if (allGameUIDToNpcs.get(gameUID).uid == npcUID) {
+                YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(String.format("%s%s%s%s%d%c%s%s",
+                        folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER,File.separator,npcUID, ',', allUIDToNpcs.get(npcUID).name, YMLFileNavigate.YML)));
+                allGameUIDToNpcs.put(gameUID, new NPCData(config));
+            }
+        }
+    }
+
+    public static void writeAll() {
+        for (int npcUID : allUIDToNpcs.keySet()) {
+            writeNpc(npcUID);
+        }
+    }
+
+    public static void readAll() {
+        initialize(folder);
+    }
 
     public static boolean makeNPC(String name, Location location) {
         int uid = 0;
@@ -78,9 +100,8 @@ public class AllNPCs {
 
     public static void setConcluToConvo(int npcUID, int concluNum, String global, int local, int convo) {
         if (allUIDToNpcs.containsKey(npcUID)) {
-            CreateConcluToConvo.set(folder.getPath().toString(), String.valueOf(npcUID), allUIDToNpcs.get(npcUID).name,
-                    new ConcluToConvoInfo(concluNum, global, local, convo));
-            readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);
+            allUIDToNpcs.get(npcUID).setConcluToConvo(concluNum, global, local, convo);
+            writeNpc(npcUID);
         }
 
     }
@@ -115,16 +136,19 @@ public class AllNPCs {
         return allGameUIDToNpcs.containsKey(gameUID);
     }
 
-    public static void setPlayerData(int npcUID, String npcName, String playerUID, ConvoID conversation, int currentOpinion, String opinionName) {
-        CreateNpcPlayerData.set(String.format("%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER),
-                String.valueOf(npcUID), npcName, new NpcPlayerDataInfo(playerUID, conversation, currentOpinion, opinionName));
-        readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);
+    public static void setPlayerData(int npcUID, String playerUID, ConvoID conversation, int currentOpinion, String opinionName) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            allUIDToNpcs.get(npcUID).setPlayerData(playerUID, conversation, currentOpinion, opinionName);
+            writeNpc(npcUID);
+        }
     }
 
     public static void respond(Player player, int npcUid, int responseUid) {
-        if(allUIDToNpcs.containsKey(npcUid))
-        allUIDToNpcs.get(npcUid).respond(player,responseUid);
+        if (allUIDToNpcs.containsKey(npcUid))
+            allUIDToNpcs.get(npcUid).respond(player, responseUid);
         else
             player.sendMessage("Sorry to ruin immersion, but something went wrong getting the npc given your response.");
+        writeNpc(npcUid);
     }
+
 }

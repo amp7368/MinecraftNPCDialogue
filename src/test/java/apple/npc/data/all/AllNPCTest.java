@@ -10,5 +10,6 @@ public class AllNPCTest {
     @Test
     public void conversationReading() {
         AllNPCs.initialize(dataFolder);
+        AllNPCs.writeAll();
     }
 }
