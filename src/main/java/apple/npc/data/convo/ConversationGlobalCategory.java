@@ -1,7 +1,5 @@
 package apple.npc.data.convo;
 
-import apple.npc.data.convo.ConversationData;
-import apple.npc.data.convo.ConversationLocalCategory;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 public class ConversationGlobalCategory {
+
+
     private HashMap<Integer, ConversationLocalCategory> localCategoryConversations;
 
     public ConversationGlobalCategory(YamlConfiguration config) {
@@ -19,16 +19,22 @@ public class ConversationGlobalCategory {
         localCategoryConversations = new HashMap<>();
         Set<String> localCategories = config.getKeys(false);
         for (String local : localCategories) {
-            if (!StringUtils.isNumeric(local)) {
+            int localInt;
+            try {
+                localInt = Integer.parseInt(local);
+            } catch (NumberFormatException e) {
                 System.err.println("not numeric");
                 continue;
             }
-            int localInt = Integer.parseInt(local);
             ConfigurationSection configLocal = config.getConfigurationSection(local);
             if (configLocal == null)
                 continue; // wtf happened if this happens?
             localCategoryConversations.put(localInt, new ConversationLocalCategory(configLocal));
         }
+    }
+
+    public ConversationGlobalCategory() {
+        localCategoryConversations = new HashMap<>();
     }
 
     @Override
@@ -58,8 +64,8 @@ public class ConversationGlobalCategory {
     public List<Integer> getLocalUIDs(String local) {
         List<Integer> localUIDs = new ArrayList<>();
         for (ConversationLocalCategory category : localCategoryConversations.values()) {
-            if (category.name.equals(local))
-                localUIDs.add(category.uid);
+            if (category.getName().equals(local))
+                localUIDs.add(category.getUid());
         }
         return localUIDs;
     }
@@ -80,6 +86,10 @@ public class ConversationGlobalCategory {
                 return true;
         }
         return false;
+    }
+
+    public HashMap<Integer, ConversationLocalCategory> getLocalCategoryConversations() {
+        return localCategoryConversations;
     }
 
 }

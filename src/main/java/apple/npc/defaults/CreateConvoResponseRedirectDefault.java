@@ -1,8 +1,8 @@
 package apple.npc.defaults;
 
 
-import apple.npc.creation.convo.components.CreatePostDefault;
-import apple.npc.creation.convo.info.ConvoRespPostInfo;
+import apple.npc.creation.from_scratch.convo.components.CreatePostDefault;
+import apple.npc.creation.from_scratch.convo.info.ConvoRespPostInfo;
 
 import java.util.ArrayList;
 

@@ -20,4 +20,6 @@ public class CommandReferences {
     public static final String NPC_CONVO_MAKE_LOCAL = "npc_convo_make_local";
     public static final String NPC_CONVO_MAKE_CONVO = "npc_convo_make_convo";
 
-    }
+    public static final String NPC_WRITE = "npc_write";
+    public static final String NPC_READ = "npc_read";
+}

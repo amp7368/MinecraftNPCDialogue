@@ -3,6 +3,8 @@ package apple.npc.commands;
 import apple.npc.commands.edit.EditNpc;
 import apple.npc.commands.edit.convo.*;
 import apple.npc.commands.edit.NpcConclusionToConvo;
+import apple.npc.commands.io.ReadCommand;
+import apple.npc.commands.io.WriteCommand;
 import apple.npc.commands.make.convo.MakeCon;
 import apple.npc.commands.make.convo.MakeConGlobal;
 import apple.npc.commands.make.convo.MakeConLocal;
@@ -22,6 +24,8 @@ public class Commands {
         new MakeConResponse(plugin);
         new MakeNpc(plugin);
 
+        new WriteCommand(plugin);
+        new ReadCommand(plugin);
 
         new NpcCommand(plugin);
 

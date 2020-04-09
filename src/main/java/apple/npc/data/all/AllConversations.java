@@ -1,12 +1,13 @@
 package apple.npc.data.all;
 
-import apple.npc.creation.convo.category.CreateConvoGlobal;
-import apple.npc.creation.convo.category.CreateConvoLocal;
-import apple.npc.creation.convo.info.ConvoDataInfo;
-import apple.npc.creation.convo.info.ConvoLocalInfo;
-import apple.npc.creation.convo.info.ConvoRespInfo;
-import apple.npc.creation.convo.single.CreateConvoData;
-import apple.npc.creation.convo.single.CreateConvoResponse;
+import apple.npc.creation.from_data.convo.WriteConvoAll;
+import apple.npc.creation.from_scratch.convo.category.CreateConvoGlobal;
+import apple.npc.creation.from_scratch.convo.category.CreateConvoLocal;
+import apple.npc.creation.from_scratch.convo.info.ConvoDataInfo;
+import apple.npc.creation.from_scratch.convo.info.ConvoLocalInfo;
+import apple.npc.creation.from_scratch.convo.info.ConvoRespInfo;
+import apple.npc.creation.from_scratch.convo.single.CreateConvoData;
+import apple.npc.creation.from_scratch.convo.single.CreateConvoResponse;
 import apple.npc.data.convo.ConversationGlobalCategory;
 import apple.npc.data.convo.ConversationLocalCategory;
 import apple.npc.data.convo.ConvoID;
@@ -47,13 +48,18 @@ public class AllConversations {
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
+    private static void writeGlobal(String global) {
+        if (hasGlobalCategory(global))
+            WriteConvoAll.write(dataFolder.getPath(), allConversations.get(global), global);
+    }
+
     public static boolean createConvoGlobal(String global) {
-        if (CreateConvoGlobal.create(dataFolder.getPath(), global)) {
-            readGlobal(global);
+        if (!hasGlobalCategory(global)) {
+            allConversations.put(global, new ConversationGlobalCategory());
+            writeGlobal(global);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
 
@@ -139,7 +145,7 @@ public class AllConversations {
             ConversationLocalCategory cat = allConversations.get(global).get(local);
             if (cat == null)
                 return null;
-            return cat.name;
+            return cat.getName();
         }
         return null;
     }
@@ -158,5 +164,15 @@ public class AllConversations {
         if (!hasGlobalCategory(global))
             return false;
         return allConversations.get(global).hasLocalCategory(local);
+    }
+
+    public static void writeAll() {
+        for (String global : allConversations.keySet()) {
+            writeGlobal(global);
+        }
+    }
+
+    public static void readAll() {
+        initialize(dataFolder);
     }
 }

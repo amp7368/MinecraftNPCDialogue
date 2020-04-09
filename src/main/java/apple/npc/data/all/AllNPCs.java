@@ -1,11 +1,11 @@
 package apple.npc.data.all;
 
-import apple.npc.creation.npc.components.CreateConcluToConvo;
-import apple.npc.creation.npc.components.CreateNpcPlayerData;
-import apple.npc.creation.npc.info.ConcluToConvoInfo;
-import apple.npc.creation.npc.info.NpcInfo;
-import apple.npc.creation.npc.info.NpcPlayerDataInfo;
-import apple.npc.creation.npc.single.CreateNpcData;
+import apple.npc.creation.from_scratch.npc.components.CreateConcluToConvo;
+import apple.npc.creation.from_scratch.npc.components.CreateNpcPlayerData;
+import apple.npc.creation.from_scratch.npc.info.ConcluToConvoInfo;
+import apple.npc.creation.from_scratch.npc.info.NpcInfo;
+import apple.npc.creation.from_scratch.npc.info.NpcPlayerDataInfo;
+import apple.npc.creation.from_scratch.npc.single.CreateNpcData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;

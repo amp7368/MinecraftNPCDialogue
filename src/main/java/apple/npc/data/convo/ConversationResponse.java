@@ -76,4 +76,16 @@ public class ConversationResponse implements Evaluateable {
         }
         return null;
     }
+
+    public PostPlayerResponse getDefaultPostReponse() {
+        return defaultPostReponse;
+    }
+
+    public Evaluateable getPreResponseRequirement() {
+        return preResponseRequirement;
+    }
+
+    public List<PostPlayerResponse> getPostResponses() {
+        return postResponses;
+    }
 }

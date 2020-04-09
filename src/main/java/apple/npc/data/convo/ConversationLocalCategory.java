@@ -1,16 +1,14 @@
 package apple.npc.data.convo;
 
-import apple.npc.data.convo.ConversationData;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
 
 public class ConversationLocalCategory {
-    public int uid;
-    public String name;
-    public Map<Integer, ConversationData> conversations;
+    private int uid;
+    private String name;
+    private Map<Integer, ConversationData> conversations;
 
     public ConversationLocalCategory(ConfigurationSection config) {
         conversations = new HashMap<>();
@@ -24,9 +22,13 @@ public class ConversationLocalCategory {
         }
         Set<String> conversationUIDs = conversationsConfig.getKeys(false);
         for (String conversation : conversationUIDs) {
-            if (!StringUtils.isNumeric(conversation))
+            int conversationUID;
+            try {
+                conversationUID = Integer.parseInt(conversation);
+            } catch (NumberFormatException e) {
+                System.err.println("not numeric");
                 continue;
-            int conversationUID = Integer.parseInt(conversation);
+            }
             conversations.put(conversationUID, new ConversationData(conversationsConfig.getConfigurationSection(conversation)));
         }
     }
@@ -51,7 +53,7 @@ public class ConversationLocalCategory {
     }
 
     public ConversationData get(int uid) {
-        return conversations.getOrDefault(uid,null);
+        return conversations.getOrDefault(uid, null);
     }
 
     public List<Integer> getConvoUIDs(String convoName) {
@@ -75,4 +77,15 @@ public class ConversationLocalCategory {
         return false;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<Integer, ConversationData> getConversations() {
+        return conversations;
+    }
 }

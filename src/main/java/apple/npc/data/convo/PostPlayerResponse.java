@@ -56,4 +56,24 @@ public class PostPlayerResponse {
     public boolean evaluate(String playerUID,int currentOpinion,long timeLastTalked) {
         return redirectRequirements.evaluate(playerUID,currentOpinion,timeLastTalked);
     }
+
+    public HashSet<VariableChange> getVariableChanges() {
+        return variableChanges;
+    }
+
+    public String getResponseGlobal() {
+        return responseGlobal;
+    }
+
+    public int getResponseLocal() {
+        return responseLocal;
+    }
+
+    public int getConversationUID() {
+        return conversationUID;
+    }
+
+    public BooleanExpRequirement getRedirectRequirements() {
+        return redirectRequirements;
+    }
 }

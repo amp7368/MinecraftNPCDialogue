@@ -1,5 +1,6 @@
 package apple.npc.commands.edit;
 
+import apple.npc.ColorScheme;
 import apple.npc.commands.EditRedirect;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -34,8 +35,14 @@ public class NpcConclusionToConvo implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        if (args.length != 1 || !StringUtils.isNumeric(args[0])) {
+        if (args.length != 1) {
             commandSender.sendMessage(String.format(ChatColor.RED + "args length of %d is not valid.", args.length));
+            return false;
+        }
+        try {
+            Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            commandSender.sendMessage(ColorScheme.BAD + "The first argument must be a number.");
             return false;
         }
         EditRedirect.editNpcConcluToConvo(Integer.parseInt(args[0]), player);

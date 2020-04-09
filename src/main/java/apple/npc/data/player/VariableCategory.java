@@ -14,11 +14,14 @@ public class VariableCategory {
     public VariableCategory(ConfigurationSection config) {
         variables = new HashMap<>();
         Set<String> varUidList = config.getKeys(false);
-        for (String varUid : varUidList) {
-            if (!StringUtils.isNumeric(varUid)) {
+        for (String varUid : varUidList) {int conversationUID;
+            int varUidInt;
+            try {
+                varUidInt = Integer.parseInt(varUid);
+            } catch (NumberFormatException e) {
+                System.err.println("not numeric");
                 continue;
             }
-            int varUidInt = Integer.parseInt(varUid);
             variables.put(varUidInt, new Variable(config.getConfigurationSection(varUid)));
         }
     }
