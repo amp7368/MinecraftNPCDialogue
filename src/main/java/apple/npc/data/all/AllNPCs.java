@@ -14,6 +14,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -120,4 +121,10 @@ public class AllNPCs {
         readNpc(npcUID + "," + allUIDToNpcs.get(npcUID).name + YMLFileNavigate.YML);
     }
 
+    public static void respond(Player player, int npcUid, int responseUid) {
+        if(allUIDToNpcs.containsKey(npcUid))
+        allUIDToNpcs.get(npcUid).respond(player,responseUid);
+        else
+            player.sendMessage("Sorry to ruin immersion, but something went wrong getting the npc given your response.");
+    }
 }

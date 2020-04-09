@@ -4,6 +4,7 @@ import apple.npc.commands.edit.NpcCommand;
 import apple.npc.commands.edit.NpcConclusionToConvo;
 import apple.npc.commands.makeCon.*;
 import apple.npc.commands.makeNpc.MakeNpc;
+import apple.npc.commands.talking.RespondToNpcCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -21,5 +22,6 @@ public class Commands {
 
         new NpcCommand(plugin);
         new NpcConclusionToConvo(plugin);
+        new RespondToNpcCommand(plugin);
     }
 }

@@ -2,6 +2,7 @@ package apple.npc.commands;
 
 import apple.npc.NPCDialogueMain;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +29,7 @@ public class CommandPing implements CommandExecutor {
         if (player == null) {
             commandSender.sendMessage("nope");
         } else {
-            player.sendMessage("pong");
+            player.sendMessage(ChatColor.LIGHT_PURPLE + "pong");
         }
         return false;
     }

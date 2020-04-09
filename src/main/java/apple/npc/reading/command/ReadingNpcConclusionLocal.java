@@ -2,6 +2,7 @@ package apple.npc.reading.command;
 
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ReadingNpcConclusionLocal extends ReadingCommand {
             player.sendMessage("finish me");
             StopCommand.startListening(new ReadingNpcConclusionLocal(npcUID, concluNum, global), player);
         } else if (uids.size() != 1) {
-            player.sendMessage("Which local do you want?");
+            player.sendMessage(ChatColor.BLUE + "Which local do you want?");
             List<String> uidsString = new ArrayList<>();
             for (int uid : uids) {
                 uidsString.add(String.valueOf(uid));

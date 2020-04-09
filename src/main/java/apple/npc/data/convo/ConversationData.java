@@ -1,6 +1,5 @@
 package apple.npc.data.convo;
 
-import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -31,7 +30,6 @@ public class ConversationData {
             responses.add(new ConversationResponse(optionConfig));
             optionConfig = config.getConfigurationSection(String.valueOf(i++));
         }
-
         return responses;
     }
 
@@ -59,6 +57,12 @@ public class ConversationData {
                 return true;
         }
         return false;
+    }public ConversationResponse get(int responseId) {
+        for (ConversationResponse response : responses) {
+            if (response.uid == responseId)
+                return response;
+        }
+        return null;
     }
 
 }

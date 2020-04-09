@@ -6,6 +6,7 @@ import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
 import apple.npc.reading.text.ReadingTextConvo;
 import apple.npc.reading.text.ReadingTextResponse;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public class CreateRedirect {
      */
     public static void createConvoGlobal(String global, Player player) {
         if (AllConversations.createConvoGlobal(global)) {
-            player.sendMessage(String.format("Successfully made a conversation global category of %s", global));
+            player.sendMessage(ChatColor.GREEN + String.format("Successfully made a conversation global category of %s", global));
         } else {
             if (AllConversations.hasGlobalCategory(global)) {
-                player.sendMessage(String.format("The conversation global category of %s already exists", global));
+                player.sendMessage(ChatColor.GREEN + String.format("The conversation global category of %s already exists", global));
             } else {
-                player.sendMessage("Something went wrong making a global category of " + global);
+                player.sendMessage(ChatColor.RED + "Something went wrong making a global category of " + global);
             }
         }
     }
@@ -41,14 +42,13 @@ public class CreateRedirect {
      * @param player the player requesting this service
      */
     public static void createConvoLocal(String global, String local, Player player) {
-        System.out.println("Starting to create convoLocal for " + global + " " + local);
         if (AllConversations.createConvoLocal(global, local)) {
-            player.sendMessage(String.format("Successfully made a conversation %s.%s", global, local));
+            player.sendMessage(String.format(ChatColor.GREEN + "Successfully made a conversation %s.%s", global, local));
         } else {
             if (!AllConversations.hasGlobalCategory(global)) {
-                player.sendMessage(String.format("The conversation global category of %s does not exist.", global));
+                player.sendMessage(String.format(ChatColor.GREEN + "The conversation global category of %s does not exist.", global));
             } else {
-                player.sendMessage("Something went wrong making a conversation local category of " + local);
+                player.sendMessage(ChatColor.RED + "Something went wrong making a conversation local category of " + local);
             }
         }
     }
@@ -64,11 +64,11 @@ public class CreateRedirect {
      */
     public static void createConvo(String global, String local, String convoName, Player player) {
         if (!AllConversations.hasGlobalCategory(global)) {
-            player.sendMessage(String.format("The conversation global category of %s does not exist.", global));
+            player.sendMessage(String.format(ChatColor.RED + "The conversation global category of %s does not exist.", global));
             return;
         }
         if (!AllConversations.hasLocalCategory(global, local)) {
-            player.sendMessage(String.format("The conversation local category of %s does not exist for category %s.", local, global));
+            player.sendMessage(String.format(ChatColor.RED + "The conversation local category of %s does not exist for category %s.", local, global));
             return;
         }
         List<Integer> localUIDs;
@@ -78,7 +78,7 @@ public class CreateRedirect {
             player.sendMessage(e.getMessage());
             return;
         } catch (NoUIDException e) {
-            player.sendMessage(String.format("There is no local category under %s.%s", global, local));
+            player.sendMessage(String.format(ChatColor.RED + "There is no local category under %s.%s", global, local));
             return;
         }
         int localUID;
@@ -103,7 +103,7 @@ public class CreateRedirect {
      */
     public static void createConvoResponse(String global, String local, String convoName, Player player) {
         if (!AllConversations.hasLocalCategory(global, local)) {
-            player.sendMessage(String.format("The conversation local category of %s does not exist for category %s.", local, global));
+            player.sendMessage(String.format(ChatColor.RED + "The conversation local category of %s does not exist for category %s.", local, global));
             return;
         }
         List<Integer> localUIDs;
@@ -113,7 +113,7 @@ public class CreateRedirect {
             player.sendMessage(e.getMessage());
             return;
         } catch (NoUIDException e) {
-            player.sendMessage(String.format("There is no local category under %s.%s", global, local));
+            player.sendMessage(String.format(ChatColor.RED + "There is no local category under %s.%s", global, local));
             return;
         }
         int localUID;
@@ -130,7 +130,7 @@ public class CreateRedirect {
             player.sendMessage(e.getMessage());
             return;
         } catch (NoUIDException e) {
-            player.sendMessage(String.format("There is no conversation under %s.%s.%s", global, local, convoName));
+            player.sendMessage(String.format(ChatColor.RED + "There is no conversation under %s.%s.%s", global, local, convoName));
             return;
         }
         int convoUID;
@@ -156,11 +156,11 @@ public class CreateRedirect {
         List<Integer> localUIDs = AllConversations.getLocalUIDs(global, local);
         if (localUIDs == null) {
             // this should never happen
-            throw new BadUIDException(String.format("The uid %s does not exist. This shouldn't happen.", global));
+            throw new BadUIDException(String.format(ChatColor.RED + "The uid %s does not exist. This shouldn't happen.", global));
         }
         if (localUIDs.isEmpty()) {
             // notify the user that they had a bad name for a conversation
-            throw new NoUIDException("There is no uid with name " + local);
+            throw new NoUIDException(ChatColor.RED + "There is no uid with name " + local);
         }
         return localUIDs;
     }
@@ -179,11 +179,11 @@ public class CreateRedirect {
         List<Integer> convoUIDs = AllConversations.getConvoUIDs(global, localUID, convoName);
         if (convoUIDs == null) {
             // this should never happen
-            throw new BadUIDException(String.format("The uid %d does not exist. This shouldn't happen.", localUID));
+            throw new BadUIDException(String.format(ChatColor.RED + "The uid %d does not exist. This shouldn't happen.", localUID));
         }
         if (convoUIDs.isEmpty()) {
             // notify the user that they had a bad name for a conversation
-            throw new NoUIDException("There is no uid with name " + convoName);
+            throw new NoUIDException(ChatColor.RED + "There is no uid with name " + convoName);
         }
         return convoUIDs;
     }
