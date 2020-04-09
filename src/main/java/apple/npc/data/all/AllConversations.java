@@ -159,6 +159,4 @@ public class AllConversations {
             return false;
         return allConversations.get(global).hasLocalCategory(local);
     }
-
-
 }

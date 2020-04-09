@@ -24,6 +24,8 @@ commands:
     description: starts an editing session to edit conversation global categories
   npc_convo_edit_local:
     description: starts an editing session to edit conversation local categories
+  npc_convo_edit_convo:
+    description: will be starts an editing session to edit a conversation
 
 
   npc_make:
@@ -42,12 +44,16 @@ commands:
   ping:
     description: ping
 
-  npc_convo_make:
+  npc_convo_make_convo:
     description: will be starts a session to make something that is related to conversations
 
-  npc_convo_edit_convo:
-    description: will be starts an editing session to edit a conversation
   npc_convo_edit_response:
     description: will be starts an editing session to edit a response in a conversation
   npc_convo_edit_local_name:
     description: will be edits the name of a local category
+  npc_convo_edit_convo_name:
+    description: will be edits the name of a conversation
+  npc_convo_edit_convo_text:
+    description: will be edits the text of a conversation
+  npc_convo_edit_convo_imm:
+    description: will be edits the immediateConvo of a conversation
