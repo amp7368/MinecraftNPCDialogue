@@ -1,9 +1,9 @@
 package apple.npc.commands;
 
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.all.AllNPCs;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
+import apple.npc.reading.command.npc.make.ReadingMakeNpc;
 import apple.npc.reading.text.ReadingTextConvo;
 import apple.npc.reading.text.ReadingTextResponse;
 import org.bukkit.ChatColor;
@@ -191,12 +191,10 @@ public class CreateRedirect {
     /**
      * create a default npc with the name of name
      *
-     * @param name   the name of the npc we're creating
      * @param player the player requesting this service
      */
-    public static void createNpc(String name, Player player) {
-        if (AllNPCs.makeNPC(name, player.getLocation())) {
-
-        }
+    public static void makeNpc(Player player) {
+        player.sendMessage(ChatColor.BLUE + "What is the name of the Npc you would like to create?");
+        StopCommand.startListening(new ReadingMakeNpc(), player);
     }
 }

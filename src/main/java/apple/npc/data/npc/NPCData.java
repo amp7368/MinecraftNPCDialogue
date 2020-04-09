@@ -57,7 +57,7 @@ public class NPCData {
             try {
                 conclusionNum = Integer.parseInt(conclusion);
             } catch (NumberFormatException e) {
-                System.out.println("there was a conclusion that was not a number");
+                System.err.println("there was a conclusion that was not a number");
                 continue;
             }
             map.put(conclusionNum, new NpcConvoID(config.getConfigurationSection(conclusion)));
@@ -144,7 +144,6 @@ public class NPCData {
                 opinion = playerDataMap.get(playerUID).opinion.opinionUID;
             else
                 opinion = startingConclusion;
-            realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
             if (resp.evaluate(playerUID, opinion, timeLastTalked)) {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
@@ -161,10 +160,13 @@ public class NPCData {
     }
 
     private void talkAtPlayer(Player realPlayer, NpcConvoID convoID) {
+        realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
+        realPlayer.sendMessage(ChatColor.GRAY + "-------------------------");
+
     }
 
     /**

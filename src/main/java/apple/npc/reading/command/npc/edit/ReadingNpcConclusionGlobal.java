@@ -1,7 +1,8 @@
-package apple.npc.reading.command;
+package apple.npc.reading.command.npc.edit;
 
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.reading.command.ReadingCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

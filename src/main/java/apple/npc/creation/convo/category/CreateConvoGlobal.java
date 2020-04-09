@@ -23,7 +23,7 @@ public class CreateConvoGlobal {
         if (pathNameList != null)
             for (String pathName : pathNameList) {
                 if (pathName.equals(globalName)) {
-                    System.out.println("there already exists a global convo file with that name");
+                    System.err.println("there already exists a global convo file with that name");
                     return false;
                 }
             }
@@ -32,7 +32,7 @@ public class CreateConvoGlobal {
             newFile = new File(String.format("%s%s%s%s", folder, File.separator, globalName, YMLFileNavigate.YML));
             boolean didCreate = newFile.createNewFile();
             if (!didCreate) {
-                System.out.println(String.format("somehow I wasn't able to create file %s%s%s%s", folder, File.separator, globalName, YMLFileNavigate.YML));
+                System.err.println(String.format("somehow I wasn't able to create file %s%s%s%s", folder, File.separator, globalName, YMLFileNavigate.YML));
                 return false;
             }
             FileWriter writer = new FileWriter(newFile);

@@ -33,7 +33,6 @@ public class AllConversations {
             return;
         }
         for (String globalCategory : pathNameList) {
-            System.out.println("intializing conversations " + globalCategory);
             File file = new File(String.format("%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, globalCategory));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
@@ -45,7 +44,6 @@ public class AllConversations {
         // read that category in
         File file = new File(String.format("%s%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        System.out.println("putting " + global + " from " + String.format("%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
@@ -61,7 +59,7 @@ public class AllConversations {
 
     public static boolean createConvoLocal(String global, String local) {
         if (!hasGlobalCategory(global)) {
-            System.out.println("this global category doesn't exist");
+            System.err.println("this global category doesn't exist");
             return false;
         }
         ConversationGlobalCategory globalCategory = allConversations.get(global);
@@ -70,14 +68,8 @@ public class AllConversations {
         while (globalCategory.hasLocalCategory(nextLocalUID)) {
             nextLocalUID++;
         }
-        System.out.println("nextLocalUID: " + nextLocalUID);
         if (CreateConvoLocal.create(dataFolder.getPath(), global, new ConvoLocalInfo(nextLocalUID, local))) {
-            System.out.println("saved!");
             readGlobal(global);
-            for (ConversationGlobalCategory cat : allConversations.values()) {
-                System.out.println("there is a conversation here");
-                System.out.println(cat.toString());
-            }
             return true;
         } else {
             return false;

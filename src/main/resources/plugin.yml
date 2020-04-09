@@ -6,22 +6,35 @@ main: apple.npc.NPCDialogueMain
 description: allow the player to teleport using player made paper scrolls
 commands:
   make_con_global:
-    description: creates a global category for conversations
+    description: starts a session to make a conversation global category
   make_con_local:
-    description: creates a local category for conversations
+    description: starts a session to make a conversation local category
   make_con:
-    description: creates conversation
+    description: starts a session to make a new conversation
   make_con_response:
-    description: creates a response for a given conversations
-  stop_reading:
-    description: stops text from being entered by the user
-  make_npc:
-    description: makes an npc with no conversation associated with it
+    description: starts an editing session of creating a response in a conversation
+
   npc:
-    description: starts a session of editing an npc
+    description: starts an editing session
+
+  npc_make:
+    description: makes a default npc with a name
+
+  npc_edit:
+    description: starts an editing session to edit an npc
   npc_edit_conclusionsToConvo:
-    description: starts a session to edit the conclusion to conversation mapping
-  ping:
-    description: just ping
+    description: starts an editing session to edit any conclusionsToConversation for an npc
+
+
   npc_respond:
-    description: used for responding to an npc (usually done through clicking chat)
+    description: a command for the user to respond to an npc
+  stop_reading:
+    description: makes the server stop listening to what the user is saying
+  ping:
+    description: ping
+
+  npc_convo_edit:
+    description: will be starts an editing session to edit anything related to conversations
+  npc_convo_make:
+    description: will be starts a session to make something that is related to conversations
+

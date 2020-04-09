@@ -1,6 +1,7 @@
-package apple.npc.reading.command;
+package apple.npc.reading.command.npc.edit;
 
 import apple.npc.data.all.AllNPCs;
+import apple.npc.reading.command.ReadingCommand;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -61,9 +62,7 @@ public class ReadingNpc extends ReadingCommand {
         conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_conclusionsToConvo " + uid));
 
         TextComponent separator = new TextComponent();
-        separator.setText(" | ");
-        separator.setBold(true);
-        separator.setColor(ChatColor.BLACK);
+        separator.setText("   ");
 
         player.spigot().sendMessage(editName, separator, startingConclusion, separator, startLocation, separator, startPosition, separator, varsToConclusions, separator, conclusionsToConvoUid);
     }

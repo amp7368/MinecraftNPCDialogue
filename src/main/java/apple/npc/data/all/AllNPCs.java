@@ -58,7 +58,7 @@ public class AllNPCs {
         }
         World world = location.getWorld();
         if (world == null) {
-            System.out.println("The player doesn't exist in a world?");
+            System.err.println("The player doesn't exist in a world?");
             return false;
         }
         Entity stand = world.spawnEntity(location, EntityType.ARMOR_STAND);

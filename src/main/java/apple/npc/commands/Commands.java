@@ -1,6 +1,6 @@
 package apple.npc.commands;
 
-import apple.npc.commands.edit.NpcCommand;
+import apple.npc.commands.edit.EditNpc;
 import apple.npc.commands.edit.NpcConclusionToConvo;
 import apple.npc.commands.makeCon.*;
 import apple.npc.commands.makeNpc.MakeNpc;
@@ -21,6 +21,7 @@ public class Commands {
         new MakeNpc(plugin);
 
         new NpcCommand(plugin);
+        new EditNpc(plugin);
         new NpcConclusionToConvo(plugin);
         new RespondToNpcCommand(plugin);
     }

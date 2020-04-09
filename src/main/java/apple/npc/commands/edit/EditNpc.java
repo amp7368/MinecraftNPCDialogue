@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * a class that deals with the npc session for editing npcs
  */
-public class NpcCommand implements CommandExecutor, TabCompleter {
-    public NpcCommand(JavaPlugin plugin) {
-        PluginCommand command = plugin.getCommand("npc");
+public class EditNpc implements CommandExecutor, TabCompleter {
+    public EditNpc(JavaPlugin plugin) {
+        PluginCommand command = plugin.getCommand("npc_edit");
         if (command == null) {
             System.err.println("[NPCDialogue] could not get the npc command");
             return;

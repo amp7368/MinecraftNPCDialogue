@@ -12,7 +12,6 @@ public class NPCPlayerData {
 
     public NPCPlayerData(ConfigurationSection config) {
         playerUID = config.getString(YMLPlayerVariable.PLAYER_UID);
-        System.out.println(playerUID);
         currentConvoUID = new NpcConvoID(config.getConfigurationSection(YMLPlayerVariable.CURRENT_CONVERSATION_ID));
         lastTalked = config.getLong(YMLPlayerVariable.TIME_LAST_TALKED);
         opinion = new Opinion(config.getConfigurationSection(YMLPlayerVariable.OPINION));

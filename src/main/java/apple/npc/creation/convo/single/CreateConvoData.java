@@ -29,11 +29,11 @@ public class CreateConvoData {
         ConfigurationSection convoConfigOrig = config.getConfigurationSection(String.format("%d%s%s", localCategory, ".", YMLConversationNavigate.CONVERSATIONS));
         String convoInfoUidString = String.valueOf(convoInfo.uid);
         if (convoConfigOrig == null) {
-            System.out.println("convoConfigOrig is null in CreateConvoData");
+            System.err.println("convoConfigOrig is null in CreateConvoData");
             return false;
         }
         if (convoConfigOrig.contains(convoInfoUidString)) {
-            System.out.println("convoInfoUID already exists in CreateConvoData");
+            System.err.println("convoInfoUID already exists in CreateConvoData");
             return false;
         }
         ConfigurationSection convoConfig = convoConfigOrig.createSection(convoInfoUidString);
