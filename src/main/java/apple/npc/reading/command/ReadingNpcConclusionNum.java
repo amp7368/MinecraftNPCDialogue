@@ -1,6 +1,7 @@
 package apple.npc.reading.command;
 
 import apple.npc.commands.StopCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ReadingNpcConclusionNum extends ReadingCommand {
@@ -20,7 +21,7 @@ public class ReadingNpcConclusionNum extends ReadingCommand {
             StopCommand.startListening(new ReadingNpcConclusionNum(npcUID), player);
             return;
         }
-        player.sendMessage("What is the global category of the conversation (.display to display)");
+        player.sendMessage(ChatColor.BLUE + "What is the global category of the conversation (.display to display)");
         StopCommand.startListening(new ReadingNpcConclusionGlobal(npcUID, concluNum), player);
 
     }

@@ -4,6 +4,7 @@ import apple.npc.reading.Reading;
 import apple.npc.reading.command.ReadingCommand;
 import apple.npc.reading.text.ReadingText;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -65,7 +66,7 @@ public class StopCommand implements CommandExecutor, Listener {
             read.dealWithStop(player);
             return true;
         }
-        player.sendMessage("We weren't recording whatever you just wrote");
+        player.sendMessage(ChatColor.GRAY + "We weren't recording whatever you just wrote");
         return false;
     }
 

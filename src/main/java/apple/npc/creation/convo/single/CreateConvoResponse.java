@@ -1,6 +1,9 @@
 package apple.npc.creation.convo.single;
 
+import apple.npc.creation.convo.components.CreateBooleanExp;
 import apple.npc.creation.convo.info.ConvoRespInfo;
+import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -34,7 +37,8 @@ public class CreateConvoResponse {
             return false;
         ConfigurationSection respConfig = respConfigOrig.createSection(responseUidString);
         respConfig.set(YMLConversationNavigate.RESPONSE_UID, respInfo.uid);
-        respConfig.createSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT);
+        ConfigurationSection preResponse = respConfig.createSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT);
+        CreateBooleanExp.setBooleanExp(preResponse.createSection(YMLBooleanNavigate.EXPRESSION), new BooleanExpRequirement(true));
         respConfig.set(YMLConversationNavigate.RESPONSE_TEXT, respInfo.text);
         respConfig.createSection(YMLConversationNavigate.POST_RESPONSES);
         respConfig.createSection(YMLConversationNavigate.DEFAULT_POST_RESPONSE);

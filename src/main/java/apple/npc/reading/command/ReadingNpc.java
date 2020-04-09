@@ -19,11 +19,11 @@ public class ReadingNpc extends ReadingCommand {
             return;
         }
         if (uids.size() != 1) {
-            player.sendMessage(ChatColor.DARK_PURPLE + String.format("There are %d npc(s) named %s", uids.size(), command));
+            player.sendMessage(ChatColor.BLUE + String.format("There are %d npc(s) named %s", uids.size(), command));
             return;
         }
         int uid = uids.get(0);
-        player.sendMessage(ChatColor.AQUA + String.format("What would you like to edit about %s (uid=%d)?", command, uid));
+        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", command, uid));
         TextComponent editName = new TextComponent();
         editName.setText("(Name)");
         editName.setUnderlined(true);
@@ -63,7 +63,7 @@ public class ReadingNpc extends ReadingCommand {
         TextComponent separator = new TextComponent();
         separator.setText(" | ");
         separator.setBold(true);
-        separator.setColor(ChatColor.RED);
+        separator.setColor(ChatColor.BLACK);
 
         player.spigot().sendMessage(editName, separator, startingConclusion, separator, startLocation, separator, startPosition, separator, varsToConclusions, separator, conclusionsToConvoUid);
     }

@@ -4,6 +4,7 @@ import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.reading.Reading;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ReadingNpcConclusionConvo extends ReadingCommand {
             player.sendMessage("finish me");
             StopCommand.startListening(new ReadingNpcConclusionConvo(npcUID, concluNum, global, local), player);
         } else if (uids.size() != 1) {
-            player.sendMessage("Which convo do you want?");
+            player.sendMessage(ChatColor.BLUE + "Which convo do you want?");
             List<String> uidsString = new ArrayList<>();
             for (int uid : uids) {
                 uidsString.add(String.valueOf(uid));
@@ -39,7 +40,7 @@ public class ReadingNpcConclusionConvo extends ReadingCommand {
             player.sendMessage(String.join(" | ", uidsString));
         } else {
             AllNPCs.setConcluToConvo(npcUID, concluNum, global, local, uids.get(0));
-            player.sendMessage("We just updated that convo for " + npcUID);
+            player.sendMessage(ChatColor.GREEN + "We just updated that convo for " + npcUID);
         }
     }
 }

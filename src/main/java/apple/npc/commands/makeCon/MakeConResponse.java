@@ -2,6 +2,7 @@ package apple.npc.commands.makeCon;
 
 import apple.npc.commands.CreateRedirect;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,7 +38,7 @@ public class MakeConResponse implements CommandExecutor, TabCompleter {
         }
 
         if (args.length != 3) {
-            commandSender.sendMessage(String.format("args length of %d is not valid.", args.length));
+            commandSender.sendMessage(String.format(ChatColor.RED + "args length of %d is not valid.", args.length));
             return true;
         }
         CreateRedirect.createConvoResponse(args[0], args[1], args[2], player);

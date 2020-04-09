@@ -23,3 +23,5 @@ commands:
     description: starts a session to edit the conclusion to conversation mapping
   ping:
     description: just ping
+  npc_respond:
+    description: used for responding to an npc (usually done through clicking chat)
