@@ -1,5 +1,6 @@
 package apple.npc.data.npc;
 
+import apple.npc.creation.npc.components.CreateNpcPlayerData;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.convo.ConversationData;
@@ -80,31 +81,41 @@ public class NPCData {
         String playerUID = realPlayer.getUniqueId().toString();
 
         int currentOpinion;
+        boolean playerLeftEarlier; // false if we want to move on to the next conversation found in defaultPostResponse
         // if we talked to the player before
         if (playerDataMap.containsKey(playerUID)) {
             if (System.currentTimeMillis() - playerDataMap.get(playerUID).lastTalked > maxTimeSinceTalk) {
                 // the player waited too long
                 currentOpinion = doConclusion(playerUID);
+                playerLeftEarlier = true;
             } else {
                 currentOpinion = playerDataMap.get(playerUID).opinion.opinionUID;
+                playerLeftEarlier = false; // we want to go to the next conversation (from defaultPostResponse)
             }
         } else {
             // check what we should say
+            playerLeftEarlier = true; // this is made true to stay at this conversation
             currentOpinion = doConclusion(playerUID);
         }
-        System.out.println("current opinion" + currentOpinion);
-        NpcConvoID conversation = doConclusionToConvo(currentOpinion);
+        // if we want to go to the next conversation in sequence regardless of opinion
+        NpcConvoID conversation;
+        if (!playerLeftEarlier && playerDataMap.containsKey(playerUID)) {
+            System.out.println("Changing conversation");
+            System.out.println(playerDataMap.get(playerUID).currentConvoUID.global);
+            System.out.println(playerDataMap.get(playerUID).currentConvoUID.local);
+            System.out.println(playerDataMap.get(playerUID).currentConvoUID.uid);
+            conversation = AllConversations.get(playerDataMap.get(playerUID).currentConvoUID).immediateConvo.toNpcConvoID();
+        } else {
+            conversation = doConclusionToConvo(currentOpinion);
+        }
         AllNPCs.setPlayerData(this.uid, this.name, playerUID, conversation, currentOpinion, "name will be made eventually");
 
 
         if (conversation != null) {
-            conversation = conclusionsToConvo.get(playerDataMap.get(playerUID).opinion.opinionUID);
             talkAtPlayer(realPlayer, conversation);
             if (!playerDataMap.containsKey(playerUID)) {
                 NPCPlayerData npcPlayerData = playerDataMap.get(playerUID);
-                ConversationResponse responseGiven = givePlayerResponses(playerData, realPlayer, conversation, npcPlayerData.lastTalked);
-                playerDataMap.put(playerUID, new NPCPlayerData(playerUID, responseGiven.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID), System.currentTimeMillis(),
-                        new Opinion(currentOpinion, "name will be made eventually")));
+                givePlayerResponses(playerData, realPlayer, conversation, npcPlayerData.lastTalked);
             } else {
                 givePlayerResponses(playerData, realPlayer, conversation, -1);
             }
@@ -133,11 +144,9 @@ public class NPCData {
                     TextComponent message = new TextComponent(textToSay);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ping"));
                     realPlayer.spigot().sendMessage(message);
-                    return resp;
                 }
             }
         }
-        realPlayer.sendMessage("i sent you stuff to respond to");
         return null;
     }
 

@@ -11,6 +11,7 @@ public class ConversationData {
     public String name;
     public List<String> conversationText;
     public List<ConversationResponse> responses;
+    public PostPlayerResponse immediateConvo;
 
     public ConversationData(ConfigurationSection config) {
         conversationText = new ArrayList<>();
@@ -18,6 +19,7 @@ public class ConversationData {
         this.name = config.getString(YMLConversationNavigate.NAME);
         this.conversationText = config.getStringList(YMLConversationNavigate.CONVERSATION_TEXT);
         this.responses = getResponses(config.getConfigurationSection(YMLConversationNavigate.OPTIONS));
+        this.immediateConvo = new PostPlayerResponse(config.getConfigurationSection(YMLConversationNavigate.IMMEDIATE_CONVO));
     }
 
     private List<ConversationResponse> getResponses(ConfigurationSection config) {
