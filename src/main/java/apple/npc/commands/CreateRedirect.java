@@ -1,5 +1,6 @@
 package apple.npc.commands;
 
+import apple.npc.ColorScheme;
 import apple.npc.data.all.AllConversations;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
@@ -89,6 +90,24 @@ public class CreateRedirect {
             localUID = localUIDs.get(0);
         }
         StopCommand.startListening(new ReadingTextConvo(global, localUID, convoName), player);
+    }
+
+    /**
+     * (probably will be replaced by making local an int)
+     * creates a conversation with the request of text
+     *
+     * @param global    the global category (global is always String)
+     * @param local     the local category uid
+     * @param convoName the convoName we're requesting (Creates a conversation with a new UID regardless)
+     * @param player    the player requesting this service
+     */
+    public static void createConvo(String global, int local, String convoName, Player player) {
+        if (!AllConversations.hasLocalCategory(global, local)) {
+            player.sendMessage(String.format(ColorScheme.BAD + "The conversation local category of %s does not exist for category %s.", local, global));
+            return;
+        }
+        player.sendMessage(String.format(ColorScheme.EDITING + "Type the conversation text you would like for %s:%s:%s.", global, AllConversations.getLocalName(global, local), convoName));
+        StopCommand.startListening(new ReadingTextConvo(global, local, convoName), player);
     }
 
 

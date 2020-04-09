@@ -19,9 +19,9 @@ public class MakeCon implements CommandExecutor, TabCompleter {
 
     public MakeCon(JavaPlugin plugin) {
         this.plugin = plugin;
-        PluginCommand command = plugin.getCommand("make_con");
+        PluginCommand command = plugin.getCommand("npc_convo_make_convo");
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the make_con command");
+            System.err.println("[NPCDialogue] could not get the npc_convo_make_convo command");
             return;
         }
         command.setExecutor(this);
@@ -40,7 +40,15 @@ public class MakeCon implements CommandExecutor, TabCompleter {
             commandSender.sendMessage(String.format(ChatColor.RED + "args length of %d is not valid.", args.length));
             return true;
         }
-        CreateRedirect.createConvo(args[0], args[1], args[2], player);
+        int local;
+        try {
+            local = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            CreateRedirect.createConvo(args[0], args[1], args[2], player);
+            return true;
+        }
+        CreateRedirect.createConvo(args[0], local, args[2], player);
+
         return true;
     }
 

@@ -9,8 +9,8 @@ commands:
     description: starts a session to make a conversation global category
   npc_convo_make_local:
     description: starts a session to make a conversation local category
-  make_con:
-    description: starts a session to make a new conversation
+  npc_convo_make_convo:
+    description: starts a session to make something that is related to conversations
   make_con_response:
     description: starts an editing session of creating a response in a conversation
 
@@ -44,8 +44,6 @@ commands:
   ping:
     description: ping
 
-  npc_convo_make_convo:
-    description: will be starts a session to make something that is related to conversations
 
   npc_convo_edit_response:
     description: will be starts an editing session to edit a response in a conversation
