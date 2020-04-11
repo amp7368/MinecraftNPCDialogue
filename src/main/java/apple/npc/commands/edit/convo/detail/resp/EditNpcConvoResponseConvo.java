@@ -50,7 +50,7 @@ public class EditNpcConvoResponseConvo implements CommandExecutor, TabCompleter 
             local = Integer.parseInt(args[1]);
             convo = Integer.parseInt(args[2]);
             response = Integer.parseInt(args[3]);
-            newLocal = Integer.parseInt(args[4]);
+            newLocal = Integer.parseInt(args[5]);
         } catch (NumberFormatException e) {
             player.sendMessage(MessageUtils.BAD + "The second, third, and fourth argument must be numbers");
             return false;
