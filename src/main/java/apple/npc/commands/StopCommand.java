@@ -1,6 +1,6 @@
 package apple.npc.commands;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.reading.Reading;
 import apple.npc.reading.command.ReadingCommand;
 import apple.npc.reading.text.ReadingText;
@@ -19,8 +19,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -99,19 +97,19 @@ public class StopCommand implements CommandExecutor, Listener {
         if (reading.containsKey(player.getUniqueId())) {
             Reading read = reading.get(player.getUniqueId());
             if (read instanceof ReadingText) {
-                player.sendMessage(ColorScheme.LONG_DASH);
+                player.sendMessage(MessageUtils.LONG_DASH);
 
                 net.md_5.bungee.api.chat.TextComponent stop = new TextComponent();
                 stop.setText("(Finish Reading)");
                 stop.setUnderlined(true);
-                stop.setColor(ColorScheme.STOP);
+                stop.setColor(MessageUtils.STOP);
                 stop.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stop_reading"));
                 player.spigot().sendMessage(stop);
 
                 net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
                 abort.setText("(Abort Reading)");
                 abort.setUnderlined(true);
-                abort.setColor(ColorScheme.STOP);
+                abort.setColor(MessageUtils.STOP);
                 abort.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/abort_reading"));
                 player.spigot().sendMessage(abort);
 
@@ -119,7 +117,7 @@ public class StopCommand implements CommandExecutor, Listener {
 
                 ((ReadingText) read).addText(event.getMessage());
 
-                player.sendMessage(ColorScheme.LONG_DASH);
+                player.sendMessage(MessageUtils.LONG_DASH);
                 event.setCancelled(true);
             } else if (read instanceof ReadingCommand) {
                 ReadingCommand readCommand = (ReadingCommand) read;

@@ -1,9 +1,7 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.CreateRedirect;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -52,12 +50,12 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
         global.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         global.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + CommandReferences.NPC_CONVO_EDIT_GLOBAL));
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(welcome);
         player.spigot().sendMessage(global);
         player.sendMessage("");
         player.spigot().sendMessage(back);
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 

@@ -1,12 +1,10 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
-import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -41,7 +39,7 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         }
 
         if (args.length != 4) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         String global = args[0];
@@ -53,17 +51,17 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
             convoUID = Integer.parseInt(args[2]);
             responseUID = Integer.parseInt(args[3]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The second, third, and fourth arguments must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The second, third, and fourth arguments must be a number.");
             return false;
         }
         ConversationData conversation = AllConversations.get(new ConvoID(global, localUID, convoUID));
         String local = AllConversations.getLocalName(global, localUID);
         if (conversation == null || local == null) {
-            player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
+            player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
             return false;
         }
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText(String.format("What would you like to edit about response %s:%s:%s:%d?   ",
@@ -100,7 +98,7 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         defaultResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID, responseUID)));
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(welcome);
         player.spigot().sendMessage(preResponse);
         player.spigot().sendMessage(text);
@@ -109,7 +107,7 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         player.sendMessage("");
         player.spigot().sendMessage(back);
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 

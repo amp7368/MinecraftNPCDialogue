@@ -2,7 +2,7 @@ package apple.npc;
 
 import org.bukkit.ChatColor;
 
-public class ColorScheme {
+public class MessageUtils {
     public static final ChatColor BAD = ChatColor.RED;
     public static final ChatColor EDITING = ChatColor.BLUE;
     public static final ChatColor GOOD = ChatColor.GREEN;

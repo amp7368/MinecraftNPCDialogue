@@ -1,9 +1,7 @@
 package apple.npc.commands.edit.npc;
 
-import apple.npc.ColorScheme;
-import apple.npc.NPCDialogueMain;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.EditRedirect;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.npc.NPCData;
@@ -37,14 +35,14 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
         }
 
         if (args.length != 1) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         int npcUID;
         try {
             npcUID = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The first argument must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The first argument must be a number.");
             return false;
         }
 
@@ -53,7 +51,7 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
             player.sendMessage("There is no Npc with uid of " + npcUID);
             return false;
         }
-        player.sendMessage(ColorScheme.EDITING + "Enter the new name for the npc.");
+        player.sendMessage(MessageUtils.EDITING + "Enter the new name for the npc.");
         StopCommand.startListening(new ReadingNpcName(npc), player);
         return true;
     }

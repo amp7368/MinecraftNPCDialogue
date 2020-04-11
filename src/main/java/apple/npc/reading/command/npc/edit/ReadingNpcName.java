@@ -1,6 +1,6 @@
 package apple.npc.reading.command.npc.edit;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.npc.NPCData;
 import apple.npc.reading.command.ReadingCommand;
@@ -17,6 +17,6 @@ public class ReadingNpcName extends ReadingCommand {
     public void dealWithStop(Player player) {
         npc.setName(command);
         AllNPCs.writeNpc(npc.uid);
-        player.sendMessage(ColorScheme.GOOD + " The npc now has the name " + command);
+        player.sendMessage(MessageUtils.GOOD + " The npc now has the name " + command);
     }
 }

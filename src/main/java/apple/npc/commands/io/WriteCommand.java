@@ -1,6 +1,6 @@
 package apple.npc.commands.io;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.WriteEverything;
 import org.bukkit.command.Command;
@@ -25,7 +25,7 @@ public class WriteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         WriteEverything.write();
-        commandSender.sendMessage(ColorScheme.GOOD + "You just wrote a lot");
+        commandSender.sendMessage(MessageUtils.GOOD + "You just wrote a lot");
         return true;
     }
 }

@@ -1,6 +1,6 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
@@ -40,7 +40,7 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             return false;
         }
         if (args.length != 3) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         String global = args[0];
@@ -50,15 +50,15 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             local = Integer.parseInt(args[1]);
             convo = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The second and third argument must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The second and third argument must be a number.");
             return false;
         }
 
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
-            player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
+            player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
             return false;
         }
 
@@ -71,25 +71,25 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
         }
 
         for (ConversationResponse response : conversation.responses) {
-            player.sendMessage(ColorScheme.DASH);
+            player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
             category.setText(String.format("(Edit %s:%s:%s:%d)", global, localName, convoName, response.uid));
             category.setUnderlined(true);
-            category.setColor(ColorScheme.EDITING_OPTION);
+            category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DETAILS, global, local, convo, response.uid)));
 
 
             player.spigot().sendMessage(category);
             for (String text : response.response) {
-                player.sendMessage(ColorScheme.TAB + text);
+                player.sendMessage(MessageUtils.TAB + text);
             }
         }
 
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
-        back.setColor(ColorScheme.EDITING_OPTION);
+        back.setColor(MessageUtils.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d",
                 CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
         player.sendMessage("");
@@ -97,10 +97,8 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
 
         StopCommand.startListening(new ReadingTextResponse(global,local,convo), player);
 
-        player.sendMessage(ColorScheme.DASH);
-        player.sendMessage(ColorScheme.LONG_DASH);
-
-
+        player.sendMessage(MessageUtils.DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         return true;
     }

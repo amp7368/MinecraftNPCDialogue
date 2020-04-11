@@ -1,14 +1,12 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.reading.command.convo.ReadingConvoGlobal;
-import apple.npc.reading.command.npc.edit.ReadingNpcConclusionNum;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,7 +35,7 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText("Type what conversation global category would you like to edit?");
@@ -45,7 +43,7 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
-        back.setColor(ColorScheme.EDITING_OPTION);
+        back.setColor(MessageUtils.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s", CommandReferences.NPC_CONVO_EDIT)));
         player.spigot().sendMessage(welcome);
         player.sendMessage("");
@@ -53,7 +51,7 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
 
         StopCommand.startListening(new ReadingConvoGlobal(plugin), player);
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 

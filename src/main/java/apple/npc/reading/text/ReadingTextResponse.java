@@ -1,5 +1,6 @@
 package apple.npc.reading.text;
 
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConvoID;
@@ -20,10 +21,10 @@ public class ReadingTextResponse extends ReadingText {
 
     @Override
     public void dealWithStop(Player player) {
-        System.out.println("Made a reading text response");
+        player.sendMessage(MessageUtils.LONG_DASH);
         if (AllConversations.createResponse(global, local, convo, super.text)) {
             //todo deal with vvv
-            player.sendMessage(String.format(ChatColor.RED + "There now exists a new response in %s:%s:%s", global, AllConversations.getLocalName(global, local), AllConversations.get(new ConvoID(global, local, convo)).name));
+            player.sendMessage(String.format(MessageUtils.GOOD + "There now exists a new response in %s:%s:%s", global, AllConversations.getLocalName(global, local), AllConversations.get(new ConvoID(global, local, convo)).name));
             for (String string : super.text)
                 player.sendMessage(string);
         } else {
@@ -34,5 +35,7 @@ public class ReadingTextResponse extends ReadingText {
                 player.sendMessage(String.format(ChatColor.RED + "I could not deal with making a response in %s:%s:%s",
                         global, AllConversations.getLocalName(global, local), convoObject.name));
         }
+        player.sendMessage(MessageUtils.LONG_DASH);
+
     }
 }

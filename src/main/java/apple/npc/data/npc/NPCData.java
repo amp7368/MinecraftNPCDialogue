@@ -1,6 +1,6 @@
 package apple.npc.data.npc;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
@@ -157,7 +157,7 @@ public class NPCData {
                     realPlayer.spigot().sendMessage(message);
                 }
             }
-            realPlayer.sendMessage(ColorScheme.DASH);
+            realPlayer.sendMessage(MessageUtils.DASH);
 
         }
         realPlayer.sendMessage("");
@@ -165,12 +165,12 @@ public class NPCData {
     }
 
     private void talkAtPlayer(Player realPlayer, ConvoID convoID) {
-        realPlayer.sendMessage(ColorScheme.DASH);
+        realPlayer.sendMessage(MessageUtils.DASH);
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
-        realPlayer.sendMessage(ColorScheme.DASH);
+        realPlayer.sendMessage(MessageUtils.DASH);
 
     }
 

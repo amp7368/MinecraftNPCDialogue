@@ -1,12 +1,10 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.convo.ConversationGlobalCategory;
 import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.data.convo.ConversationResponse;
 import apple.npc.reading.command.convo.ReadingConvoLocal;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -52,7 +50,7 @@ public class EditNpcConvoLocal implements CommandExecutor, TabCompleter {
             player.sendMessage(ChatColor.RED + String.format("There is no %s conversation global category", global));
             return false;
         }
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation local category would you like to edit?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
@@ -64,32 +62,32 @@ public class EditNpcConvoLocal implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         for (ConversationLocalCategory local : localCats) {
-            player.sendMessage(ColorScheme.DASH);
+            player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
             category.setText(String.format("(Edit %s:%s (UID:%d)", global, local.getName(), local.getUid()));
             category.setUnderlined(true);
-            category.setColor(ColorScheme.EDITING_OPTION);
+            category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d",
                     CommandReferences.NPC_CONVO_EDIT_CONVO, global, local.getUid())));
             player.spigot().sendMessage(category);
         }
-        player.sendMessage(ColorScheme.DASH);
+        player.sendMessage(MessageUtils.DASH);
 
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
-        back.setColor(ColorScheme.EDITING_OPTION);
+        back.setColor(MessageUtils.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s", CommandReferences.NPC_CONVO_EDIT_GLOBAL)));
         player.sendMessage("");
         player.spigot().sendMessage(back);
 
         StopCommand.startListening(new ReadingConvoLocal(args[0]), player);
 
-        player.sendMessage(ColorScheme.LONG_DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 
