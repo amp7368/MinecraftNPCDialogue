@@ -163,4 +163,7 @@ public class AllConversations {
         initialize(dataFolder);
     }
 
+    public static Collection<String> getList() {
+        return allConversations.keySet();
+    }
 }
