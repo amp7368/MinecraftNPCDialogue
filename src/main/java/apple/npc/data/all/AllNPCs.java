@@ -156,4 +156,12 @@ public class AllNPCs {
     public static Collection<NPCData> getList() {
         return allUIDToNpcs.values();
     }
+
+    public static Collection<Integer> getConclusionList(int npcUID) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            return allUIDToNpcs.get(npcUID).getConclusionList();
+        } else {
+            return null;
+        }
+    }
 }

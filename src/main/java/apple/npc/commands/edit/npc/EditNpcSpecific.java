@@ -2,6 +2,7 @@ package apple.npc.commands.edit.npc;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
+import apple.npc.data.all.AllNPCs;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -42,7 +43,7 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "The first argument must be a number");
             return false;
         }
-        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", command, uid));
+        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", AllNPCs.getNPCFromUID(uid).name, uid));
         TextComponent editName = new TextComponent();
         editName.setText("(Name)");
         editName.setUnderlined(true);
@@ -77,7 +78,7 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
         conclusionsToConvoUid.setText("(Insert Convo)");
         conclusionsToConvoUid.setUnderlined(true);
         conclusionsToConvoUid.setColor(ChatColor.GREEN);
-        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_conclusionsToConvo " + uid));
+        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d", CommandReferences.NPC_EDIT_CONCLU_CON, uid)));
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(conclusionsToConvoUid);

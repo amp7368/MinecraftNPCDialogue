@@ -4,12 +4,10 @@ import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
-import apple.npc.reading.command.npc.make.ReadingMakeNpc;
 import apple.npc.reading.text.ReadingTextConvo;
 import apple.npc.reading.text.ReadingTextResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 

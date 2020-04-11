@@ -18,6 +18,8 @@ public class ReadingNpcConclusionGlobal extends ReadingCommand {
     @Override
     public void dealWithStop(Player player) {
         if (AllConversations.hasGlobalCategory(super.command)) {
+
+
             player.sendMessage(ChatColor.BLUE + "What is the conversation local category (.display to display)");
             StopCommand.startListening(new ReadingNpcConclusionLocal(npcUID, concluNum, super.command), player);
         } else {

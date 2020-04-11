@@ -32,4 +32,6 @@ public class CommandReferences {
     public static final String NPC_NPC_EDIT = "npc_specific_edit";
     public static final String NPC_MAKE = "npc_make";
     public static final String NPC_EDIT = "npc_edit";
+    public static final String NPC_EDIT_CONCLU_CON = "npc_edit_conclusionsToConvo";
+    public static final String NPC_EDIT_CONCLU_CON_GLOBAL = "npc_edit_concluToConvo_global";
 }

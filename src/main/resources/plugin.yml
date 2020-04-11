@@ -44,6 +44,8 @@ commands:
     description: starts an editing session to edit any conclusionsToConversation for an npc
   npc_edit_name:
     description: edits the name of an npc
+  npc_edit_concluToConvo_global:
+    description: starts and editing session to edit the concluToConvo mapping
 
   # general commands used by the player
   npc_respond:

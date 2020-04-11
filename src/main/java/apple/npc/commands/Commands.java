@@ -4,11 +4,8 @@ import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseConvo;
 import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseLocal;
 import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponsePost;
 import apple.npc.commands.edit.convo.detail.resp.EditnpcConvoResponseSet;
-import apple.npc.commands.edit.npc.EditNpc;
+import apple.npc.commands.edit.npc.*;
 import apple.npc.commands.edit.convo.*;
-import apple.npc.commands.edit.npc.EditNpcConclusionToConvo;
-import apple.npc.commands.edit.npc.EditNpcName;
-import apple.npc.commands.edit.npc.EditNpcSpecific;
 import apple.npc.commands.io.ReadCommand;
 import apple.npc.commands.io.WriteCommand;
 import apple.npc.commands.make.convo.MakeCon;
@@ -37,6 +34,7 @@ public class Commands {
 
         // npc main branch
         new EditNpcSpecific(plugin);
+        new EditNpConcluConGlobal(plugin);
 
         // convo main branch
         new EditNpcConvo(plugin);

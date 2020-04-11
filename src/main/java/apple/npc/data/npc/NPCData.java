@@ -158,7 +158,7 @@ public class NPCData {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
                     message.setUnderlined(true);
-                    message.setColor(net.md_5.bungee.api.ChatColor.AQUA );
+                    message.setColor(net.md_5.bungee.api.ChatColor.AQUA);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/npc_respond %d %d", uid, resp.uid)));
                     realPlayer.spigot().sendMessage(message);
                 }
@@ -269,5 +269,9 @@ public class NPCData {
         Entity entity = Bukkit.getEntity(UUID.fromString(gameUID));
         if (entity != null)
             entity.setCustomName(name);
+    }
+
+    public Collection<Integer> getConclusionList() {
+        return conclusionsToConvo.keySet();
     }
 }

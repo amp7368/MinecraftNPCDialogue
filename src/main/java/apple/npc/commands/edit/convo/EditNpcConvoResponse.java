@@ -70,7 +70,7 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             return false;
         }
         TextComponent welcome = new TextComponent();
-        welcome.setText("What response name you would you like to edit?");
+        welcome.setText("What response id you would you like to edit?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
         player.spigot().sendMessage(welcome);
 
