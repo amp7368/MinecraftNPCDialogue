@@ -18,14 +18,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  * A class that deals with the editing of conclusionsToConvo in the  npc session
  */
 public class EditNpcConclusionToConvo implements CommandExecutor, TabCompleter {
     public EditNpcConclusionToConvo(JavaPlugin plugin) {
-        PluginCommand command = plugin.getCommand("npc_edit_conclusionsToConvo");
+        PluginCommand command = plugin.getCommand(CommandReferences.NPC_EDIT_CONCLU);
         if (command == null) {
-            System.err.println("[NPCDialogue] could not get the npc_edit_conclusionsToConvo command");
+            System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC_EDIT_CONCLU + " command");
             return;
         }
         command.setExecutor(this);
@@ -54,13 +55,13 @@ public class EditNpcConclusionToConvo implements CommandExecutor, TabCompleter {
         }
         if (AllNPCs.hasUID(npcUID)) {
             player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set?");
-            Collection<Integer> conclusionList =  AllNPCs.getConclusionList(npcUID);
-            if (conclusionList == null){
+            Collection<Integer> conclusionList = AllNPCs.getConclusionList(npcUID);
+            if (conclusionList == null) {
                 // wtf happened we just checked that AllNPCs has a list
                 player.sendMessage(MessageUtils.BAD + "There is no npc with uid " + npcUID);
                 return false;
             }
-            for (int conclusion :conclusionList) {
+            for (int conclusion : conclusionList) {
                 player.sendMessage(MessageUtils.DASH);
                 TextComponent conclu = new TextComponent();
                 conclu.setText(String.format("(Edit Conclusion %d)", conclusion));

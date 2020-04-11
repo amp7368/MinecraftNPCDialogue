@@ -78,7 +78,7 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
         conclusionsToConvoUid.setText("(Insert Convo)");
         conclusionsToConvoUid.setUnderlined(true);
         conclusionsToConvoUid.setColor(ChatColor.GREEN);
-        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d", CommandReferences.NPC_EDIT_CONCLU_CON, uid)));
+        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d", CommandReferences.NPC_EDIT_CONCLU, uid)));
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(conclusionsToConvoUid);

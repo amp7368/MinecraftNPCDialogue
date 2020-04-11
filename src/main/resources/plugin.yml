@@ -45,7 +45,11 @@ commands:
   npc_edit_name:
     description: edits the name of an npc
   npc_edit_concluToConvo_global:
-    description: starts and editing session to edit the concluToConvo mapping
+    description: starts an editing session to edit the concluToConvo mapping to get the global category
+  npc_edit_concluToConvo_local:
+    description: continues an editing session to edit the concluToConvo mapping to get the local category
+  npc_edit_concluToConvo_con:
+    description: finishes a session editing the conclusionToConvo for an npc
 
   # general commands used by the player
   npc_respond:
