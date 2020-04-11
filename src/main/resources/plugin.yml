@@ -59,10 +59,12 @@ commands:
 
 
   # deal with normal post response editing
+  npc_convo_edit_response_postresponse:
+    description: starts an editing session to edit a postResponse for a response
   npc_convo_edit_response_post_local:
     description: continues an editing session to edit the local redirect part of a postResponse for a response
-  npc_convo_edit_response_postresponse:
-    description: will be starts an editing session to edit a postResponse for a response
+  npc_convo_edit_response_post_convo:
+    description: continues an editing session to edit the convo redirect part of a postResponse for a response
 
   # will be commands
   npc_convo_edit_local_name:
