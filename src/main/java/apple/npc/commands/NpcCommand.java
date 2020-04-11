@@ -51,23 +51,9 @@ public class NpcCommand implements CommandExecutor {
         editConversations.setColor(ChatColor.GREEN);
         editConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit"));
 
-        TextComponent makeNpcs = new TextComponent();
-        makeNpcs.setText("(make Npcs)");
-        makeNpcs.setUnderlined(true);
-        makeNpcs.setColor(ChatColor.GREEN);
-        makeNpcs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_make"));
-
-        TextComponent makeConversations = new TextComponent();
-        makeConversations.setText("(make Conversations)");
-        makeConversations.setUnderlined(true);
-        makeConversations.setColor(ChatColor.GREEN);
-        makeConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_make"));
-
         player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(editNpcs);
         player.spigot().sendMessage(editConversations);
-        player.spigot().sendMessage(makeNpcs);
-        player.spigot().sendMessage(makeConversations);
         player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }

@@ -208,13 +208,4 @@ public class CreateRedirect {
         return convoUIDs;
     }
 
-    /**
-     * create a default npc with the name of name
-     *
-     * @param player the player requesting this service
-     */
-    public static void makeNpc(Player player, JavaPlugin plugin) {
-        player.sendMessage(ChatColor.BLUE + "What is the name of the Npc you would like to create?");
-        StopCommand.startListening(new ReadingMakeNpc(plugin), player);
-    }
 }

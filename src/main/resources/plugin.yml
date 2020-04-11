@@ -38,6 +38,8 @@ commands:
   # editing details for an npc
   npc_edit:
     description: starts an editing session to edit an npc
+  npc_specific_edit:
+    description: starts an editing session to edit an alread specified npc
   npc_edit_conclusionsToConvo:
     description: starts an editing session to edit any conclusionsToConversation for an npc
   npc_edit_name:

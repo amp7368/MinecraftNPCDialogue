@@ -10,15 +10,6 @@ import org.bukkit.entity.Player;
  * a class that deals with all the edit redirects
  */
 public class EditRedirect {
-    /**
-     * starts a session editing an npc
-     *
-     * @param player the player requesting this service
-     */
-    public static void editNpc(Player player) {
-        player.sendMessage(ChatColor.BLUE + "Which npc do you want to edit? ('.display' to display a list of npc names)");
-        StopCommand.startListening(new ReadingNpc(), player);
-    }
 
     /**
      * starts a session editing the conclusionToConversation in the npc

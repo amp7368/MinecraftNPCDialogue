@@ -29,4 +29,7 @@ public class CommandReferences {
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_BOOL = "npc_convo_edit_response_post_bool";
     public static final String NPC_CONVO_EDIT_RESPONSE_SET = "npc_convo_edit_response_set";
 
+    public static final String NPC_NPC_EDIT = "npc_specific_edit";
+    public static final String NPC_MAKE = "npc_make";
+    public static final String NPC_EDIT = "npc_edit";
 }

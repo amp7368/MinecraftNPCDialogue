@@ -1,22 +1,52 @@
 package apple.npc.reading.command.npc.edit;
 
+import apple.npc.MessageUtils;
+import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.reading.command.ReadingCommand;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
 public class ReadingNpc extends ReadingCommand {
+    private JavaPlugin plugin;
+
+    public ReadingNpc(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void dealWithStop(Player player) {
         String command = super.command;
         List<Integer> uids = AllNPCs.getNpcUids(command);
         if (uids.isEmpty()) {
-            player.sendMessage(ChatColor.RED + String.format("There is no %s npc", command));
+
+            TextComponent yes = new TextComponent();
+            yes.setText("(Yes)");
+            yes.setUnderlined(true);
+            yes.setColor(MessageUtils.EDITING_OPTION);
+            yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s", CommandReferences.NPC_MAKE, command)));
+
+
+            TextComponent no = new TextComponent();
+            no.setText("(No)");
+            no.setUnderlined(true);
+            no.setColor(MessageUtils.EDITING_OPTION);
+            no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s", CommandReferences.NPC_EDIT)));
+
+            TextComponent separator = new TextComponent();
+            separator.setText("   ");
+
+            player.sendMessage(MessageUtils.LONG_DASH);
+            player.sendMessage(MessageUtils.EDITING + String.format("The npc %s doesn't exist. Would you like to create it?", command));
+            player.sendMessage("");
+            player.spigot().sendMessage(yes, separator, no);
+            player.sendMessage(MessageUtils.LONG_DASH);
             return;
         }
         if (uids.size() != 1) {
@@ -24,46 +54,7 @@ public class ReadingNpc extends ReadingCommand {
             return;
         }
         int uid = uids.get(0);
-        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", command, uid));
-        TextComponent editName = new TextComponent();
-        editName.setText("(Name)");
-        editName.setUnderlined(true);
-        editName.setColor(ChatColor.GREEN);
-        editName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_name " + uid));
+        Bukkit.getScheduler().callSyncMethod(plugin, () -> Bukkit.dispatchCommand(player, CommandReferences.NPC_NPC_EDIT + " " + uid));
 
-        TextComponent startingConclusion = new TextComponent();
-        startingConclusion.setText("(Starting Conclusion)");
-        startingConclusion.setUnderlined(true);
-        startingConclusion.setColor(ChatColor.GREEN);
-        startingConclusion.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_startingconclusion " + uid));
-
-        TextComponent startLocation = new TextComponent();
-        startLocation.setText("(start location)");
-        startLocation.setUnderlined(true);
-        startLocation.setColor(ChatColor.GREEN);
-        startLocation.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_startLocation " + uid));
-
-        TextComponent startPosition = new TextComponent();
-        startPosition.setText("(start position)");
-        startPosition.setUnderlined(true);
-        startPosition.setColor(ChatColor.GREEN);
-        startPosition.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_startPosition " + uid));
-
-        TextComponent varsToConclusions = new TextComponent();
-        varsToConclusions.setText("(Vars to Conclusion)");
-        varsToConclusions.setUnderlined(true);
-        varsToConclusions.setColor(ChatColor.GREEN);
-        varsToConclusions.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_varsToConclusions " + uid));
-
-        TextComponent conclusionsToConvoUid = new TextComponent();
-        conclusionsToConvoUid.setText("(Conclusion to Convo)");
-        conclusionsToConvoUid.setUnderlined(true);
-        conclusionsToConvoUid.setColor(ChatColor.GREEN);
-        conclusionsToConvoUid.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_conclusionsToConvo " + uid));
-
-        TextComponent separator = new TextComponent();
-        separator.setText("   ");
-
-        player.spigot().sendMessage(editName, separator, startingConclusion, separator, startLocation, separator, startPosition, separator, varsToConclusions, separator, conclusionsToConvoUid);
     }
 }

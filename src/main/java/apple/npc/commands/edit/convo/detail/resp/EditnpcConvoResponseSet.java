@@ -65,8 +65,13 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + String.format("The conversation %s:%d:%d does not exist.", global, local, convo));
             return false;
         } else {
-            conversation.get(response).getPostResponses().set(0, new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
+            List<PostPlayerResponse> resp = conversation.get(response).getPostResponses();
+            if (resp.isEmpty())
+                resp.add(new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
+            else
+                resp.set(0, new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
             AllConversations.writeAll();
+            player.sendMessage("You just set the thing");
         }
         return true;
     }

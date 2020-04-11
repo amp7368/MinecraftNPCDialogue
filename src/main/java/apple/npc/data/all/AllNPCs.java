@@ -1,27 +1,20 @@
 package apple.npc.data.all;
 
 import apple.npc.creation.from_data.npc.WriteNpcAll;
-import apple.npc.creation.from_scratch.npc.components.CreateNpcPlayerData;
 import apple.npc.creation.from_scratch.npc.info.NpcInfo;
-import apple.npc.creation.from_scratch.npc.info.NpcPlayerDataInfo;
 import apple.npc.creation.from_scratch.npc.single.CreateNpcData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
-import apple.npc.ymlNavigate.YMLNpcNavigate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AllNPCs {
 
@@ -59,7 +52,7 @@ public class AllNPCs {
         for (String gameUID : allGameUIDToNpcs.keySet()) {
             if (allGameUIDToNpcs.get(gameUID).uid == npcUID) {
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(String.format("%s%s%s%s%d%c%s%s",
-                        folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER,File.separator,npcUID, ',', allUIDToNpcs.get(npcUID).name, YMLFileNavigate.YML)));
+                        folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, npcUID, ',', allUIDToNpcs.get(npcUID).name, YMLFileNavigate.YML)));
                 allGameUIDToNpcs.put(gameUID, new NPCData(config));
             }
         }
@@ -155,8 +148,12 @@ public class AllNPCs {
 
     public static void deleteFile(NPCData npcData) {
         File deleteMe = new File(String.format("%s%s%s%s%d%c%s%s",
-                folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER,File.separator,npcData.uid, ',',
+                folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, npcData.uid, ',',
                 npcData.name, YMLFileNavigate.YML));
         deleteMe.delete();
+    }
+
+    public static Collection<NPCData> getList() {
+        return allUIDToNpcs.values();
     }
 }
