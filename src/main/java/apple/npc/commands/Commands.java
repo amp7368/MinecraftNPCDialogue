@@ -1,8 +1,9 @@
 package apple.npc.commands;
 
-import apple.npc.commands.edit.EditNpc;
+import apple.npc.commands.edit.npc.EditNpc;
 import apple.npc.commands.edit.convo.*;
-import apple.npc.commands.edit.NpcConclusionToConvo;
+import apple.npc.commands.edit.npc.EditNpcConclusionToConvo;
+import apple.npc.commands.edit.npc.EditNpcName;
 import apple.npc.commands.io.ReadCommand;
 import apple.npc.commands.io.WriteCommand;
 import apple.npc.commands.make.convo.MakeCon;
@@ -37,7 +38,8 @@ public class Commands {
         new EditNpcConvoResponseDetails(plugin);
 
         new EditNpc(plugin);
-        new NpcConclusionToConvo(plugin);
+        new EditNpcName(plugin);
+        new EditNpcConclusionToConvo(plugin);
         new RespondToNpcCommand(plugin);
 
         new CommandPing(plugin);

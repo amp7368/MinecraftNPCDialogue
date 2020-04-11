@@ -22,4 +22,6 @@ public class CommandReferences {
 
     public static final String NPC_WRITE = "npc_write";
     public static final String NPC_READ = "npc_read";
+    public static final String NPC_EDIT_NAME = "npc_edit_name";
+    public static final String NPC_CONVO_MAKE_RESPONSE ="npc_convo_edit_convo_resp" ;
 }

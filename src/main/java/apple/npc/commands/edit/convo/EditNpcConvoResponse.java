@@ -53,6 +53,7 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             player.sendMessage(ColorScheme.BAD + "The second and third argument must be a number.");
             return false;
         }
+        player.sendMessage(ColorScheme.LONG_DASH);
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
             player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
@@ -75,14 +76,25 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             }
         }
         player.sendMessage(ColorScheme.DASH);
+        TextComponent make = new TextComponent();
+        make.setText("(Make Response");
+        make.setUnderlined(true);
+        make.setColor(ColorScheme.EDITING_OPTION);
+        make.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d",
+                CommandReferences.NPC_CONVO_MAKE_RESPONSE, global, local, convo)));
 
+
+        player.spigot().sendMessage(make);
+
+
+        player.sendMessage(ColorScheme.DASH);
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
         back.setColor(ColorScheme.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d", CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
         player.spigot().sendMessage(back);
-        player.sendMessage("");
+        player.sendMessage(ColorScheme.LONG_DASH);
 
 
         return true;

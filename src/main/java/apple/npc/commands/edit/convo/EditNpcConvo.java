@@ -50,30 +50,12 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
         global.setUnderlined(true);
         global.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         global.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + CommandReferences.NPC_CONVO_EDIT_GLOBAL));
-
-        TextComponent local = new TextComponent();
-        local.setText("(Local Categories)");
-        local.setUnderlined(true);
-        local.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        local.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_local"));
-
-        TextComponent convo = new TextComponent();
-        convo.setText("(Conversations)");
-        convo.setUnderlined(true);
-        convo.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_convo"));
-
-        TextComponent response = new TextComponent();
-        response.setText("(Responses)");
-        response.setUnderlined(true);
-        response.setColor(ChatColor.GREEN);
-        response.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_response"));
-
         TextComponent separator = new TextComponent();
         separator.setText("   ");
 
-        player.spigot().sendMessage(welcome, back);
-        player.spigot().sendMessage(global, separator, local, separator, convo, separator, response);
+        player.spigot().sendMessage(welcome);
+        player.spigot().sendMessage(global);
+        player.spigot().sendMessage(back);
         player.sendMessage("");
         return true;
     }

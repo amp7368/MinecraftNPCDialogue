@@ -52,6 +52,11 @@ commands:
   npc_read:
     description: reads everything currently in the files into the data structures
 
+
+  npc_edit_name:
+    description: edits the name of an npc
+
+
   npc_convo_edit_local_name:
     description: will be edits the name of a local category
   npc_convo_edit_convo_name:

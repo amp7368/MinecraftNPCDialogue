@@ -1,4 +1,4 @@
-package apple.npc.commands.edit;
+package apple.npc.commands.edit.npc;
 
 import apple.npc.commands.EditRedirect;
 import org.bukkit.Bukkit;

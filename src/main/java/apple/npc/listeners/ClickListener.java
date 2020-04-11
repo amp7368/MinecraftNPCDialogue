@@ -29,7 +29,8 @@ public class ClickListener implements Listener {
         Entity entity = event.getRightClicked();
         UUID uuid = entity.getUniqueId();
         Player player = event.getPlayer();
-        if (entity.getType() == EntityType.ARMOR_STAND && AllNPCs.hasGameUID(uuid.toString())) {
+        System.out.println(uuid.toString());
+        if (AllNPCs.hasGameUID(uuid.toString())) {
             doConversation(entity, player);
         }
     }

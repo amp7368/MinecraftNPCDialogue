@@ -11,9 +11,11 @@ import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -153,9 +155,10 @@ public class NPCData {
                     message.setColor(net.md_5.bungee.api.ChatColor.GRAY);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/npc_respond %d %d", uid, resp.uid)));
                     realPlayer.spigot().sendMessage(message);
-                    realPlayer.sendMessage(ColorScheme.DASH);
                 }
             }
+            realPlayer.sendMessage(ColorScheme.DASH);
+
         }
         realPlayer.sendMessage("");
         return null;
@@ -254,4 +257,11 @@ public class NPCData {
         return maxTimeSinceTalk;
     }
 
+    public void setName(String name) {
+        AllNPCs.deleteFile(this);
+        this.name = name;
+        Entity entity = Bukkit.getEntity(UUID.fromString(gameUID));
+        if (entity != null)
+            entity.setCustomName(name);
+    }
 }

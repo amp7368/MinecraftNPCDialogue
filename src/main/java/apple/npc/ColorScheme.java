@@ -11,4 +11,5 @@ public class ColorScheme {
 
     public static final net.md_5.bungee.api.ChatColor EDITING_OPTION =net.md_5.bungee.api.ChatColor.GREEN ;
     public static final String DASH = ChatColor.GRAY + "-------------------------";
+    public static final String LONG_DASH = ChatColor.GRAY + "--------------------------------------------------";;
 }

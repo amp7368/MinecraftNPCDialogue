@@ -1,4 +1,4 @@
-package apple.npc.commands.edit;
+package apple.npc.commands.edit.npc;
 
 import apple.npc.ColorScheme;
 import apple.npc.commands.EditRedirect;
@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * A class that deals with the editing of conclusionsToConvo in the  npc session
  */
-public class NpcConclusionToConvo implements CommandExecutor, TabCompleter {
-    public NpcConclusionToConvo(JavaPlugin plugin) {
+public class EditNpcConclusionToConvo implements CommandExecutor, TabCompleter {
+    public EditNpcConclusionToConvo(JavaPlugin plugin) {
         PluginCommand command = plugin.getCommand("npc_edit_conclusionsToConvo");
         if (command == null) {
             System.err.println("[NPCDialogue] could not get the npc_edit_conclusionsToConvo command");

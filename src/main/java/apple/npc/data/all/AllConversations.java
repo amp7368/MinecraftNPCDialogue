@@ -17,6 +17,7 @@ import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,8 +84,8 @@ public class AllConversations {
     }
 
     public static boolean createResponse(String global, int local, int convo, List<String> text) {
-        if(hasGlobalCategory(global)){
-            allConversations.get(global).createResponse(global,local,convo,text);
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).createResponse(global, local, convo, text);
             writeGlobal(global);
         }
         return false;
@@ -121,6 +122,20 @@ public class AllConversations {
         return null;
     }
 
+    public static ConversationLocalCategory getLocalCategory(String global, int local) {
+        if (hasLocalCategory(global, local)) {
+            ConversationLocalCategory cat = allConversations.get(global).get(local);
+            return cat;
+        }
+        return null;
+    }
+
+    public static Collection<ConversationLocalCategory> getLocalList(String global) {
+        if (hasGlobalCategory(global)){
+            return allConversations.get(global).getList();
+        }return null;
+    }
+
     public static boolean hasGlobalCategory(String global) {
         return allConversations.containsKey(global);
     }
@@ -146,4 +161,5 @@ public class AllConversations {
     public static void readAll() {
         initialize(dataFolder);
     }
+
 }

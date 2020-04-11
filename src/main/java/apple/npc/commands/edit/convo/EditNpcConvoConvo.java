@@ -4,6 +4,8 @@ import apple.npc.ColorScheme;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConversationLocalCategory;
 import apple.npc.reading.command.convo.ReadingConvoConvo;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -49,15 +51,31 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             return false;
         }
         if (AllConversations.hasLocalCategory(global, local)) {
+            String localName = AllConversations.getLocalName(global, local);
+
             TextComponent welcome = new TextComponent();
-            welcome.setText("Type what conversation name you would you like to edit.   ");
+            welcome.setText("What conversation name you would you like to edit?");
             welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+            player.spigot().sendMessage(welcome);
+
+            ConversationLocalCategory conversations = AllConversations.getLocalCategory(global, local);
+            for (ConversationData conversation : conversations.getConversations().values()) {
+                TextComponent convo = new TextComponent();
+                convo.setText(String.format("%s:%s:%s (UID:%d)", global, localName, conversation.name, conversation.uid));
+                convo.setUnderlined(true);
+                convo.setColor(ColorScheme.EDITING_OPTION);
+                convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                        String.format("/%s %s %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE, global, local, conversation.uid)));
+                player.spigot().sendMessage(convo);
+            }
+
+
             TextComponent back = new TextComponent();
             back.setText("(Back)");
             back.setUnderlined(true);
             back.setColor(ColorScheme.EDITING_OPTION);
             back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s", CommandReferences.NPC_CONVO_EDIT_LOCAL, global)));
-            player.spigot().sendMessage(welcome, back);
+            player.spigot().sendMessage(back);
             StopCommand.startListening(new ReadingConvoConvo(global, local), player);
         } else {
             player.sendMessage(ColorScheme.BAD + String.format("%s:%s is an invalid conversation category", global, local));

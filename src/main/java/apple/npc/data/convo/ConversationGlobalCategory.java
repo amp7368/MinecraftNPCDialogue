@@ -4,10 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ConversationGlobalCategory {
 
@@ -88,6 +85,9 @@ public class ConversationGlobalCategory {
         return false;
     }
 
+    public Collection<ConversationLocalCategory> getList(){
+        return localCategoryConversations.values();
+    }
     public HashMap<Integer, ConversationLocalCategory> getLocalCategoryConversations() {
         return localCategoryConversations;
     }
