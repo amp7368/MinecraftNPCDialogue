@@ -87,6 +87,7 @@ public class AllConversations {
         if (hasGlobalCategory(global)) {
             allConversations.get(global).createResponse(global, local, convo, text);
             writeGlobal(global);
+            return true;
         }
         return false;
     }

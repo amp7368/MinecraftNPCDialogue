@@ -63,6 +63,9 @@ public class EditNpcConvoLocal implements CommandExecutor, TabCompleter {
             player.sendMessage(ChatColor.RED + String.format("There is no %s conversation global category", global));
             return false;
         }
+
+        player.sendMessage(ColorScheme.LONG_DASH);
+
         for (ConversationLocalCategory local : localCats) {
             player.sendMessage(ColorScheme.DASH);
 
@@ -81,9 +84,12 @@ public class EditNpcConvoLocal implements CommandExecutor, TabCompleter {
         back.setUnderlined(true);
         back.setColor(ColorScheme.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s", CommandReferences.NPC_CONVO_EDIT_GLOBAL)));
+        player.sendMessage("");
         player.spigot().sendMessage(back);
 
         StopCommand.startListening(new ReadingConvoLocal(args[0]), player);
+
+        player.sendMessage(ColorScheme.LONG_DASH);
         return true;
     }
 

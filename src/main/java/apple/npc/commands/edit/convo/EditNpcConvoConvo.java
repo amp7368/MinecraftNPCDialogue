@@ -61,7 +61,7 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             ConversationLocalCategory conversations = AllConversations.getLocalCategory(global, local);
             for (ConversationData conversation : conversations.getConversations().values()) {
                 TextComponent convo = new TextComponent();
-                convo.setText(String.format("%s:%s:%s (UID:%d)", global, localName, conversation.name, conversation.uid));
+                convo.setText(String.format("(Edit %s:%s:%s (UID:%d))", global, localName, conversation.name, conversation.uid));
                 convo.setUnderlined(true);
                 convo.setColor(ColorScheme.EDITING_OPTION);
                 convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
@@ -75,6 +75,8 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             back.setUnderlined(true);
             back.setColor(ColorScheme.EDITING_OPTION);
             back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s", CommandReferences.NPC_CONVO_EDIT_LOCAL, global)));
+
+            player.sendMessage("");
             player.spigot().sendMessage(back);
             StopCommand.startListening(new ReadingConvoConvo(global, local), player);
         } else {

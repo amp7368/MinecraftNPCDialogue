@@ -37,17 +37,23 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
+        player.sendMessage(ColorScheme.LONG_DASH);
+
         TextComponent welcome = new TextComponent();
-        welcome.setText("Type what conversation global category would you like to edit?   ");
+        welcome.setText("Type what conversation global category would you like to edit?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
         back.setColor(ColorScheme.EDITING_OPTION);
         back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s", CommandReferences.NPC_CONVO_EDIT)));
-        player.spigot().sendMessage(welcome, back);
+        player.spigot().sendMessage(welcome);
+        player.sendMessage("");
+        player.spigot().sendMessage(back);
 
         StopCommand.startListening(new ReadingConvoGlobal(plugin), player);
+
+        player.sendMessage(ColorScheme.LONG_DASH);
         return true;
     }
 

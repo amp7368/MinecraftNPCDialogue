@@ -7,7 +7,7 @@ import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
-import apple.npc.reading.command.convo.ReadingConvoConvo;
+import apple.npc.reading.text.ReadingTextResponse;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -53,6 +53,8 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             player.sendMessage(ColorScheme.BAD + "The second and third argument must be a number.");
             return false;
         }
+
+
         player.sendMessage(ColorScheme.LONG_DASH);
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
@@ -60,11 +62,19 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             return false;
         }
 
+        String localName = AllConversations.getLocalName(global, local);
+        String convoName = conversation.name;
+
+        if (localName == null) {
+            player.sendMessage(String.format("The local category %s:%d does not exist", global, local));
+            return false;
+        }
+
         for (ConversationResponse response : conversation.responses) {
             player.sendMessage(ColorScheme.DASH);
 
             TextComponent category = new TextComponent();
-            category.setText(String.format("(Edit %s:%s:%s:%d", global, local, convo, response.uid));
+            category.setText(String.format("(Edit %s:%s:%s:%d)", global, localName, convoName, response.uid));
             category.setUnderlined(true);
             category.setColor(ColorScheme.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DETAILS, global, local, convo, response.uid)));
@@ -72,29 +82,24 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
 
             player.spigot().sendMessage(category);
             for (String text : response.response) {
-                player.sendMessage(text);
+                player.sendMessage(ColorScheme.TAB + text);
             }
         }
-        player.sendMessage(ColorScheme.DASH);
-        TextComponent make = new TextComponent();
-        make.setText("(Make Response");
-        make.setUnderlined(true);
-        make.setColor(ColorScheme.EDITING_OPTION);
-        make.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d",
-                CommandReferences.NPC_CONVO_MAKE_RESPONSE, global, local, convo)));
 
-
-        player.spigot().sendMessage(make);
-
-
-        player.sendMessage(ColorScheme.DASH);
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
         back.setColor(ColorScheme.EDITING_OPTION);
-        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d", CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
+        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d",
+                CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
+        player.sendMessage("");
         player.spigot().sendMessage(back);
+
+        StopCommand.startListening(new ReadingTextResponse(global,local,convo), player);
+
+        player.sendMessage(ColorScheme.DASH);
         player.sendMessage(ColorScheme.LONG_DASH);
+
 
 
         return true;

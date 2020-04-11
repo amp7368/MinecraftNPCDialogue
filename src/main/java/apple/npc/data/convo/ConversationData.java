@@ -81,6 +81,7 @@ public class ConversationData {
         while (contains(responseUID)) {
             responseUID++;
         }
+        System.out.println("just made a response");
         responses.add(new ConversationResponse(global, local, convo, responseUID, text));
     }
 }

@@ -62,7 +62,8 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
             player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
             return false;
         }
-        ConversationResponse response = conversation.get(responseUID);
+
+        player.sendMessage(ColorScheme.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText(String.format("What would you like to edit about response %s:%s:%s:%d?   ",
@@ -79,32 +80,36 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         preResponse.setText("(PreResponseRequirement)");
         preResponse.setUnderlined(true);
         preResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        preResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_PRERESPONSE, global, localUID, convoUID,responseUID)));
+        preResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_PRERESPONSE, global, localUID, convoUID, responseUID)));
 
         TextComponent text = new TextComponent();
         text.setText("(Text)");
         text.setUnderlined(true);
         text.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_TEXT, global, localUID, convoUID,responseUID)));
+        text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_TEXT, global, localUID, convoUID, responseUID)));
 
         TextComponent postResponse = new TextComponent();
         postResponse.setText("(PostResponses)");
         postResponse.setUnderlined(true);
         postResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        postResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_POSTRESPONSE, global, localUID, convoUID,responseUID)));
+        postResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_POSTRESPONSE, global, localUID, convoUID, responseUID)));
 
         TextComponent defaultResponse = new TextComponent();
         defaultResponse.setText("(DefaultPostResponse)");
         defaultResponse.setUnderlined(true);
         defaultResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID,responseUID)));
+        defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID, responseUID)));
 
-        TextComponent separator = new TextComponent();
-        separator.setText("   ");
-
-        player.spigot().sendMessage(welcome, back);
-        player.spigot().sendMessage(preResponse, separator, text, separator, postResponse, separator, defaultResponse);
+        player.sendMessage(ColorScheme.LONG_DASH);
+        player.spigot().sendMessage(welcome);
+        player.spigot().sendMessage(preResponse);
+        player.spigot().sendMessage(text);
+        player.spigot().sendMessage(postResponse);
+        player.spigot().sendMessage(defaultResponse);
         player.sendMessage("");
+        player.spigot().sendMessage(back);
+
+        player.sendMessage(ColorScheme.LONG_DASH);
         return true;
     }
 

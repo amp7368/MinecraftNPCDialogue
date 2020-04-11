@@ -1,5 +1,6 @@
 package apple.npc.commands;
 
+import apple.npc.ColorScheme;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -34,6 +35,8 @@ public class NpcCommand implements CommandExecutor {
             commandSender.sendMessage("nope");
             return false;
         }
+        player.sendMessage(ColorScheme.LONG_DASH);
+
         player.sendMessage(net.md_5.bungee.api.ChatColor.BLUE + "What would you like to do?");
 
         TextComponent editNpcs = new TextComponent();
@@ -64,6 +67,8 @@ public class NpcCommand implements CommandExecutor {
         separator.setText("   ");
 
         player.spigot().sendMessage(editNpcs, separator, editConversations, separator, makeNpcs, separator, makeConversations);
+
+        player.sendMessage(ColorScheme.LONG_DASH);
         return true;
     }
 }

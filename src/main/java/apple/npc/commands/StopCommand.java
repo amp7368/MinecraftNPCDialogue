@@ -1,8 +1,11 @@
 package apple.npc.commands;
 
+import apple.npc.ColorScheme;
 import apple.npc.reading.Reading;
 import apple.npc.reading.command.ReadingCommand;
 import apple.npc.reading.text.ReadingText;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -42,6 +46,13 @@ public class StopCommand implements CommandExecutor, Listener {
             return;
         }
         command.setExecutor(this);
+
+        command = plugin.getCommand("abort_reading");
+        if (command == null) {
+            System.err.println("[NPCDialogue] could not get the abort_reading command");
+            return;
+        }
+        command.setExecutor(this);
     }
 
     /**
@@ -60,14 +71,20 @@ public class StopCommand implements CommandExecutor, Listener {
             commandSender.sendMessage("nope");
             return false;
         }
-        if (reading.containsKey(player.getUniqueId()) && reading.get(player.getUniqueId()) instanceof ReadingText) {
-            // otherwise finish what you were doing with the text
-            Reading read = reading.remove(player.getUniqueId());
-            read.dealWithStop(player);
+        if (command.getName().equals("abort_reading")) {
+            reading.remove(player.getUniqueId());
+            player.sendMessage("We're not listening anymore.");
             return true;
+        } else {
+            if (reading.containsKey(player.getUniqueId()) && reading.get(player.getUniqueId()) instanceof ReadingText) {
+                // otherwise finish what you were doing with the text
+                Reading read = reading.remove(player.getUniqueId());
+                read.dealWithStop(player);
+                return true;
+            }
+            player.sendMessage(ChatColor.GRAY + "We weren't recording whatever you just wrote");
+            return false;
         }
-        player.sendMessage(ChatColor.GRAY + "We weren't recording whatever you just wrote");
-        return false;
     }
 
     /**
@@ -82,12 +99,36 @@ public class StopCommand implements CommandExecutor, Listener {
         if (reading.containsKey(player.getUniqueId())) {
             Reading read = reading.get(player.getUniqueId());
             if (read instanceof ReadingText) {
+                player.sendMessage(ColorScheme.LONG_DASH);
+
+                net.md_5.bungee.api.chat.TextComponent stop = new TextComponent();
+                stop.setText("(Finish Reading)");
+                stop.setUnderlined(true);
+                stop.setColor(ColorScheme.STOP);
+                stop.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stop_reading"));
+                player.spigot().sendMessage(stop);
+
+                net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
+                abort.setText("(Abort Reading)");
+                abort.setUnderlined(true);
+                abort.setColor(ColorScheme.STOP);
+                abort.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/abort_reading"));
+                player.spigot().sendMessage(abort);
+
+                player.sendMessage(event.getMessage());
+
                 ((ReadingText) read).addText(event.getMessage());
+
+                player.sendMessage(ColorScheme.LONG_DASH);
+                event.setCancelled(true);
             } else if (read instanceof ReadingCommand) {
                 ReadingCommand readCommand = (ReadingCommand) read;
                 readCommand.setCommand(event.getMessage());
                 reading.remove(player.getUniqueId());
                 readCommand.dealWithStop(player);
+
+                player.sendMessage(event.getMessage());
+                event.setCancelled(true);
             }
         }
     }
