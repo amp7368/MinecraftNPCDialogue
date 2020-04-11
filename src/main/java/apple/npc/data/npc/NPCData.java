@@ -39,7 +39,6 @@ public class NPCData {
         startingConclusion = config.getInt(YMLNpcNavigate.STARTING_CONCLUSION);
         maxTimeSinceTalk = config.getInt(YMLNpcNavigate.MAX_TIME_SINCE_LAST_TALK);
         varsToConclusion = new ArrayList<>();
-        System.out.println("Current path: " + config.getCurrentPath());
         ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
         for (String varConcluKey : varConcluKeys) {

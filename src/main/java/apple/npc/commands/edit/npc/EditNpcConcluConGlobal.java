@@ -15,10 +15,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Collection;
 import java.util.List;
 
-public class EditNpConcluConGlobal implements CommandExecutor, TabCompleter {
+public class EditNpcConcluConGlobal implements CommandExecutor, TabCompleter {
     private JavaPlugin plugin;
 
-    public EditNpConcluConGlobal(JavaPlugin plugin) {
+    public EditNpcConcluConGlobal(JavaPlugin plugin) {
         this.plugin = plugin;
         PluginCommand command = plugin.getCommand(CommandReferences.NPC_EDIT_CONCLU_CON_GLOBAL);
         if (command == null) {
@@ -53,7 +53,7 @@ public class EditNpConcluConGlobal implements CommandExecutor, TabCompleter {
         player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
-        welcome.setText("What conversation global category would you like to edit?");
+        welcome.setText("What conversation global category would you like it to refer to?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
         player.spigot().sendMessage(welcome);
 

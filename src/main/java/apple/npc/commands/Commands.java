@@ -34,8 +34,10 @@ public class Commands {
 
         // npc main branch
         new EditNpcSpecific(plugin);
-        new EditNpConcluConGlobal(plugin);
+        new EditNpcConcluConGlobal(plugin);
         new EditNpcConcluConLocal(plugin);
+        new EditNpcConcluConCon(plugin);
+        new EditNpcConcluConMake(plugin);
 
         // convo main branch
         new EditNpcConvo(plugin);
@@ -53,7 +55,7 @@ public class Commands {
 
         new EditNpc(plugin);
         new EditNpcName(plugin);
-        new EditNpcConclusionToConvo(plugin);
+        new EditNpcConclusion(plugin);
         new RespondToNpcCommand(plugin);
 
         new CommandPing(plugin);

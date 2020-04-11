@@ -49,7 +49,9 @@ commands:
   npc_edit_concluToConvo_local:
     description: continues an editing session to edit the concluToConvo mapping to get the local category
   npc_edit_concluToConvo_con:
-    description: finishes a session editing the conclusionToConvo for an npc
+    description: continues an editing session to edit the concluToConvo mapping to get the convo category
+  npc_edit_concluToConvo_make:
+    description: finishes a session editing to conclusionToConvo for an npc
 
   # general commands used by the player
   npc_respond:

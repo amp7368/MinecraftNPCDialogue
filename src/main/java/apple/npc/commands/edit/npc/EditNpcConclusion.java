@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * A class that deals with the editing of conclusionsToConvo in the  npc session
  */
-public class EditNpcConclusionToConvo implements CommandExecutor, TabCompleter {
-    public EditNpcConclusionToConvo(JavaPlugin plugin) {
+public class EditNpcConclusion implements CommandExecutor, TabCompleter {
+    public EditNpcConclusion(JavaPlugin plugin) {
         PluginCommand command = plugin.getCommand(CommandReferences.NPC_EDIT_CONCLU);
         if (command == null) {
             System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC_EDIT_CONCLU + " command");
