@@ -1,5 +1,7 @@
 package apple.npc.commands;
 
+import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseLocal;
+import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponsePost;
 import apple.npc.commands.edit.npc.EditNpc;
 import apple.npc.commands.edit.convo.*;
 import apple.npc.commands.edit.npc.EditNpcConclusionToConvo;
@@ -30,12 +32,17 @@ public class Commands {
 
         new NpcCommand(plugin);
 
+        // main branch
         new EditNpcConvo(plugin);
         new EditNpcConvoGlobal(plugin);
         new EditNpcConvoLocal(plugin);
         new EditNpcConvoConvo(plugin);
         new EditNpcConvoResponse(plugin);
         new EditNpcConvoResponseDetails(plugin);
+
+        // response branch
+        new EditNpcConvoResponsePost(plugin);
+        new EditNpcConvoResponseLocal(plugin);
 
         new EditNpc(plugin);
         new EditNpcName(plugin);

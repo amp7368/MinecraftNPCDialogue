@@ -106,13 +106,7 @@ public class StopCommand implements CommandExecutor, Listener {
                 stop.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stop_reading"));
                 player.spigot().sendMessage(stop);
 
-                net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
-                abort.setText("(Abort Reading)");
-                abort.setUnderlined(true);
-                abort.setColor(MessageUtils.STOP);
-                abort.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/abort_reading"));
-                player.spigot().sendMessage(abort);
-
+                showAbort(player);
                 player.sendMessage(event.getMessage());
 
                 ((ReadingText) read).addText(event.getMessage());
@@ -129,6 +123,16 @@ public class StopCommand implements CommandExecutor, Listener {
                 event.setCancelled(true);
             }
         }
+    }
+
+    public static void showAbort(Player player) {
+        net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
+        abort.setText("(Abort Reading)");
+        abort.setUnderlined(true);
+        abort.setColor(MessageUtils.STOP);
+        abort.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/abort_reading"));
+        player.spigot().sendMessage(abort);
+
     }
 
     /**
