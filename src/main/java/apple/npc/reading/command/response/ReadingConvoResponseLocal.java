@@ -41,6 +41,7 @@ public class ReadingConvoResponseLocal extends ReadingCommand {
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation local category would you like it to refer to?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+        player.spigot().sendMessage(welcome);
 
         Collection<ConversationLocalCategory> localNames = AllConversations.getLocalList(newGlobal);
         if (localNames == null) {
@@ -52,7 +53,7 @@ public class ReadingConvoResponseLocal extends ReadingCommand {
             player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
-            category.setText(String.format("(Edit %s)", localName.getName()));
+            category.setText(String.format("(%s)", localName.getName()));
             category.setUnderlined(true);
             category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %s %d",

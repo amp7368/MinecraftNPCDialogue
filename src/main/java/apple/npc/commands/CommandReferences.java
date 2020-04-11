@@ -27,5 +27,6 @@ public class CommandReferences {
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_LOCAL = "npc_convo_edit_response_post_local";
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_CONVO = "npc_convo_edit_response_post_convo";
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_BOOL = "npc_convo_edit_response_post_bool";
+    public static final String NPC_CONVO_EDIT_RESPONSE_SET = "npc_convo_edit_response_set";
 
 }

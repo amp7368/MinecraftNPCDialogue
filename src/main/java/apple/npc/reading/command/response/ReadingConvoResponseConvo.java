@@ -4,13 +4,13 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.convo.ConversationData;
-import apple.npc.data.convo.ConversationLocalCategory;
+import apple.npc.data.convo.*;
 import apple.npc.reading.command.ReadingBoolean;
 import apple.npc.reading.command.ReadingCommand;
 import apple.npc.reading.command.ResponseType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -41,10 +41,12 @@ public class ReadingConvoResponseConvo extends ReadingCommand {
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation would you like it to refer to?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+        player.spigot().sendMessage(welcome);
 
         ConversationLocalCategory localCat = AllConversations.getLocalCategory(newGlobal, newLocal);
         if (localCat == null) {
             //todo deal with this
+            System.out.println("localCat is null");
             return;
         }
 
@@ -52,11 +54,11 @@ public class ReadingConvoResponseConvo extends ReadingCommand {
             player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
-            category.setText(String.format("(Edit %s)", conversation.name));
+            category.setText(String.format("(%s)", conversation.name));
             category.setUnderlined(true);
             category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %s %d %d",
-                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_POST_BOOL, global, local, convo, response, newGlobal, newLocal, conversation.uid)));
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_SET, global, local, convo, response, newGlobal, newLocal, conversation.uid)));
             player.spigot().sendMessage(category);
         }
         player.sendMessage(MessageUtils.DASH);
@@ -73,15 +75,19 @@ public class ReadingConvoResponseConvo extends ReadingCommand {
             player.sendMessage("finish me");
             StopCommand.startListening(new ReadingConvoResponseConvo(global, local, convo, response, type, newGlobal, newLocal, player), player);
         } else if (uids.size() != 1) {
-            player.sendMessage(ChatColor.BLUE + "Which local do you want?");
+            player.sendMessage(ChatColor.BLUE + "Which convo do you want?");
             List<String> uidsString = new ArrayList<>();
             for (int uid : uids) {
                 uidsString.add(String.valueOf(uid));
             }
             player.sendMessage(String.join(" | ", uidsString));
         } else {
-            int newLocalUID = uids.get(0);
-            StopCommand.startListening(new ReadingBoolean(global, local, convo, response, type, newGlobal, newLocalUID, newLocalUID, player), player);
+            int newConvoUID = uids.get(0);
+            ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
+            conversation.get(response).getPostResponses().set(0, new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
+            AllConversations.writeAll();
+
+//            StopCommand.startListening(new ReadingBoolean(global, local, convo, response, type, newGlobal, newLocal, newConvoUID, player), player);
         }
     }
 }

@@ -69,6 +69,11 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             player.sendMessage(String.format("The local category %s:%d does not exist", global, local));
             return false;
         }
+        TextComponent welcome = new TextComponent();
+        welcome.setText("What response name you would you like to edit?");
+        welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+        player.spigot().sendMessage(welcome);
+
 
         for (ConversationResponse response : conversation.responses) {
             player.sendMessage(MessageUtils.DASH);

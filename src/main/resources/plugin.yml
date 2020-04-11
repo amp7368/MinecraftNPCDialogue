@@ -65,6 +65,10 @@ commands:
     description: continues an editing session to edit the local redirect part of a postResponse for a response
   npc_convo_edit_response_post_convo:
     description: continues an editing session to edit the convo redirect part of a postResponse for a response
+  npc_convo_edit_response_set:
+    description: sets the global.local.convo for resposne
+  npc_convo_edit_response_post_bool:
+    description: continues an editing sessiion to edit the boolean requirement for this response option
 
   # will be commands
   npc_convo_edit_local_name:

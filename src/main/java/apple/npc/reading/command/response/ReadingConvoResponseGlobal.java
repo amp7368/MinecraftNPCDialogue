@@ -32,13 +32,14 @@ public class ReadingConvoResponseGlobal extends ReadingCommand {
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation global category would you like it to refer to?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+        player.spigot().sendMessage(welcome);
 
         Collection<String> globalNames = AllConversations.getList();
         for (String globalName : globalNames) {
             player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
-            category.setText(String.format("(Edit %s)", globalName));
+            category.setText(String.format("(%s)", globalName));
             category.setUnderlined(true);
             category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %s",
