@@ -1,6 +1,7 @@
 package apple.npc.data.npc;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
@@ -11,7 +12,7 @@ public class VarsConclusionMap implements Evaluateable {
     private Evaluateable exp;
 
     public VarsConclusionMap(ConfigurationSection config) {
-        exp = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION));
+        exp = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION));
         conclusionResult = config.getInt(YMLNpcNavigate.CONCLUSION_ID);
     }
 

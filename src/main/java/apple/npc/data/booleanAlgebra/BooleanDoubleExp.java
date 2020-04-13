@@ -12,8 +12,8 @@ public class BooleanDoubleExp implements Evaluateable {
     public BooleanDoubleExp(ConfigurationSection config) {
         isAndOp = config.getBoolean(YMLBooleanNavigate.IS_AND_OP);
         isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
-        exp1 = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1));
-        exp2 = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_2));
+        exp1 = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1));
+        exp2 = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_2));
     }
 
     @Override

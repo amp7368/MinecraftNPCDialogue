@@ -36,6 +36,7 @@ public class CreateBooleanExp {
             ConfigurationSection config2 = config.getConfigurationSection(YMLBooleanNavigate.COMPARISON_VAR);
             config2.set(YMLBooleanNavigate.GLOBAL_CATEGORY, e.getComparisonVarGlobal());
             config2.set(YMLBooleanNavigate.VAR_UID, e.getComparisonVarUID());
+            config2.set(YMLBooleanNavigate.VAR_NAME, e.getComparisumVarName());
         } else if (exp instanceof BooleanExpRequirement) {
             BooleanExpRequirement e = (BooleanExpRequirement) exp;
             if (e.isDefault())

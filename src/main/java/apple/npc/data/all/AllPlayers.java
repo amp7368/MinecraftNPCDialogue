@@ -1,6 +1,8 @@
 package apple.npc.data.all;
 
 import apple.npc.data.player.PlayerData;
+import apple.npc.data.player.Variable;
+import apple.npc.data.player.VariableCategory;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -12,6 +14,7 @@ import java.util.Map;
 public class AllPlayers {
 
     private static Map<String, PlayerData> allPlayers = new HashMap<>();
+    public static HashMap<String, VariableCategory> allVars = new HashMap<>();
 
     public static void initialize(File dataFolder) {
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.PLAYER_FOLDER));
@@ -34,5 +37,12 @@ public class AllPlayers {
 
     public static PlayerData getPlayer(String uid) {
         return allPlayers.get(uid);
+    }
+
+    public static void addVar(String global, Variable local) {
+        if (!allVars.containsKey(global)) {
+            allVars.put(global, new VariableCategory());
+        }
+        allVars.get(global).addVar(local);
     }
 }

@@ -15,6 +15,12 @@ public class Variable {
         value = config.getInt(YMLPlayerVariable.VARIABLE_VALUE);
     }
 
+    public Variable(int uid, String name) {
+        this.uid = uid;
+        this.name = name;
+        this.value = -1;
+    }
+
     public String toString() {
         return String.format("uid: %d, name: %s, value: %d", uid, name, value);
     }

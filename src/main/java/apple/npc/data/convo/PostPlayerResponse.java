@@ -1,6 +1,8 @@
 package apple.npc.data.convo;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanRedirect;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -12,13 +14,13 @@ public class PostPlayerResponse {
     private final String responseGlobal;
     private final int responseLocal;
     private final int conversationUID;
-    private final BooleanExpRequirement redirectRequirements;
+    private final Evaluateable redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
         this.responseGlobal = config.getString(YMLConversationNavigate.RESPONSE_GLOBAL_CATEGORY);
         this.responseLocal = config.getInt(YMLConversationNavigate.RESPONSE_LOCAL_CATEGORY_UID);
         this.conversationUID = config.getInt(YMLConversationNavigate.RESPONSE_CONVERSATION_UID);
-        this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
+        this.redirectRequirements = BooleanRedirect.make(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
 
         this.variableChanges = new HashSet<>();
         ConfigurationSection changesConfig = config.getConfigurationSection(YMLConversationNavigate.VARIABLE_CHANGES);
@@ -81,7 +83,7 @@ public class PostPlayerResponse {
         return conversationUID;
     }
 
-    public BooleanExpRequirement getRedirectRequirements() {
+    public Evaluateable getRedirectRequirements() {
         return redirectRequirements;
     }
 }

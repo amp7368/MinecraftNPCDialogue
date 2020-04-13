@@ -10,6 +10,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     private int comparisonValue;
 
     private String comparisonVarGlobal;
+    private String comparisonVarName;
     private int comparisonVarUID;
     private boolean isFinished;
 
@@ -26,6 +27,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         comparisonValue = other.getComparisonValue();
         comparisonVarGlobal = other.getComparisonVarGlobal();
         comparisonVarUID = other.getComparisonVarUID();
+        comparisonVarName = other.getComparisumVarName();
         isFinished = true;
         this.name = name;
     }
@@ -38,7 +40,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     @Override
     public Evaluateable toFinished() {
         return new VariableComparision(isNoted, isConclusionVar, comparisonType, comparisonValue,
-                comparisonVarGlobal, comparisonVarUID);
+                comparisonVarGlobal, comparisonVarUID,comparisonVarName);
     }
 
     @Override

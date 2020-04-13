@@ -28,15 +28,15 @@ public class BooleanExpRequirement implements Evaluateable {
                 // we should get the default value
                 isDefault = true;
                 defaultVal = config.getBoolean(YMLBooleanNavigate.DEFAULT);
+            } else if (config.contains(YMLBooleanNavigate.EXPRESSION)) {
+                this.exp = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION));
             } else {
-                // we should get the variable comparison
-                isDefault = false;
-                exp = new VariableComparision(config);
+                isDefault = true;
+                defaultVal = false;
             }
         } else {
-            // we should get the BooleanExp
-            isDefault = false;
-            exp = new BooleanDoubleExp(config);
+            isDefault = true;
+            defaultVal = false;
         }
     }
 

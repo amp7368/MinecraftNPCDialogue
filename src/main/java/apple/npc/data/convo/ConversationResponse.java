@@ -1,6 +1,7 @@
 package apple.npc.data.convo;
 
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.npc.Opinion;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
@@ -20,7 +21,7 @@ public class ConversationResponse implements Evaluateable {
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
-        this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT + "." + YMLBooleanNavigate.EXPRESSION));
+        this.preResponseRequirement = BooleanRedirect.make(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT + "." + YMLBooleanNavigate.EXPRESSION));
         this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
         this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s",

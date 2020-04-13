@@ -22,6 +22,7 @@ public class ReadBooleanCompVal extends ReadingCommand {
         }
         VarConcluObject object = BooleanVarConcluDataStore.get(player.getUniqueId());
         object.addComparisonVal(val);
+        player.sendMessage("What is the global category of the player variable?");
         StopCommand.startListening(new ReadBooleanCompGlobal(), player);
     }
 }

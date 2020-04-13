@@ -34,6 +34,7 @@ public class WriteBoolean {
             ConfigurationSection configVar = config.createSection(YMLBooleanNavigate.COMPARISON_VAR);
             configVar.set(YMLBooleanNavigate.GLOBAL_CATEGORY,bool.getComparisonVarGlobal());
             configVar.set(YMLBooleanNavigate.VAR_UID,bool.getComparisonVarUID());
+            configVar.set(YMLBooleanNavigate.VAR_NAME,bool.getComparisumVarName());
 
         }
     }

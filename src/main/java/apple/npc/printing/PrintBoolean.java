@@ -48,7 +48,7 @@ public class PrintBoolean {
 
         string.append(printingBoolean.getComparisonVarGlobal());
         string.append("-");
-        string.append(printingBoolean.getComparisonVarUID());
+        string.append(printingBoolean.getComparisonVarName());
         switch (printingBoolean.getComparisonType()) {
             case -2:
                 string.append(" §< ");
