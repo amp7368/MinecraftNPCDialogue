@@ -89,4 +89,9 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         string.append(')');
         return string.toString();
     }
+
+    @Override
+    public int getName() {
+        return name;
+    }
 }

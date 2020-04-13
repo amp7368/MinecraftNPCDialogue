@@ -1,4 +1,4 @@
-package apple.npc.commands.edit.boolean_algebra;
+package apple.npc.commands.edit.boolean_algebra.data;
 
 import java.util.HashMap;
 import java.util.Map;

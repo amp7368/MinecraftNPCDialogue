@@ -1,6 +1,10 @@
 package apple.npc.commands.edit.boolean_algebra.commands;
 
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.StopCommand;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
+import apple.npc.commands.edit.boolean_algebra.reading.ReadBooleanCompVal;
+import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -33,6 +37,15 @@ public class BooleanCompCommand implements CommandExecutor, TabCompleter {
             return false;
         }
         player.sendMessage("starting comp command");
+
+        BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());
+
+        // deal with starting a session of getting the variable comparison
+        BooleanEditForced leftMost = exp.getLeftMost();
+        player.sendMessage(exp.toString());
+        player.sendMessage(String.format("What is the value we're comparing against of exp%d going to be?", leftMost.getName()));
+
+        StopCommand.startListening(new ReadBooleanCompVal(), player);
 
         return true;
     }

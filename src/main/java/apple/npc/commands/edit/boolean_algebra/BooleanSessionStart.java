@@ -2,6 +2,8 @@ package apple.npc.commands.edit.boolean_algebra;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedEmpty;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedRedirect;
@@ -32,12 +34,13 @@ public class BooleanSessionStart {
         BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());
 
         if (exp.isFinished()) {
-            player.sendMessage("");
+            player.sendMessage("is done");
+            return;
         }
 
         BooleanEditForced leftMost = exp.getLeftMost();
         player.sendMessage(exp.toString());
-        player.sendMessage(String.format("What is exp%d going to be?", 999));
+        player.sendMessage(String.format("What is exp%d going to be?", leftMost.getName()));
 
         TextComponent var = new TextComponent();
         var.setText("(Variable comparison)");

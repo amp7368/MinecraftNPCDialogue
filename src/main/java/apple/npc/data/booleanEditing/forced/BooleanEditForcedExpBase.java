@@ -50,4 +50,8 @@ public class BooleanEditForcedExpBase implements BooleanEditForced {
             return String.valueOf(defaultVal);
         return exp.toString();
     }
+    @Override
+    public int getName(){
+        return name;
+    }
 }

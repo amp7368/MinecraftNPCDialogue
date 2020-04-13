@@ -33,4 +33,9 @@ public class BooleanEditForcedEmpty implements BooleanEditForced {
     public String toString() {
         return "exp" + name;
     }
+
+    @Override
+    public int getName() {
+        return name;
+    }
 }

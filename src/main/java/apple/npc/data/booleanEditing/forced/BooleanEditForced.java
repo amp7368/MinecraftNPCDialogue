@@ -12,4 +12,6 @@ public interface BooleanEditForced {
     BooleanEditForced getLeftMost();
 
     String toString();
+
+    int getName();
 }
