@@ -2,6 +2,8 @@ package apple.npc.commands.edit.boolean_algebra.reading;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.StopCommand;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.VarConcluObject;
 import apple.npc.reading.command.ReadingCommand;
 import org.bukkit.entity.Player;
 
@@ -18,6 +20,8 @@ public class ReadBooleanCompVal extends ReadingCommand {
             StopCommand.startListening(new ReadBooleanCompVal(), player);
             return;
         }
-
+        VarConcluObject object = BooleanVarConcluDataStore.get(player.getUniqueId());
+        object.addComparisonVal(val);
+        StopCommand.startListening(new ReadBooleanCompGlobal(), player);
     }
 }

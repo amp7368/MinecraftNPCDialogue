@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BooleanVarConcluDataStore {
-    private static Map<UUID, Integer> npc = new HashMap<>();
-    private static Map<UUID, Integer> conclusion = new HashMap<>();
+    private static Map<UUID, VarConcluObject> varConclu = new HashMap<>();
 
     public static void put(UUID uniqueId, int npcUID, int conclusionResult) {
-        npc.put(uniqueId, npcUID);
-        conclusion.put(uniqueId, conclusionResult);
+        varConclu.put(uniqueId, new VarConcluObject(npcUID,conclusionResult));
+    }
+
+    public static VarConcluObject get(UUID uniqueId) {
+        return varConclu.get(uniqueId);
     }
 }
