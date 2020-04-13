@@ -5,17 +5,14 @@ import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.*;
-import apple.npc.reading.command.ReadingBoolean;
 import apple.npc.reading.command.ReadingCommand;
 import apple.npc.reading.command.ResponseType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ReadingConvoResponseConvo extends ReadingCommand {

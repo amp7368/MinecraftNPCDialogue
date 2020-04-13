@@ -3,10 +3,7 @@ package apple.npc.reading.command.npc.edit;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.reading.command.ReadingCommand;
-import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionGlobal;
-import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionNum;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 

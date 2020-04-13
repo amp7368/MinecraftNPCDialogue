@@ -9,6 +9,12 @@ public class BooleanExpRequirement implements Evaluateable {
     private boolean defaultVal;
     private Evaluateable exp;
 
+    public BooleanExpRequirement(boolean isDefault, boolean defaultVal, Evaluateable exp) {
+        this.isDefault = isDefault;
+        this.defaultVal = defaultVal;
+        this.exp = exp;
+    }
+
     public BooleanExpRequirement(@Nullable ConfigurationSection config) {
         if (config == null) {
             isDefault = true;
@@ -30,7 +36,7 @@ public class BooleanExpRequirement implements Evaluateable {
         } else {
             // we should get the BooleanExp
             isDefault = false;
-            exp = new BooleanExp(config);
+            exp = new BooleanDoubleExp(config);
         }
     }
 

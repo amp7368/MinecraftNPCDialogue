@@ -38,6 +38,7 @@ public class Commands {
 
         // varsConclusion main branch
         new EditNpcVarsConclu(plugin);
+        new EditNpcVarsConcluSpecific(plugin);
 
         // conclusionVars main branch
         new EditNpcConcluConGlobal(plugin);

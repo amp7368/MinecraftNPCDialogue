@@ -1,6 +1,6 @@
 package apple.npc.creation.from_scratch.convo.components;
 
-import apple.npc.data.booleanAlgebra.BooleanExp;
+import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanAlgebra.VariableComparision;
@@ -18,8 +18,8 @@ public class CreateBooleanExp {
         if (exp == null) {
             return;
         }
-        if (exp instanceof BooleanExp) {
-            BooleanExp e = (BooleanExp) exp;
+        if (exp instanceof BooleanDoubleExp) {
+            BooleanDoubleExp e = (BooleanDoubleExp) exp;
             config.set(YMLBooleanNavigate.IS_NOTED, e.isNot());
             config.set(YMLBooleanNavigate.IS_AND_OP, e.isAndOp());
             config.createSection(YMLBooleanNavigate.EXPRESSION_1);

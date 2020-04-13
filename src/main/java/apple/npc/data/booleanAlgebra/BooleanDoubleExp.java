@@ -3,13 +3,13 @@ package apple.npc.data.booleanAlgebra;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
-public class BooleanExp implements Evaluateable {
+public class BooleanDoubleExp implements Evaluateable {
     private boolean isAndOp;
     private boolean isNoted;
     private Evaluateable exp1;
     private Evaluateable exp2;
 
-    public BooleanExp(ConfigurationSection config) {
+    public BooleanDoubleExp(ConfigurationSection config) {
         isAndOp = config.getBoolean(YMLBooleanNavigate.IS_AND_OP);
         isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
         exp1 = new BooleanExpRequirement(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_1));

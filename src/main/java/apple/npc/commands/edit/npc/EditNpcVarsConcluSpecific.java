@@ -3,6 +3,11 @@ package apple.npc.commands.edit.npc;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllNPCs;
+import apple.npc.data.booleanEditing.forced.BooleanEditForcedEmpty;
+import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
+import apple.npc.data.npc.NPCData;
+import apple.npc.data.npc.VarsConclusionMap;
+import apple.npc.reading.command.npc.edit.ReadingBooleanForced;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -41,18 +46,38 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
             return false;
         }
         int npcUID;
-        int conlcusionNum;
+        int conclusionNum;
         try {
             npcUID = Integer.parseInt(args[0]);
-            conlcusionNum = Integer.parseInt(args[1]);
+            conclusionNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
             commandSender.sendMessage(MessageUtils.BAD + "The first and second arguments must be a number.");
             return false;
         }
         if (AllNPCs.hasUID(npcUID)) {
+            NPCData npc = AllNPCs.getNPCFromUID(npcUID);
+            if (npc == null) {
+                // wtf happened we just checked this?
+                player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));
+                return false;
+            }
+            List<VarsConclusionMap> varsConclusions = npc.getVarsToConclusion();
+            for (VarsConclusionMap varConclusion : varsConclusions) {
+                System.out.println("conclu result" + varConclusion.conclusionResult);
+                if (conclusionNum == varConclusion.conclusionResult) {
+                    player.sendMessage("Starting to deal with your conclusion");
+                    // start the editing session with this var
+                    new ReadingBooleanForced(new BooleanEditForcedExpBase(0), new AfterVarConclu(npcUID, conclusionNum), player);
+                    return true;
+                }
+            }
+            player.sendMessage("Starting to deal with your conclusion but it was default");
+            // otherwise give a default val for this
+            new ReadingBooleanForced(new BooleanEditForcedEmpty(0), new AfterVarConclu(npcUID, conclusionNum), player);
 
         } else {
             player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));
+            return false;
         }
         return true;
     }

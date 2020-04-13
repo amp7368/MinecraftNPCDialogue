@@ -1,0 +1,51 @@
+package apple.npc.data.booleanEditing.forced;
+
+import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.booleanAlgebra.VariableComparision;
+
+public class BooleanEditVarComparison implements BooleanEditForced {
+    private boolean isNoted;
+    private boolean isConclusionVar;
+    private int comparisonType;
+    private int comparisonValue;
+
+    private String comparisonVarGlobal;
+    private int comparisonVarUID;
+    private boolean isFinished;
+
+    private int name;
+
+    public BooleanEditVarComparison(int name) {
+        this.name = name;
+    }
+
+    public BooleanEditVarComparison(VariableComparision other, int name) {
+        isNoted = other.isNot();
+        isConclusionVar = other.isConclusionVar();
+        comparisonType = other.getComparisonType();
+        comparisonValue = other.getComparisonValue();
+        comparisonVarGlobal = other.getComparisonVarGlobal();
+        comparisonVarUID = other.getComparisonVarUID();
+        isFinished = true;
+        this.name = name;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    @Override
+    public Evaluateable toFinished() {
+        return new VariableComparision(isNoted, isConclusionVar, comparisonType, comparisonValue,
+                comparisonVarGlobal, comparisonVarUID);
+    }
+
+    @Override
+    public int nextExp() {
+        if (isFinished) {
+            return name;
+        }
+        return -1;
+    }
+}

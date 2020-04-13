@@ -1,6 +1,6 @@
 package apple.npc.creation.from_data.bool;
 
-import apple.npc.data.booleanAlgebra.BooleanExp;
+import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanAlgebra.VariableComparision;
@@ -9,9 +9,9 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class WriteBoolean {
     public static void setConfig(ConfigurationSection config, Evaluateable booleanExp) {
-        if (booleanExp instanceof BooleanExp) {
+        if (booleanExp instanceof BooleanDoubleExp) {
             // we're combining booleans
-            BooleanExp bool = (BooleanExp) booleanExp;
+            BooleanDoubleExp bool = (BooleanDoubleExp) booleanExp;
             config.set(YMLBooleanNavigate.IS_AND_OP, bool.isAndOp());
             config.set(YMLBooleanNavigate.IS_NOTED, bool.isNot());
             WriteBoolean.setConfig(config.createSection(YMLBooleanNavigate.EXPRESSION_1), bool.getExp1());

@@ -13,6 +13,16 @@ public class VariableComparision implements Evaluateable {
     private String comparisonVarGlobal;
     private int comparisonVarUID;
 
+    public VariableComparision(boolean isNoted, boolean isConclusionVar, int comparisonType, int comparisonValue,
+                               String comparisonVarGlobal, int comparisonVarUID) {
+        this.isNoted = isNoted;
+        this.isConclusionVar = isConclusionVar;
+        this.comparisonType = comparisonType;
+        this.comparisonValue = comparisonValue;
+        this.comparisonVarGlobal = comparisonVarGlobal;
+        this.comparisonVarUID = comparisonVarUID;
+    }
+
     public VariableComparision(ConfigurationSection config) {
         isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
         comparisonType = config.getInt(YMLBooleanNavigate.COMPARISON_TYPE);
