@@ -1,4 +1,4 @@
-package apple.npc.commands.edit.npc;
+package apple.npc.commands.edit.npc.concluCon;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;

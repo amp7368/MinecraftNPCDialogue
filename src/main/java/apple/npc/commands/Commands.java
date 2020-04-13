@@ -6,6 +6,7 @@ import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponsePost;
 import apple.npc.commands.edit.convo.detail.resp.EditnpcConvoResponseSet;
 import apple.npc.commands.edit.npc.*;
 import apple.npc.commands.edit.convo.*;
+import apple.npc.commands.edit.npc.concluCon.*;
 import apple.npc.commands.io.ReadCommand;
 import apple.npc.commands.io.WriteCommand;
 import apple.npc.commands.make.convo.MakeCon;

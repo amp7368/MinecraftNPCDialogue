@@ -70,7 +70,7 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
                         CommandReferences.NPC_EDIT_VARS_SPECIFIC, npcUID, conclusion)));
                 player.spigot().sendMessage(conclu);
             }
-            StopCommand.startListening(new ReadingNpcConclusionNumVars(npcUID), player);
+            StopCommand.startListening(new ReadingNpcConclusionNumVars(npcUID, plugin), player);
             player.sendMessage(MessageUtils.DASH);
 
             TextComponent back = new TextComponent();
