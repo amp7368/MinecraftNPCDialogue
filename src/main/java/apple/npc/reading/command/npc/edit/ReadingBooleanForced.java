@@ -1,15 +1,9 @@
 package apple.npc.reading.command.npc.edit;
 
 import apple.npc.afer_boolean.AfterVar;
-import apple.npc.commands.edit.npc.AfterVarConclu;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
-import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
-import apple.npc.reading.Reading;
 import apple.npc.reading.command.ReadingCommand;
-import apple.npc.reading.command.ResponseType;
 import org.bukkit.entity.Player;
-
-import java.util.regex.Pattern;
 
 public class ReadingBooleanForced extends ReadingCommand {
     private BooleanEditForced bool;

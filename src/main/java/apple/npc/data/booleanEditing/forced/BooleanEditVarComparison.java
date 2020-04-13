@@ -48,4 +48,45 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         }
         return -1;
     }
+
+    @Override
+    public BooleanEditForced getLeftMost() {
+        if (isFinished)
+            return null;
+        else
+            return this;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        if (isNoted) {
+            string.append(" §not ");
+        }
+        string.append('(');
+        string.append(comparisonValue);
+        string.append(' ');
+        switch (comparisonType) {
+            case -2:
+                string.append('<');
+                break;
+            case -1:
+                string.append("<=");
+                break;
+            case 0:
+                string.append("==");
+                break;
+            case 1:
+                string.append(">=");
+                break;
+            case 2:
+                string.append(">");
+        }
+        string.append(' ');
+        string.append(comparisonVarGlobal);
+        string.append("-");
+        string.append(comparisonVarUID);
+        string.append(')');
+        return string.toString();
+    }
 }

@@ -38,4 +38,16 @@ public class BooleanEditForcedExpBase implements BooleanEditForced {
             return exp.nextExp();
         return -1;
     }
+
+    @Override
+    public BooleanEditForced getLeftMost() {
+        return exp.getLeftMost();
+    }
+
+    @Override
+    public String toString() {
+        if (isDefault)
+            return String.valueOf(defaultVal);
+        return exp.toString();
+    }
 }

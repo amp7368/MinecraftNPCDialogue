@@ -1,5 +1,7 @@
 package apple.npc.commands;
 
+import apple.npc.commands.edit.boolean_algebra.commands.BooleanCompCommand;
+import apple.npc.commands.edit.boolean_algebra.commands.BooleanDoubleCommand;
 import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseConvo;
 import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseLocal;
 import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponsePost;
@@ -39,6 +41,8 @@ public class Commands {
         // varsConclusion main branch
         new EditNpcVarsConclu(plugin);
         new EditNpcVarsConcluSpecific(plugin);
+        new BooleanCompCommand(plugin);
+        new BooleanDoubleCommand(plugin);
 
         // conclusionVars main branch
         new EditNpcConcluConGlobal(plugin);

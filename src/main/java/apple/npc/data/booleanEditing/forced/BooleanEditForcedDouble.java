@@ -45,4 +45,34 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
         }
         return -1;
     }
+
+    @Override
+    public BooleanEditForced getLeftMost() {
+        BooleanEditForced ex = exp1.getLeftMost();
+        if (ex == null) {
+            return exp2.getLeftMost();
+        }
+        return ex;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        if (isNoted) {
+            string.append(" §not ");
+        }
+        string.append("( ");
+        string.append('(');
+        string.append(exp1.toString());
+        string.append(')');
+        if (isAndOp) {
+            string.append(" §and ");
+        } else
+            string.append(" §or ");
+        string.append('(');
+        string.append(exp2.toString());
+        string.append(')');
+        string.append(" )");
+        return string.toString();
+    }
 }

@@ -23,4 +23,14 @@ public class BooleanEditForcedEmpty implements BooleanEditForced {
     public int nextExp() {
         return name;
     }
+
+    @Override
+    public BooleanEditForced getLeftMost() {
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "exp" + name;
+    }
 }

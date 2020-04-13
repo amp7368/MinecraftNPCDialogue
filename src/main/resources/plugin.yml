@@ -50,6 +50,10 @@ commands:
     description: starts an editing session to edit the vars to conclusion
   npc_edit_vars_specific:
     description: continues an editing session to edit the vars to conclusion given a conclusion to map to
+  npc_edit_vars_comp:
+    description: continues the editing session inserting a comparison into an expression
+  npc_edit_vars_double:
+    description: continues the editing session inserting a double expression where an expression used to be
 
   # editing details for the conclusion to convo part of an npc
   npc_edit_concluToConvo_global:

@@ -1,7 +1,9 @@
 package apple.npc.commands.edit.npc;
 
 import apple.npc.MessageUtils;
+import apple.npc.afer_boolean.AfterVarConclu;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedEmpty;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
@@ -63,17 +65,16 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
             }
             List<VarsConclusionMap> varsConclusions = npc.getVarsToConclusion();
             for (VarsConclusionMap varConclusion : varsConclusions) {
-                System.out.println("conclu result" + varConclusion.conclusionResult);
                 if (conclusionNum == varConclusion.conclusionResult) {
                     player.sendMessage("Starting to deal with your conclusion");
                     // start the editing session with this var
-                    new ReadingBooleanForced(new BooleanEditForcedExpBase(0), new AfterVarConclu(npcUID, conclusionNum), player);
+                    BooleanSessionStart.start(npcUID, varConclusion, player);
                     return true;
                 }
             }
             player.sendMessage("Starting to deal with your conclusion but it was default");
             // otherwise give a default val for this
-            new ReadingBooleanForced(new BooleanEditForcedEmpty(0), new AfterVarConclu(npcUID, conclusionNum), player);
+            BooleanSessionStart.start(npcUID, conclusionNum, player);
 
         } else {
             player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));

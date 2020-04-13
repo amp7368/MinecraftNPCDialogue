@@ -1,4 +1,4 @@
-package apple.npc.commands.edit.npc;
+package apple.npc.afer_boolean;
 
 import apple.npc.afer_boolean.AfterVar;
 import apple.npc.data.booleanAlgebra.Evaluateable;
