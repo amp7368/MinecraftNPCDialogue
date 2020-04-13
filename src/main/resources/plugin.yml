@@ -44,6 +44,14 @@ commands:
     description: starts an editing session to edit any conclusionsToConversation for an npc
   npc_edit_name:
     description: edits the name of an npc
+
+  # editing details for the vars to conclusion part of an npc
+  npc_edit_vars:
+    description: starts an editing session to edit the vars to conclusion
+  npc_edit_vars_specific:
+    description: continues an editing session to edit the vars to conclusion given a conclusion to map to
+
+  # editing details for the conclusion to convo part of an npc
   npc_edit_concluToConvo_global:
     description: starts an editing session to edit the concluToConvo mapping to get the global category
   npc_edit_concluToConvo_local:

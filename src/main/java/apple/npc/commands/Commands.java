@@ -34,6 +34,11 @@ public class Commands {
 
         // npc main branch
         new EditNpcSpecific(plugin);
+
+        // varsConclusion main branch
+        new EditNpcVarsConclu(plugin);
+
+        // conclusionVars main branch
         new EditNpcConcluConGlobal(plugin);
         new EditNpcConcluConLocal(plugin);
         new EditNpcConcluConCon(plugin);

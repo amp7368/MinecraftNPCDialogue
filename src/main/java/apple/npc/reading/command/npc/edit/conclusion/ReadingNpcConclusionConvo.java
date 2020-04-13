@@ -1,7 +1,8 @@
-package apple.npc.reading.command.npc.edit;
+package apple.npc.reading.command.npc.edit.conclusion;
 
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.all.AllNPCs;
 import apple.npc.reading.command.ReadingCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -9,35 +10,37 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadingNpcConclusionLocal extends ReadingCommand {
+public class ReadingNpcConclusionConvo extends ReadingCommand {
     private int npcUID;
     private int concluNum;
     private String global;
+    private int local;
 
-    public ReadingNpcConclusionLocal(int npcUID, int concluNum, String global) {
+    public ReadingNpcConclusionConvo(int npcUID, int concluNum, String global, int local) {
         this.npcUID = npcUID;
         this.concluNum = concluNum;
         this.global = global;
+        this.local = local;
     }
 
     @Override
     public void dealWithStop(Player player) {
-        List<Integer> uids = AllConversations.getLocalUIDs(global, super.command);
+        List<Integer> uids = AllConversations.getConvoUIDs(global, local, super.command);
         if (uids == null) {
             player.sendMessage("finish me");
         } else if (uids.isEmpty()) {
             player.sendMessage("finish me");
-            StopCommand.startListening(new ReadingNpcConclusionLocal(npcUID, concluNum, global), player);
+            StopCommand.startListening(new ReadingNpcConclusionConvo(npcUID, concluNum, global, local), player);
         } else if (uids.size() != 1) {
-            player.sendMessage(ChatColor.BLUE + "Which local do you want?");
+            player.sendMessage(ChatColor.BLUE + "Which conversation do you want?");
             List<String> uidsString = new ArrayList<>();
             for (int uid : uids) {
                 uidsString.add(String.valueOf(uid));
             }
             player.sendMessage(String.join(" | ", uidsString));
         } else {
-            player.sendMessage("What is the conversation name");
-            StopCommand.startListening(new ReadingNpcConclusionConvo(npcUID, concluNum, global, uids.get(0)), player);
+            AllNPCs.setConcluToConvo(npcUID, concluNum, global, local, uids.get(0));
+            player.sendMessage(ChatColor.GREEN + "We just updated that convo for " + npcUID);
         }
     }
 }

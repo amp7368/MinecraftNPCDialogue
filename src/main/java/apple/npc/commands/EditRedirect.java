@@ -1,8 +1,7 @@
 package apple.npc.commands;
 
 import apple.npc.data.all.AllNPCs;
-import apple.npc.reading.command.npc.edit.ReadingNpc;
-import apple.npc.reading.command.npc.edit.ReadingNpcConclusionNum;
+import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionNum;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

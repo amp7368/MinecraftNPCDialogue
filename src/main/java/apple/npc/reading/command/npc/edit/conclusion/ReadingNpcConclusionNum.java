@@ -1,4 +1,4 @@
-package apple.npc.reading.command.npc.edit;
+package apple.npc.reading.command.npc.edit.conclusion;
 
 import apple.npc.commands.StopCommand;
 import apple.npc.reading.command.ReadingCommand;

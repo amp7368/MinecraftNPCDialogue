@@ -2,10 +2,9 @@ package apple.npc.commands.edit.npc;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.EditRedirect;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllNPCs;
-import apple.npc.reading.command.npc.edit.ReadingNpcConclusionNum;
+import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionNum;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;

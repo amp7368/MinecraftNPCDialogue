@@ -6,7 +6,7 @@ import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.reading.command.npc.edit.ReadingNpcConclusionGlobal;
+import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionGlobal;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -14,7 +14,6 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

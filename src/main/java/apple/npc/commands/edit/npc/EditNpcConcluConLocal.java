@@ -5,7 +5,7 @@ import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.reading.command.npc.edit.ReadingNpcConclusionGlobal;
+import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionGlobal;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
