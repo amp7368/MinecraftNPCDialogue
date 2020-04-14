@@ -63,15 +63,7 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
                 player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));
                 return false;
             }
-            List<VarsConclusionMap> varsConclusions = npc.getVarsToConclusion();
-            for (VarsConclusionMap varConclusion : varsConclusions) {
-                if (conclusionNum == varConclusion.conclusionResult) {
-                    player.sendMessage("Starting to deal with your conclusion");
-                    // start the editing session with this var
-                    BooleanSessionStart.start(npcUID, varConclusion, player);
-                    return true;
-                }
-            }
+
             player.sendMessage("Starting to deal with your conclusion but it was default");
             // otherwise give a default val for this
             BooleanSessionStart.start(npcUID, conclusionNum, player);

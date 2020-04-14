@@ -29,7 +29,7 @@ public class ReadBooleanCompVarName extends ReadingCommand {
         List<Integer> uids = AllPlayers.getVarLocalUIDs(data.global, command);
 
         if (uids.isEmpty()) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> player.performCommand(String.format("/%s %d",
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> player.performCommand(String.format("%s %d",
                     CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL, AllPlayers.getNextUID(data.global))), 0);
         } else {
             player.sendMessage(MessageUtils.LONG_DASH);

@@ -53,6 +53,7 @@ public class VariableCategory {
     public List<Integer> getVarLocalUIDs(String localName) {
         List<Integer> list = new ArrayList<>();
         for (Variable var : variables.values()) {
+            System.out.println(var.toString());
             if (var.name.equals(localName))
                 list.add(var.uid);
         }
