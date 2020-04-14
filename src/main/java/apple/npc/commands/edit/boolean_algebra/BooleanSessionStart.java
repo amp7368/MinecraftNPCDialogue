@@ -4,6 +4,9 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.data.all.AllNPCs;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedEmpty;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedRedirect;
@@ -30,10 +33,14 @@ public class BooleanSessionStart {
         step(player);
     }
 
-    private static void step(Player player) {
+    public static void step(Player player) {
         BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());
 
         if (exp.isFinished()) {
+            VarConcluComparisonObject metadata = BooleanVarConcluDataStore.get(player.getUniqueId());
+            Evaluateable finished = exp.toFinished();
+            AllNPCs.setVarToConclu(metadata.npcUID,metadata.conclusionResult,finished);
+
             player.sendMessage("is done");
             return;
         }

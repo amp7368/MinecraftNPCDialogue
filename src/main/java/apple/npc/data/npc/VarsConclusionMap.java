@@ -1,6 +1,5 @@
 package apple.npc.data.npc;
 
-import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
@@ -16,6 +15,11 @@ public class VarsConclusionMap implements Evaluateable {
         conclusionResult = config.getInt(YMLNpcNavigate.CONCLUSION_ID);
     }
 
+    public VarsConclusionMap(int conclusionResult, Evaluateable finished) {
+        this.conclusionResult = conclusionResult;
+        this.exp = finished;
+    }
+
     @Override
     public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
         return exp.evaluate(playerUID, currentConclusion, timeLastTalked);
@@ -23,5 +27,9 @@ public class VarsConclusionMap implements Evaluateable {
 
     public Evaluateable getExpression() {
         return exp;
+    }
+
+    public void setExpression(Evaluateable finished) {
+        this.exp = finished;
     }
 }

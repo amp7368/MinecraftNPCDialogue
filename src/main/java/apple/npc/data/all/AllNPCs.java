@@ -3,6 +3,7 @@ package apple.npc.data.all;
 import apple.npc.creation.from_data.npc.WriteNpcAll;
 import apple.npc.creation.from_scratch.npc.info.NpcInfo;
 import apple.npc.creation.from_scratch.npc.single.CreateNpcData;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
@@ -162,6 +163,13 @@ public class AllNPCs {
             return allUIDToNpcs.get(npcUID).getConclusionList();
         } else {
             return null;
+        }
+    }
+
+    public static void setVarToConclu(int npcUID, int conclusionResult, Evaluateable finished) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            allUIDToNpcs.get(npcUID).setVarToConclu(conclusionResult, finished);
+            writeNpc(npcUID);
         }
     }
 }

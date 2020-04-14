@@ -2,6 +2,7 @@ package apple.npc.commands.edit.boolean_algebra.commands;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
@@ -70,6 +71,7 @@ public class BooleanCompTypeCommand implements CommandExecutor, TabCompleter {
                 ((BooleanEditForcedExpBase) parent).set(data);
             }
         }
+        BooleanSessionStart.step(player);
         return true;
     }
 
