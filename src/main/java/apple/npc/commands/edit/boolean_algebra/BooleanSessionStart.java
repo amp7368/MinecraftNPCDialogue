@@ -99,7 +99,6 @@ public class BooleanSessionStart {
             }
             wordDivided.add(section);
             for (StringBuilder wordSection : wordDivided) {
-                System.out.println(wordSection.toString());
                 words.add(i, wordSection.toString());
                 size++;
                 i++;

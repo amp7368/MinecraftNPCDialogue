@@ -1,34 +1,61 @@
-package apple.npc.commands.edit.boolean_algebra.reading.comp;
+package apple.npc.commands.edit.boolean_algebra.commands;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
-import apple.npc.data.all.AllPlayers;
-import apple.npc.reading.command.ReadingCommand;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReadBooleanCompVarName extends ReadingCommand {
-    @Override
-    public void dealWithStop(Player player) {
-        player.sendMessage("dealing with stop for readBooleanCompVarName");
-        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
-        data.addComparisonLocal(command);
+public class BooleanCompLocalCommand implements CommandExecutor, TabCompleter {
+    JavaPlugin plugin;
 
-        List<Integer> uids = AllPlayers.getVarLocalUIDs(data.global, command);
-
-        if (uids.isEmpty()) {
-            data.addComparisonLocalUID(AllPlayers.getNextUID(data.global));
-        } else {
-            player.sendMessage("finish me deal with non empty uid ");
+    public BooleanCompLocalCommand(JavaPlugin plugin) {
+        this.plugin = plugin;
+        PluginCommand command = plugin.getCommand(CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL);
+        if (command == null) {
+            System.err.println(String.format("[NPCDialogue] could not get the %s command", CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL));
             return;
         }
+        command.setExecutor(this);
+        command.setTabCompleter(this);
+    }
+
+
+    @Override
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+        Player player = Bukkit.getPlayer(commandSender.getName());
+        if (player == null) {
+            commandSender.sendMessage("nope");
+            return false;
+        }
+        if (args.length != 1) {
+            player.sendMessage(MessageUtils.BAD + String.format("args length of %d is invalid", args.length));
+            return false;
+        }
+
+        int localUID;
+        try {
+            localUID = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            player.sendMessage(MessageUtils.BAD + "The first argument must be a number");
+            return false;
+        }
+
+        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
+
+        data.addComparisonLocalUID(localUID);
+
         player.sendMessage(MessageUtils.LONG_DASH);
-        player.sendMessage(MessageUtils.EDITING + "What is the comparison type? (-2:< | -1:<= | 0:== | 1:>= | 2:>)");
+        player.sendMessage(MessageUtils.EDITING + "What is the comparison type?");
 
         TextComponent lt = new TextComponent();
         lt.setText(String.format("%d < %s-%s", data.comparisonVal, data.global, data.local));
@@ -62,6 +89,11 @@ public class ReadBooleanCompVarName extends ReadingCommand {
 
         player.sendMessage(MessageUtils.LONG_DASH);
 
+        return true;
+    }
 
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        return null;
     }
 }

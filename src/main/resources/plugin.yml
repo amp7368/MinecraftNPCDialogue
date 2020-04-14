@@ -56,6 +56,8 @@ commands:
     description: continues the editing session inserting a double expression where an expression used to be
   npc_edit_vars_comp_type:
     description: continues the editing session and asks what type of variable comparison the new expression will be
+  npc_edit_vars_comp_local:
+    description: continues the editing session and creates a local comparison variable with a given uid
   npc_edit_vars_double_type:
     description: continues the editing session and asks what operators the new double expression will have
 

@@ -45,4 +45,5 @@ public class CommandReferences {
 
     public static final String NPC_EDIT_VARS_SPECIFIC_COMP_TYPE = "npc_edit_vars_comp_type";
     public static final String NPC_EDIT_VARS_SPECIFIC_DOUBLE_TYPE = "npc_edit_vars_double_type";
+    public static final String NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL = "npc_edit_vars_comp_local";
 }
