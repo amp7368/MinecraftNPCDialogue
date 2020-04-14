@@ -38,9 +38,9 @@ public class VariableComparision implements Evaluateable {
             comparisonVarGlobal = config.getString(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.GLOBAL_CATEGORY));
             comparisonVarUID = config.getInt(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_UID));
             comparisumVarName = config.getString(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_NAME));
+            // every time a new variable comparison is read, try to put it in player variables list of variables
             AllPlayers.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
         }
-        // every time a new variable comparison is read, try to put it in player variables list of variables
     }
 
     @Override

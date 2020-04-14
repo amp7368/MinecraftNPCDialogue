@@ -5,9 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class VariableCategory {
     private Map<Integer, Variable> variables;
@@ -50,5 +48,22 @@ public class VariableCategory {
         if (!variables.containsKey(local.uid)) {
             variables.put(local.uid, local);
         }
+    }
+
+    public List<Integer> getVarLocalUIDs(String localName) {
+        List<Integer> list = new ArrayList<>();
+        for (Variable var : variables.values()) {
+            if (var.name.equals(localName))
+                list.add(var.uid);
+        }
+        return list;
+    }
+
+    public int getNextUID() {
+        int nextUID = 0;
+        while (variables.containsKey(nextUID)) {
+            nextUID++;
+        }
+        return nextUID;
     }
 }

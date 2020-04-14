@@ -4,9 +4,11 @@ import apple.npc.data.booleanAlgebra.Evaluateable;
 
 public class BooleanEditForcedEmpty implements BooleanEditForced {
     private int name;
+    private BooleanEditForced parent;
 
-    public BooleanEditForcedEmpty(int name) {
+    public BooleanEditForcedEmpty(int name, BooleanEditForced parent) {
         this.name = name;
+        this.parent = parent;
     }
 
     @Override
@@ -37,5 +39,10 @@ public class BooleanEditForcedEmpty implements BooleanEditForced {
     @Override
     public int getName() {
         return name;
+    }
+
+    @Override
+    public BooleanEditForced getParent() {
+        return parent;
     }
 }

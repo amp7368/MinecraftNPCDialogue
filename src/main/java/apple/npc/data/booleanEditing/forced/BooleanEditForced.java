@@ -14,4 +14,6 @@ public interface BooleanEditForced {
     String toString();
 
     int getName();
+
+    BooleanEditForced getParent();
 }

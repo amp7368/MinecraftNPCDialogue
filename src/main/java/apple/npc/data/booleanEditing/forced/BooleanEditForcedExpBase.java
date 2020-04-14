@@ -1,5 +1,6 @@
 package apple.npc.data.booleanEditing.forced;
 
+import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import org.jetbrains.annotations.NotNull;
@@ -9,16 +10,19 @@ public class BooleanEditForcedExpBase implements BooleanEditForced {
     private boolean defaultVal;
     private BooleanEditForced exp;
     private int name;
+    private BooleanEditForced parent;
 
-    public BooleanEditForcedExpBase(@NotNull BooleanExpRequirement other, int name) {
+    public BooleanEditForcedExpBase(@NotNull BooleanExpRequirement other, int name, BooleanEditForced parent) {
         this.isDefault = other.isDefault();
         this.defaultVal = other.isDefaultVal();
-        this.exp = BooleanEditForcedRedirect.make(other.getExp(), 1);
+        this.exp = BooleanEditForcedRedirect.make(other.getExp(), 1, this);
+        this.parent = parent;
         this.name = 0;
+
     }
 
     public BooleanEditForcedExpBase(int name) {
-        exp = new BooleanEditForcedEmpty(name + 1);
+        exp = new BooleanEditForcedEmpty(name + 1, this);
         this.name = 0;
     }
 
@@ -50,8 +54,18 @@ public class BooleanEditForcedExpBase implements BooleanEditForced {
             return String.valueOf(defaultVal);
         return exp.toString();
     }
+
     @Override
-    public int getName(){
+    public int getName() {
         return name;
+    }
+
+    @Override
+    public BooleanEditForced getParent() {
+        return parent;
+    }
+
+    public void set(VarConcluComparisonObject data) {
+        this.exp = new BooleanEditVarComparison(data,this);
     }
 }

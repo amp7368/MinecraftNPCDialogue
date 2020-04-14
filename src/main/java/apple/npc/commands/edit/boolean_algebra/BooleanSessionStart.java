@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 public class BooleanSessionStart {
 
     public static void start(int npcUID, VarsConclusionMap varConclusion, Player player) {
-        BooleanEditForced exp = BooleanEditForcedRedirect.make(varConclusion.getExpression(), 0);
+        BooleanEditForced exp = BooleanEditForcedRedirect.make(varConclusion.getExpression(), 0, null);
         BooleanDataStore.put(player.getUniqueId(), exp);
         BooleanVarConcluDataStore.put(player.getUniqueId(), npcUID, varConclusion.conclusionResult);
 
@@ -24,7 +24,7 @@ public class BooleanSessionStart {
     }
 
     public static void start(int npcUID, int concluNum, Player player) {
-        BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0));
+        BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
         BooleanVarConcluDataStore.put(player.getUniqueId(), npcUID, concluNum);
 
         step(player);

@@ -1,5 +1,6 @@
 package apple.npc.data.booleanEditing.forced;
 
+import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanAlgebra.VariableComparision;
 
@@ -14,13 +15,15 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     private int comparisonVarUID;
     private boolean isFinished;
 
+    private BooleanEditForced parent;
     private int name;
+
 
     public BooleanEditVarComparison(int name) {
         this.name = name;
     }
 
-    public BooleanEditVarComparison(VariableComparision other, int name) {
+    public BooleanEditVarComparison(VariableComparision other, int name, BooleanEditForced parent) {
         isNoted = other.isNot();
         isConclusionVar = other.isConclusionVar();
         comparisonType = other.getComparisonType();
@@ -29,7 +32,20 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         comparisonVarUID = other.getComparisonVarUID();
         comparisonVarName = other.getComparisumVarName();
         isFinished = true;
+        this.parent = parent;
         this.name = name;
+    }
+
+    public BooleanEditVarComparison(VarConcluComparisonObject data, BooleanEditForced parent) {
+        this.isNoted = data.isNot;
+        this.isConclusionVar = data.isConclusionVar;
+        this.comparisonType = data.type;
+        this.comparisonValue = data.comparisonVal;
+        this.comparisonVarGlobal = data.global;
+        this.comparisonVarName = data.local;
+        this.comparisonVarUID = data.localUID;
+        this.parent = parent;
+        isFinished = true;
     }
 
     @Override
@@ -40,7 +56,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     @Override
     public Evaluateable toFinished() {
         return new VariableComparision(isNoted, isConclusionVar, comparisonType, comparisonValue,
-                comparisonVarGlobal, comparisonVarUID,comparisonVarName);
+                comparisonVarGlobal, comparisonVarUID, comparisonVarName);
     }
 
     @Override
@@ -95,5 +111,10 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     @Override
     public int getName() {
         return name;
+    }
+
+    @Override
+    public BooleanEditForced getParent() {
+        return parent;
     }
 }

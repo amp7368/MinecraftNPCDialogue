@@ -1,5 +1,6 @@
 package apple.npc.data.booleanEditing.forced;
 
+import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 
@@ -9,19 +10,24 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
     private BooleanEditForced exp1;
     private BooleanEditForced exp2;
 
+    private BooleanEditForced parent;
+
     private int name;
 
-    public BooleanEditForcedDouble(int name) {
-        exp1 = new BooleanEditForcedEmpty(name + 1);
-        exp2 = new BooleanEditForcedEmpty(name + 2);
+    public BooleanEditForcedDouble(int name, BooleanEditForced parent) {
+        exp1 = new BooleanEditForcedEmpty(name + 1, parent);
+        exp2 = new BooleanEditForcedEmpty(name + 2, parent);
+        this.parent = parent;
         this.name = name;
+
     }
 
-    public BooleanEditForcedDouble(BooleanDoubleExp other, int name) {
+    public BooleanEditForcedDouble(BooleanDoubleExp other, int name, BooleanEditForced parent) {
         isAndOp = other.isAndOp();
         isNoted = other.isNot();
-        exp1 = BooleanEditForcedRedirect.make(other.getExp1(), name + 1);
-        exp2 = BooleanEditForcedRedirect.make(other.getExp2(), name + 2);
+        exp1 = BooleanEditForcedRedirect.make(other.getExp1(), name + 1, this);
+        exp2 = BooleanEditForcedRedirect.make(other.getExp2(), name + 2, this);
+        this.parent = parent;
         this.name = name;
     }
 
@@ -79,5 +85,19 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
     @Override
     public int getName() {
         return name;
+    }
+
+    @Override
+    public BooleanEditForced getParent() {
+        return parent;
+    }
+
+    public void set(VarConcluComparisonObject data) {
+        if (exp1.isFinished()) {
+            // fix exp2
+            exp2 = new BooleanEditVarComparison(data, this);
+        } else {
+            exp1 = new BooleanEditVarComparison(data, this);
+        }
     }
 }

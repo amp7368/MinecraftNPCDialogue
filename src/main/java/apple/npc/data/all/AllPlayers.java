@@ -6,9 +6,10 @@ import apple.npc.data.player.VariableCategory;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import javax.annotation.Nullable;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AllPlayers {
@@ -44,5 +45,19 @@ public class AllPlayers {
             allVars.put(global, new VariableCategory());
         }
         allVars.get(global).addVar(local);
+    }
+
+    public static List<Integer> getVarLocalUIDs(String global, String localName) {
+        if (allVars.containsKey(global)) {
+            return allVars.get(global).getVarLocalUIDs(localName);
+        }
+        return new ArrayList<>();
+    }
+
+    public static int getNextUID(String global) {
+        if (allVars.containsKey(global)) {
+            return allVars.get(global).getNextUID();
+        }
+        return 0;
     }
 }
