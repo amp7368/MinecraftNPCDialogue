@@ -26,7 +26,7 @@ public class ReadingBooleanForced extends ReadingCommand {
 
     private void nextEdit(Player player) {
         if (bool.isFinished()) {
-            after.dealWithDone(bool.toFinished());
+            after.dealWithDone(player, bool.toFinished());
         } else {
             int name = bool.nextExp();
             player.sendMessage(String.format("What is exp%d", name));

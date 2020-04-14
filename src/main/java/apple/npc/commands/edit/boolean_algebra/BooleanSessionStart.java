@@ -1,8 +1,12 @@
 package apple.npc.commands.edit.boolean_algebra;
 
 import apple.npc.MessageUtils;
+import apple.npc.afer_boolean.AfterVar;
+import apple.npc.afer_boolean.AfterVarConclu;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.edit.boolean_algebra.data.AfterDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.NpcDataStore;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
@@ -22,10 +26,10 @@ import java.util.UUID;
 public class BooleanSessionStart {
 
 
-
     public static void start(int npcUID, int concluNum, Player player) {
         BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
-        BooleanDataStore.put(player.getUniqueId(), npcUID, concluNum);
+        NpcDataStore.put(player.getUniqueId(), npcUID, concluNum);
+        AfterDataStore.put(player.getUniqueId(), new AfterVarConclu());
         step(player);
     }
 
@@ -37,10 +41,10 @@ public class BooleanSessionStart {
         printExp(player, exp.toString());
 
         if (exp.isFinished()) {
+            BooleanDataStore.remove(uid);
             Evaluateable finished = exp.toFinished();
-            AllNPCs.setVarToConclu(BooleanDataStore.getNpcUid(uid), BooleanDataStore.getConclu(uid), finished);
-
-            player.sendMessage("is done");
+            AfterVar after = AfterDataStore.remove(uid);
+            after.dealWithDone(player, finished);
             player.sendMessage(MessageUtils.LONG_DASH);
             return;
         }
