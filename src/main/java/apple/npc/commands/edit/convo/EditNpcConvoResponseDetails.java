@@ -98,12 +98,20 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         defaultResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID, responseUID)));
 
+        TextComponent varChange = new TextComponent();
+        varChange.setText("(Variable Changes)");
+        varChange.setUnderlined(true);
+        varChange.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        varChange.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID)));
+
+
         player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(welcome);
         player.spigot().sendMessage(preResponse);
         player.spigot().sendMessage(text);
         player.spigot().sendMessage(postResponse);
         player.spigot().sendMessage(defaultResponse);
+        player.spigot().sendMessage(varChange);
         player.sendMessage("");
         player.spigot().sendMessage(back);
 

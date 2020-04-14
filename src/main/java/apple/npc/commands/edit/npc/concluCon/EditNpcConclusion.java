@@ -22,12 +22,15 @@ import java.util.List;
  * A class that deals with the editing of conclusionsToConvo in the  npc session
  */
 public class EditNpcConclusion implements CommandExecutor, TabCompleter {
+    JavaPlugin plugin;
+
     public EditNpcConclusion(JavaPlugin plugin) {
         PluginCommand command = plugin.getCommand(CommandReferences.NPC_EDIT_CONCLU);
         if (command == null) {
             System.err.println("[NPCDialogue] could not get the " + CommandReferences.NPC_EDIT_CONCLU + " command");
             return;
         }
+        this.plugin = plugin;
         command.setExecutor(this);
         command.setTabCompleter(this);
     }
@@ -53,7 +56,7 @@ public class EditNpcConclusion implements CommandExecutor, TabCompleter {
             return false;
         }
         if (AllNPCs.hasUID(npcUID)) {
-            player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set?");
+            player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set? (-1 is the starting conclusion for most Npcs)");
             Collection<Integer> conclusionList = AllNPCs.getConclusionList(npcUID);
             if (conclusionList == null) {
                 // wtf happened we just checked that AllNPCs has a list
@@ -70,7 +73,7 @@ public class EditNpcConclusion implements CommandExecutor, TabCompleter {
                         CommandReferences.NPC_EDIT_CONCLU_CON_GLOBAL, npcUID, conclusion)));
                 player.spigot().sendMessage(conclu);
             }
-            StopCommand.startListening(new ReadingNpcConclusionNum(npcUID), player);
+            StopCommand.startListening(new ReadingNpcConclusionNum(npcUID, plugin), player);
             player.sendMessage(MessageUtils.DASH);
 
             TextComponent back = new TextComponent();

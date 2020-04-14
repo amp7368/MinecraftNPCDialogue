@@ -1,10 +1,7 @@
 package apple.npc.commands;
 
 import apple.npc.commands.edit.boolean_algebra.commands.*;
-import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseConvo;
-import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseLocal;
-import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponsePost;
-import apple.npc.commands.edit.convo.detail.resp.EditnpcConvoResponseSet;
+import apple.npc.commands.edit.convo.detail.resp.*;
 import apple.npc.commands.edit.npc.*;
 import apple.npc.commands.edit.convo.*;
 import apple.npc.commands.edit.npc.concluCon.*;
@@ -69,6 +66,7 @@ public class Commands {
         new EditNpcConvoResponseLocal(plugin);
         new EditNpcConvoResponseConvo(plugin);
         new EditnpcConvoResponseSet(plugin);
+        new EditNpcConvoResponseVar(plugin);
 
         new EditNpc(plugin);
         new EditNpcName(plugin);

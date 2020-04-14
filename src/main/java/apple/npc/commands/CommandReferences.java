@@ -15,10 +15,13 @@ public class CommandReferences {
     public static final String NPC_CONVO_EDIT_CONVO_TEXT = "npc_convo_edit_convo_text";
     public static final String NPC_CONVO_EDIT_CONVO_IMM = "npc_convo_edit_convo_imm";
     public static final String NPC_CONVO_EDIT_RESPONSE = "npc_convo_edit_response";
+
     public static final String NPC_CONVO_EDIT_RESPONSE_DETAILS = "npc_convo_edit_response_details";
     public static final String NPC_CONVO_EDIT_RESPONSE_PRERESPONSE = "npc_convo_edit_response_preresponse";
     public static final String NPC_CONVO_EDIT_RESPONSE_TEXT = "npc_convo_edit_response_text";
     public static final String NPC_CONVO_EDIT_RESPONSE_DEFAULT = "npc_convo_edit_response_default";
+    public static final String NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL = "npc_convo_edit_response_var_change";
+    public static final String NPC_CONVO_EDIT_RESPONSE_VAR_LOCAL ="npc_convo_edit_response_var_change_local" ;
 
     public static final String NPC_CONVO_MAKE_LOCAL = "npc_convo_make_local";
     public static final String NPC_CONVO_MAKE_CONVO = "npc_convo_make_convo";
