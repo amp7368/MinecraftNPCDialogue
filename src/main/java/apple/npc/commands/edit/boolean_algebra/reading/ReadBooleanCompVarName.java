@@ -42,7 +42,14 @@ public class ReadBooleanCompVarName extends ReadingCommand {
                         CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL, uid)));
                 player.spigot().sendMessage(uidText);
             }
-
+            int uid = AllPlayers.getNextUID(data.global) + 1;
+            TextComponent uidText = new TextComponent();
+            uidText.setText(String.format("%s-%d", command, uid));
+            uidText.setColor(MessageUtils.EDITING_OPTION);
+            uidText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d",
+                    CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL, uid)));
+            player.spigot().sendMessage(uidText);
+            player.spigot().sendMessage(uidText);
             player.sendMessage(MessageUtils.LONG_DASH);
         }
 
