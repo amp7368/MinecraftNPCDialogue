@@ -27,7 +27,8 @@ public class ReadBooleanCompVarName extends ReadingCommand {
             player.sendMessage("finish me deal with non empty uid ");
             return;
         }
-        player.sendMessage("What is the comparison type? (-2:< | -1:<= | 0:== | 1:>= | 2:>)");
+        player.sendMessage(MessageUtils.LONG_DASH);
+        player.sendMessage(MessageUtils.EDITING + "What is the comparison type? (-2:< | -1:<= | 0:== | 1:>= | 2:>)");
 
         TextComponent lt = new TextComponent();
         lt.setText(String.format("%d < %s-%s", data.comparisonVal, data.global, data.local));
@@ -58,6 +59,8 @@ public class ReadBooleanCompVarName extends ReadingCommand {
         gt.setColor(MessageUtils.EDITING_OPTION);
         gt.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d", CommandReferences.NPC_EDIT_VARS_SPECIFIC_COMP_TYPE, 2)));
         player.spigot().sendMessage(gt);
+
+        player.sendMessage(MessageUtils.LONG_DASH);
 
 
     }

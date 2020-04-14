@@ -7,7 +7,6 @@ import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedDouble;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
-import apple.npc.data.booleanEditing.forced.BooleanEditVarComparison;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -72,10 +71,8 @@ public class BooleanDoubleTypeCommand implements CommandExecutor, TabCompleter {
         // set exp to this variable comparison
         BooleanEditForced parent = exp.getParent();
         if (parent == null) {
-            player.sendMessage("setting root boolean");
             BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedDouble(isNot, isAnd, null, 0));
         } else {
-            player.sendMessage("setting nonRoot boolean");
             // these should be the only possible parents besides no parent
             if (parent instanceof BooleanEditForcedDouble) {
                 ((BooleanEditForcedDouble) parent).set(isNot, isAnd, root.getBiggestName());

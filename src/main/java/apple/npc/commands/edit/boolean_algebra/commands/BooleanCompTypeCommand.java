@@ -60,18 +60,16 @@ public class BooleanCompTypeCommand implements CommandExecutor, TabCompleter {
         // set exp to this variable comparison
         BooleanEditForced parent = exp.getParent();
         if (parent == null) {
-            player.sendMessage("setting root boolean");
             BooleanDataStore.put(player.getUniqueId(), new BooleanEditVarComparison(data, null));
         } else {
-            player.sendMessage("setting nonRoot boolean");
             // these should be the only possible parents besides no parent
             if (parent instanceof BooleanEditForcedDouble) {
                 ((BooleanEditForcedDouble) parent).set(data);
             } else if (parent instanceof BooleanEditForcedExpBase) {
                 ((BooleanEditForcedExpBase) parent).set(data);
             }
-        }
-        BooleanSessionStart.step(player);
+        }        player.sendMessage(MessageUtils.LONG_DASH);
+
         return true;
     }
 
