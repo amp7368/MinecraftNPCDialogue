@@ -78,14 +78,18 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
         }
         string.append("( ");
         string.append('(');
+        string.append(' ');
         string.append(exp1.toString());
+        string.append(' ');
         string.append(')');
         if (isAndOp) {
             string.append(" §and ");
         } else
             string.append(" §or ");
         string.append('(');
+        string.append(' ');
         string.append(exp2.toString());
+        string.append(' ');
         string.append(')');
         string.append(" )");
         return string.toString();

@@ -86,19 +86,19 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         string.append(' ');
         switch (comparisonType) {
             case -2:
-                string.append('<');
+                string.append("§<");
                 break;
             case -1:
-                string.append("<=");
+                string.append("§<=");
                 break;
             case 0:
-                string.append("==");
+                string.append("§==");
                 break;
             case 1:
-                string.append(">=");
+                string.append("§>=");
                 break;
             case 2:
-                string.append(">");
+                string.append("§>");
         }
         string.append(' ');
         string.append(comparisonVarGlobal);

@@ -3,6 +3,7 @@ package apple.npc.commands.edit.boolean_algebra.commands;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
+import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.reading.comp.ReadBooleanCompVal;
@@ -45,7 +46,7 @@ public class BooleanCompCommand implements CommandExecutor, TabCompleter {
         player.sendMessage(MessageUtils.LONG_DASH);
         // deal with starting a session of getting the variable comparison
         BooleanEditForced leftMost = exp.getLeftMost();
-        player.sendMessage(exp.toString());
+        BooleanSessionStart.printExp(player, exp.toString());
         player.sendMessage(MessageUtils.EDITING_OPTION + String.format("What is the value we're comparing against of exp%d going to be?", leftMost.getName()));
 
         StopCommand.startListening(new ReadBooleanCompVal(), player);

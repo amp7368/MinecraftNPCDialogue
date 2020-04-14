@@ -68,8 +68,9 @@ public class BooleanCompTypeCommand implements CommandExecutor, TabCompleter {
             } else if (parent instanceof BooleanEditForcedExpBase) {
                 ((BooleanEditForcedExpBase) parent).set(data);
             }
-        }        player.sendMessage(MessageUtils.LONG_DASH);
-
+        }
+        player.sendMessage(MessageUtils.LONG_DASH);
+        BooleanSessionStart.step(player);
         return true;
     }
 

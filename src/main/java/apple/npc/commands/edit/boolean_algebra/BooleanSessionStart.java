@@ -3,8 +3,6 @@ package apple.npc.commands.edit.boolean_algebra;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
@@ -88,7 +86,8 @@ public class BooleanSessionStart {
         for (int i = 0; i < size; i++) {
             List<StringBuilder> wordDivided = new ArrayList<>();
             StringBuilder section = new StringBuilder();
-            char[] wordChars = words.remove(i--).toCharArray();
+            char[] wordChars = words.remove(i).toCharArray();
+            size--;
             for (char c : wordChars) {
                 if (c == '(' || c == ')') {
                     wordDivided.add(section);
