@@ -1,6 +1,6 @@
 package apple.npc.data.booleanEditing.forced;
 
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanAlgebra.VariableComparision;
 
@@ -29,7 +29,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
         this.name = name;
     }
 
-    public BooleanEditVarComparison(VarConcluComparisonObject data, BooleanEditForced parent) {
+    public BooleanEditVarComparison(VarComparisonObject data, BooleanEditForced parent) {
         this.isNoted = data.isNot;
         this.comparisonType = data.type;
         this.comparisonValue = data.comparisonVal;

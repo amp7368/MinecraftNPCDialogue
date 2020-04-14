@@ -4,8 +4,8 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedDouble;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
@@ -51,7 +51,7 @@ public class BooleanCompTypeCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "The first argument must be a number");
             return false;
         }
-        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
+        VarComparisonObject data = BooleanVarCompDataStore.get(player.getUniqueId());
         data.addComparisonType(type);
 
         BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());

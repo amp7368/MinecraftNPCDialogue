@@ -2,8 +2,8 @@ package apple.npc.commands.edit.boolean_algebra.commands;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -50,7 +50,7 @@ public class BooleanCompLocalCommand implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
+        VarComparisonObject data = BooleanVarCompDataStore.get(player.getUniqueId());
 
         data.addComparisonLocalUID(localUID);
 

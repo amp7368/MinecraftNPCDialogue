@@ -1,5 +1,6 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.all.AllConversations;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
@@ -96,5 +97,10 @@ public class ConversationResponse implements Evaluateable {
 
     public List<PostPlayerResponse> getPostResponses() {
         return postResponses;
+    }
+
+    public void setPreResponseRequirement(Evaluateable exp) {
+        this.preResponseRequirement = exp;
+        AllConversations.writeAll();
     }
 }

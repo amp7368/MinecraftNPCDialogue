@@ -1,18 +1,15 @@
 package apple.npc.commands.edit.boolean_algebra;
 
 import apple.npc.MessageUtils;
+import apple.npc.afer_boolean.AfterPreResponse;
 import apple.npc.afer_boolean.AfterVar;
 import apple.npc.afer_boolean.AfterVarConclu;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.AfterDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.NpcDataStore;
-import apple.npc.data.all.AllNPCs;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import apple.npc.data.booleanEditing.forced.BooleanEditForcedEmpty;
-import apple.npc.data.booleanEditing.forced.BooleanEditForcedRedirect;
-import apple.npc.data.npc.VarsConclusionMap;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -28,8 +25,13 @@ public class BooleanSessionStart {
 
     public static void start(int npcUID, int concluNum, Player player) {
         BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
-        NpcDataStore.put(player.getUniqueId(), npcUID, concluNum);
-        AfterDataStore.put(player.getUniqueId(), new AfterVarConclu());
+        AfterDataStore.put(player.getUniqueId(), new AfterVarConclu(npcUID, concluNum));
+        step(player);
+    }
+
+    public static void start(String global, int localUID, int convoUID, int responseUID, Player player) {
+        BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
+        AfterDataStore.put(player.getUniqueId(), new AfterPreResponse(global, localUID, convoUID, responseUID));
         step(player);
     }
 
@@ -118,4 +120,5 @@ public class BooleanSessionStart {
 
         player.spigot().sendMessage(text.toArray(new TextComponent[0]));
     }
+
 }

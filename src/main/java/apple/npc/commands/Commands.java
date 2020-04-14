@@ -40,6 +40,10 @@ public class Commands {
         // varsConclusion main branch
         new EditNpcVarsConclu(plugin);
         new EditNpcVarsConcluSpecific(plugin);
+
+        new BooleanConvoResponsePre(plugin);
+
+        // boolean main branch
         new BooleanCompCommand(plugin);
         new BooleanCompTypeCommand(plugin);
         new BooleanDoubleCommand(plugin);

@@ -1,6 +1,6 @@
 package apple.npc.data.booleanEditing.forced;
 
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 
@@ -112,7 +112,7 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
         return Math.max(Math.max(name1, name2), name);
     }
 
-    public void set(VarConcluComparisonObject data) {
+    public void set(VarComparisonObject data) {
         if (exp1.isFinished()) {
             // fix exp2
             exp2 = new BooleanEditVarComparison(data, this);

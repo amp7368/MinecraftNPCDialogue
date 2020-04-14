@@ -1,6 +1,6 @@
 package apple.npc.commands.edit.boolean_algebra.data;
 
-public class VarConcluComparisonObject {
+public class VarComparisonObject {
     public int comparisonVal;
     public String global;
     public String local;
@@ -8,7 +8,7 @@ public class VarConcluComparisonObject {
     public int type;
     public boolean isNot;
 
-    public VarConcluComparisonObject() {
+    public VarComparisonObject() {
     }
 
     public void addComparisonVal(int val) {

@@ -2,8 +2,8 @@ package apple.npc.commands.edit.boolean_algebra.reading;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import apple.npc.data.all.AllPlayers;
 import apple.npc.reading.command.ReadingCommand;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -23,7 +23,7 @@ public class ReadBooleanCompVarName extends ReadingCommand {
 
     @Override
     public void dealWithStop(Player player) {
-        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
+        VarComparisonObject data = BooleanVarCompDataStore.get(player.getUniqueId());
         data.addComparisonLocal(command);
 
         List<Integer> uids = AllPlayers.getVarLocalUIDs(data.global, command);

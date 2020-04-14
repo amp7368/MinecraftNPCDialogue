@@ -5,7 +5,7 @@ import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.reading.ReadBooleanCompVal;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ public class BooleanCompCommand implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-        BooleanVarConcluCompDataStore.put(player.getUniqueId());
+        BooleanVarCompDataStore.put(player.getUniqueId());
 
         BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());
 
