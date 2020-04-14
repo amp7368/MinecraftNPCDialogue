@@ -44,8 +44,10 @@ public class VariableComparision implements Evaluateable {
                 switch (comparisumVarName) {
                     case "conclusion":
                         varVal = currentConclusion;
+                        break;
                     case "time":
                         varVal = System.currentTimeMillis() - timeLastTalked;
+                        break;
                     default:
                         varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
                 }

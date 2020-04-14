@@ -1,5 +1,6 @@
 package apple.npc.data.all;
 
+import apple.npc.creation.from_data.player.WritePlayerAll;
 import apple.npc.data.player.PlayerData;
 import apple.npc.data.player.Variable;
 import apple.npc.data.player.VariableCategory;
@@ -14,10 +15,13 @@ import java.util.Map;
 
 public class AllPlayers {
 
+    public static final int DEFAULT_PLAYER_VAR_VAL = 0;
     private static Map<String, PlayerData> allPlayers = new HashMap<>();
     public static HashMap<String, VariableCategory> allVars = new HashMap<>();
+    private static File folder;
 
     public static void initialize(File dataFolder) {
+        folder = dataFolder;
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.PLAYER_FOLDER));
         String[] pathNameList = directory.list();
         if (pathNameList == null) {
@@ -32,7 +36,10 @@ public class AllPlayers {
     }
 
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
-        return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
+        if (allPlayers.containsKey(playerUID))
+            return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
+        else
+            return DEFAULT_PLAYER_VAR_VAL;
     }
 
 
@@ -59,5 +66,20 @@ public class AllPlayers {
             return allVars.get(global).getNextUID();
         }
         return 0;
+    }
+
+    public static void readAll() {
+        initialize(folder);
+    }
+
+    public static void writeAll() {
+        for (String player : allPlayers.keySet()) {
+            writeplayer(player);
+        }
+    }
+
+    private static void writeplayer(String player) {
+        if (allPlayers.containsKey(player))
+            WritePlayerAll.write(folder.getPath(), player);
     }
 }

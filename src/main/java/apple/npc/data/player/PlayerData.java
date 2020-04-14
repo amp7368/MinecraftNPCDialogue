@@ -1,5 +1,6 @@
 package apple.npc.data.player;
 
+import apple.npc.data.all.AllPlayers;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -35,6 +36,12 @@ public class PlayerData {
     }
 
     public int getVarVal(String varGlobal, int varUID) {
-        return variables.get(varGlobal).getVarVal(varUID);
+        if (variables.containsKey(varGlobal))
+            return variables.get(varGlobal).getVarVal(varUID);
+        else
+            return AllPlayers.DEFAULT_PLAYER_VAR_VAL;
+    }
+    public HashMap<String, VariableCategory> getVariables(){
+        return variables;
     }
 }

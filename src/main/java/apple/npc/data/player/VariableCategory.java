@@ -1,7 +1,6 @@
 package apple.npc.data.player;
 
-import apple.npc.data.player.Variable;
-import org.apache.commons.lang.StringUtils;
+import apple.npc.data.all.AllPlayers;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +13,6 @@ public class VariableCategory {
         variables = new HashMap<>();
         Set<String> varUidList = config.getKeys(false);
         for (String varUid : varUidList) {
-            int conversationUID;
             int varUidInt;
             try {
                 varUidInt = Integer.parseInt(varUid);
@@ -41,7 +39,10 @@ public class VariableCategory {
     }
 
     public int getVarVal(int varUID) {
-        return variables.get(varUID).value;
+        if (variables.containsKey(varUID))
+            return variables.get(varUID).value;
+        else
+            return AllPlayers.DEFAULT_PLAYER_VAR_VAL;
     }
 
     public void addVar(@NotNull Variable local) {
@@ -66,5 +67,9 @@ public class VariableCategory {
             nextUID++;
         }
         return nextUID;
+    }
+
+    public Map<Integer, Variable> getVariables() {
+        return variables;
     }
 }
