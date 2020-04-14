@@ -29,7 +29,6 @@ public class CreateBooleanExp {
         } else if (exp instanceof VariableComparision) {
             VariableComparision e = (VariableComparision) exp;
             config.set(YMLBooleanNavigate.IS_NOTED, e.isNot());
-            config.set(YMLBooleanNavigate.IS_CONCLUSION_VAR, e.isConclusionVar());
             config.set(YMLBooleanNavigate.COMPARISON_TYPE, e.getComparisonType());
             config.set(YMLBooleanNavigate.COMPARISON_VALUE, e.getComparisonValue());
             config.createSection(YMLBooleanNavigate.COMPARISON_VAR);

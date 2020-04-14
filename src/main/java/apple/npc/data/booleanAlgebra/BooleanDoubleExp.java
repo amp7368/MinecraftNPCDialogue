@@ -16,6 +16,13 @@ public class BooleanDoubleExp implements Evaluateable {
         exp2 = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION_2));
     }
 
+    public BooleanDoubleExp(boolean isAndOp, boolean isNoted, Evaluateable exp1, Evaluateable exp2) {
+        this.isAndOp = isAndOp;
+        this.isNoted = isNoted;
+        this.exp1 = exp1;
+        this.exp2 = exp2;
+    }
+
     @Override
     public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
         boolean exp1Bool = exp1.evaluate(playerUID, currentConclusion, timeLastTalked);

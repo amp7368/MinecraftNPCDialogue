@@ -45,4 +45,9 @@ public class BooleanEditForcedEmpty implements BooleanEditForced {
     public BooleanEditForced getParent() {
         return parent;
     }
+
+    @Override
+    public int getBiggestName() {
+        return name;
+    }
 }

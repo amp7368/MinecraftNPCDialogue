@@ -65,7 +65,16 @@ public class BooleanEditForcedExpBase implements BooleanEditForced {
         return parent;
     }
 
+    @Override
+    public int getBiggestName() {
+        return Math.max(name, exp.getBiggestName());
+    }
+
     public void set(VarConcluComparisonObject data) {
-        this.exp = new BooleanEditVarComparison(data,this);
+        this.exp = new BooleanEditVarComparison(data, this);
+    }
+
+    public void set(boolean isNot, boolean isAnd, int name) {
+        this.exp = new BooleanEditForcedDouble(isNot, isAnd, this, name + 1);
     }
 }
