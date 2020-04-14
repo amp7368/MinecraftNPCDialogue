@@ -16,4 +16,6 @@ public interface BooleanEditForced {
     int getName();
 
     BooleanEditForced getParent();
+
+    int getBiggestName();
 }

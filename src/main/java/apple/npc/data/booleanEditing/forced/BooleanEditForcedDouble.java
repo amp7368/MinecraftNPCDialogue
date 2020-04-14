@@ -15,8 +15,8 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
     private int name;
 
     public BooleanEditForcedDouble(int name, BooleanEditForced parent) {
-        exp1 = new BooleanEditForcedEmpty(name + 1, parent);
-        exp2 = new BooleanEditForcedEmpty(name + 2, parent);
+        exp1 = new BooleanEditForcedEmpty(name + 1, this);
+        exp2 = new BooleanEditForcedEmpty(name + 2, this);
         this.parent = parent;
         this.name = name;
 
@@ -31,6 +31,15 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
         this.name = name;
     }
 
+    public BooleanEditForcedDouble(boolean isNot, boolean isAnd, BooleanEditForced parent, int name) {
+        isAndOp = isAnd;
+        isNoted = isNot;
+        exp1 = new BooleanEditForcedEmpty(name + 1, this);
+        exp2 = new BooleanEditForcedEmpty(name + 2, this);
+        this.parent = parent;
+        this.name = name;
+    }
+
     @Override
     public boolean isFinished() {
         return exp1.isFinished() && exp2.isFinished();
@@ -38,7 +47,7 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
 
     @Override
     public Evaluateable toFinished() {
-        return null;
+        return new BooleanDoubleExp(isAndOp, isNoted, exp1.toFinished(), exp2.toFinished());
     }
 
     @Override
@@ -92,12 +101,28 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
         return parent;
     }
 
+    @Override
+    public int getBiggestName() {
+        int name1 = exp1.getBiggestName();
+        int name2 = exp2.getBiggestName();
+        return Math.max(Math.max(name1, name2), name);
+    }
+
     public void set(VarConcluComparisonObject data) {
         if (exp1.isFinished()) {
             // fix exp2
             exp2 = new BooleanEditVarComparison(data, this);
         } else {
             exp1 = new BooleanEditVarComparison(data, this);
+        }
+    }
+
+    public void set(boolean isNot, boolean isAnd, int name) {
+        if (exp1.isFinished()) {
+            // fix exp2
+            exp2 = new BooleanEditForcedDouble(isNot, isAnd, this, name + 1);
+        } else {
+            exp1 = new BooleanEditForcedDouble(isNot, isAnd, this, name + 2);
         }
     }
 }

@@ -3,7 +3,7 @@ package apple.npc.commands.edit.boolean_algebra;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.booleanAlgebra.Evaluateable;
@@ -15,12 +15,15 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class BooleanSessionStart {
 
     public static void start(int npcUID, VarsConclusionMap varConclusion, Player player) {
         BooleanEditForced exp = BooleanEditForcedRedirect.make(varConclusion.getExpression(), 0, null);
         BooleanDataStore.put(player.getUniqueId(), exp);
-        BooleanVarConcluDataStore.put(player.getUniqueId(), npcUID, varConclusion.conclusionResult);
+        BooleanDataStore.put(player.getUniqueId(), npcUID, varConclusion.conclusionResult);
+        BooleanVarConcluCompDataStore.put(player.getUniqueId());
 
         step(player);
 
@@ -28,25 +31,25 @@ public class BooleanSessionStart {
 
     public static void start(int npcUID, int concluNum, Player player) {
         BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
-        BooleanVarConcluDataStore.put(player.getUniqueId(), npcUID, concluNum);
-
+        BooleanDataStore.put(player.getUniqueId(), npcUID, concluNum);
         step(player);
     }
 
     public static void step(Player player) {
-        BooleanEditForced exp = BooleanDataStore.get(player.getUniqueId());
+        UUID uid = player.getUniqueId();
+        BooleanEditForced exp = BooleanDataStore.get(uid);
+
+        printExp(player, exp.toString());
 
         if (exp.isFinished()) {
-            VarConcluComparisonObject metadata = BooleanVarConcluDataStore.get(player.getUniqueId());
             Evaluateable finished = exp.toFinished();
-            AllNPCs.setVarToConclu(metadata.npcUID,metadata.conclusionResult,finished);
+            AllNPCs.setVarToConclu(BooleanDataStore.getNpcUid(uid), BooleanDataStore.getConclu(uid), finished);
 
             player.sendMessage("is done");
             return;
         }
 
         BooleanEditForced leftMost = exp.getLeftMost();
-        player.sendMessage(exp.toString());
         player.sendMessage(String.format("What is exp%d going to be?", leftMost.getName()));
 
         TextComponent var = new TextComponent();
@@ -64,5 +67,9 @@ public class BooleanSessionStart {
         doubleExp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s",
                 CommandReferences.NPC_EDIT_VARS_SPECIFIC_DOUBLE)));
         player.spigot().sendMessage(doubleExp);
+    }
+
+    public static void printExp(Player player, String message) {
+        player.sendMessage(message);
     }
 }

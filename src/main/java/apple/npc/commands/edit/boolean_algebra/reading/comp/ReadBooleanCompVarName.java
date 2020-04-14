@@ -1,8 +1,8 @@
-package apple.npc.commands.edit.boolean_algebra.reading;
+package apple.npc.commands.edit.boolean_algebra.reading.comp;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.data.all.AllPlayers;
 import apple.npc.reading.command.ReadingCommand;
@@ -16,7 +16,7 @@ public class ReadBooleanCompVarName extends ReadingCommand {
     @Override
     public void dealWithStop(Player player) {
         player.sendMessage("dealing with stop for readBooleanCompVarName");
-        VarConcluComparisonObject data = BooleanVarConcluDataStore.get(player.getUniqueId());
+        VarConcluComparisonObject data = BooleanVarConcluCompDataStore.get(player.getUniqueId());
         data.addComparisonLocal(command);
 
         List<Integer> uids = AllPlayers.getVarLocalUIDs(data.global, command);

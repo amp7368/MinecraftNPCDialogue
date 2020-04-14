@@ -56,6 +56,8 @@ commands:
     description: continues the editing session inserting a double expression where an expression used to be
   npc_edit_vars_comp_type:
     description: continues the editing session and asks what type of variable comparison the new expression will be
+  npc_edit_vars_double_type:
+    description: continues the editing session and asks what operators the new double expression will have
 
   # editing details for the conclusion to convo part of an npc
   npc_edit_concluToConvo_global:

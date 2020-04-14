@@ -1,8 +1,8 @@
-package apple.npc.commands.edit.boolean_algebra.reading;
+package apple.npc.commands.edit.boolean_algebra.reading.comp;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.StopCommand;
-import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluDataStore;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanVarConcluCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarConcluComparisonObject;
 import apple.npc.reading.command.ReadingCommand;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class ReadBooleanCompVal extends ReadingCommand {
             StopCommand.startListening(new ReadBooleanCompVal(), player);
             return;
         }
-        VarConcluComparisonObject object = BooleanVarConcluDataStore.get(player.getUniqueId());
+        VarConcluComparisonObject object = BooleanVarConcluCompDataStore.get(player.getUniqueId());
         object.addComparisonVal(val);
         player.sendMessage("What is the global category of the player variable?");
         StopCommand.startListening(new ReadBooleanCompGlobal(), player);

@@ -3,7 +3,7 @@ package apple.npc.commands.edit.boolean_algebra.commands;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
-import apple.npc.commands.edit.boolean_algebra.reading.ReadBooleanCompVal;
+import apple.npc.commands.edit.boolean_algebra.reading.comp.ReadBooleanCompVal;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;

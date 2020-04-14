@@ -1,8 +1,6 @@
 package apple.npc.commands.edit.boolean_algebra.data;
 
 public class VarConcluComparisonObject {
-    public int npcUID;
-    public int conclusionResult;
     public int comparisonVal;
     public String global;
     public String local;
@@ -11,9 +9,7 @@ public class VarConcluComparisonObject {
     public boolean isNot;
     public boolean isConclusionVar;
 
-    public VarConcluComparisonObject(int npcUID, int conclusionResult) {
-        this.npcUID = npcUID;
-        this.conclusionResult = conclusionResult;
+    public VarConcluComparisonObject() {
     }
 
     public void addComparisonVal(int val) {
