@@ -7,7 +7,6 @@ public class VarConcluComparisonObject {
     public int localUID;
     public int type;
     public boolean isNot;
-    public boolean isConclusionVar;
 
     public VarConcluComparisonObject() {
     }
@@ -34,9 +33,5 @@ public class VarConcluComparisonObject {
 
     public void addNot(boolean isNot) {
         this.isNot = isNot;
-    }
-
-    public void addConclusionVar(boolean isConclusionVar) {
-        this.isConclusionVar = isConclusionVar;
     }
 }

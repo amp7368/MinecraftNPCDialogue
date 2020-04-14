@@ -6,9 +6,8 @@ import apple.npc.data.booleanAlgebra.VariableComparision;
 
 public class BooleanEditVarComparison implements BooleanEditForced {
     private boolean isNoted;
-    private boolean isConclusionVar;
     private int comparisonType;
-    private int comparisonValue;
+    private long comparisonValue;
 
     private String comparisonVarGlobal;
     private String comparisonVarName;
@@ -18,14 +17,8 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     private BooleanEditForced parent;
     private int name;
 
-
-    public BooleanEditVarComparison(int name) {
-        this.name = name;
-    }
-
     public BooleanEditVarComparison(VariableComparision other, int name, BooleanEditForced parent) {
         isNoted = other.isNot();
-        isConclusionVar = other.isConclusionVar();
         comparisonType = other.getComparisonType();
         comparisonValue = other.getComparisonValue();
         comparisonVarGlobal = other.getComparisonVarGlobal();
@@ -38,7 +31,6 @@ public class BooleanEditVarComparison implements BooleanEditForced {
 
     public BooleanEditVarComparison(VarConcluComparisonObject data, BooleanEditForced parent) {
         this.isNoted = data.isNot;
-        this.isConclusionVar = data.isConclusionVar;
         this.comparisonType = data.type;
         this.comparisonValue = data.comparisonVal;
         this.comparisonVarGlobal = data.global;
@@ -55,7 +47,7 @@ public class BooleanEditVarComparison implements BooleanEditForced {
 
     @Override
     public Evaluateable toFinished() {
-        return new VariableComparision(isNoted, isConclusionVar, comparisonType, comparisonValue,
+        return new VariableComparision(isNoted, comparisonType, comparisonValue,
                 comparisonVarGlobal, comparisonVarUID, comparisonVarName);
     }
 

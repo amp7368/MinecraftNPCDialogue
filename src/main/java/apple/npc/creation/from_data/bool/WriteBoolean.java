@@ -28,7 +28,6 @@ public class WriteBoolean {
             // we're comparing variables
             VariableComparision bool = (VariableComparision) booleanExp;
             config.set(YMLBooleanNavigate.IS_NOTED, bool.isNot());
-            config.set(YMLBooleanNavigate.IS_CONCLUSION_VAR, bool.isConclusionVar());
             config.set(YMLBooleanNavigate.COMPARISON_TYPE, bool.getComparisonType());
             config.set(YMLBooleanNavigate.COMPARISON_VALUE, bool.getComparisonValue());
             ConfigurationSection configVar = config.createSection(YMLBooleanNavigate.COMPARISON_VAR);
