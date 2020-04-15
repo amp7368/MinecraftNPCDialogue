@@ -73,6 +73,8 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.sendMessage(MessageUtils.EDITING + "Editing PostResponses");
+        player.sendMessage(MessageUtils.DASH);
+
         List<PostPlayerResponse> redirects = response.getPostResponses();
         int i = 0;
         for (PostPlayerResponse redirect : redirects) {
@@ -97,6 +99,28 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
                     CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, i++)));
             player.spigot().sendMessage(delete);
         }
+        player.sendMessage(MessageUtils.DASH);
+        PostPlayerResponse redirect = response.getDefaultPostReponse();
+        TextComponent varChange = new TextComponent();
+        varChange.setText(String.format("(Edit Variable Changes %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        varChange.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        varChange.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(varChange);
+
+        TextComponent redirectReqs = new TextComponent();
+        redirectReqs.setText(String.format("(Edit Redirect Reqs %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(redirectReqs);
+
+        TextComponent delete = new TextComponent();
+        delete.setText(String.format("(Delete %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(delete);
         player.sendMessage(MessageUtils.LONG_DASH);
 
 
