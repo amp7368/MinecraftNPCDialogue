@@ -14,13 +14,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ClickListener implements Listener {
-    JavaPlugin plugin;
+    private HashMap<String, Long> cooldown = new HashMap<>();
 
     public ClickListener(NPCDialogueMain plugin) {
-        this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -36,6 +36,14 @@ public class ClickListener implements Listener {
     }
 
     private void doConversation(Entity entity, Player p) {
+        String playerUID = p.getUniqueId().toString();
+        // don't let the player spam the npc
+        if (cooldown.containsKey(playerUID) && System.currentTimeMillis() - cooldown.get(playerUID) < 3000) {
+            return;
+        }
+        cooldown.put(playerUID, System.currentTimeMillis());
+
+
         NPCData npc = AllNPCs.getNPCFromUID(entity.getUniqueId().toString());
         PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());
         if (npc != null)

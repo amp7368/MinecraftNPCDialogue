@@ -30,7 +30,6 @@ public class NPCData {
     private Map<Integer, ConvoID> conclusionsToConvo;
     private Map<String, NPCPlayerData> playerDataMap;
     private long maxTimeSinceTalk;
-    private HashMap<String, Long> cooldown = new HashMap<>();
 
     public NPCData(YamlConfiguration config) {
         playerDataMap = new HashMap<>();
@@ -84,12 +83,6 @@ public class NPCData {
      */
     public void doEntireConversation(PlayerData playerData, Player realPlayer) {
         String playerUID = realPlayer.getUniqueId().toString();
-
-        if (cooldown.containsKey(playerUID) && System.currentTimeMillis() - cooldown.get(playerUID) < 6000) {
-            return;
-        }
-        cooldown.put(playerUID, System.currentTimeMillis());
-
         int currentOpinion;
         boolean playerLeftEarlier; // false if we want to move on to the next conversation found in defaultPostResponse
         // if we talked to the player before
