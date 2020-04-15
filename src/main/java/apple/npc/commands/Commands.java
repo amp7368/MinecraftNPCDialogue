@@ -13,6 +13,7 @@ import apple.npc.commands.make.convo.MakeConLocal;
 import apple.npc.commands.make.convo.MakeConResponse;
 import apple.npc.commands.make.npc.MakeNpc;
 import apple.npc.commands.talking.RespondToNpcCommand;
+import apple.npc.commands.edit.convo.detail.resp.EditNpcConvoResponseVarVal;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -61,8 +62,9 @@ public class Commands {
         new EditNpcConvoResponse(plugin);
         new EditNpcConvoResponseDetails(plugin);
 
-        // response branch
         new EditNpcConvoResponsePost(plugin);
+        // response branch
+        new EditNpcConvoResponsePostMake(plugin);
         new EditNpcConvoResponseLocal(plugin);
         new EditNpcConvoResponseConvo(plugin);
         new EditnpcConvoResponseSet(plugin);

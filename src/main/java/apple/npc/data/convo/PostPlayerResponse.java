@@ -3,6 +3,7 @@ package apple.npc.data.convo;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -29,6 +30,7 @@ public class PostPlayerResponse {
         }
         Set<String> changesKeys = changesConfig.getKeys(false);
         for (String changeKey : changesKeys) {
+            System.out.println(changeKey);
             this.variableChanges.add(new VariableChange(changesConfig.getConfigurationSection(changeKey)));
         }
     }
@@ -85,5 +87,9 @@ public class PostPlayerResponse {
 
     public Evaluateable getRedirectRequirements() {
         return redirectRequirements;
+    }
+
+    public void putVarChange(String respGlobal, Variable variable, int respVal) {
+        variableChanges.add(new VariableChange(respGlobal, variable, respVal));
     }
 }

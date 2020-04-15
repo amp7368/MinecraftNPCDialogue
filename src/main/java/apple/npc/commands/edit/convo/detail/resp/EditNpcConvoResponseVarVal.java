@@ -2,9 +2,8 @@ package apple.npc.commands.edit.convo.detail.resp;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.data.all.AllPlayers;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import apple.npc.commands.StopCommand;
+import apple.npc.reading.command.response.var.ReadingConvoResponseVarVal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -36,16 +35,18 @@ public class EditNpcConvoResponseVarVal implements CommandExecutor, TabCompleter
             commandSender.sendMessage("nope");
             return false;
         }
-        if (args.length != 6) {
+        if (args.length != 7) {
             player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         player.sendMessage(MessageUtils.LONG_DASH);
 
-        player.sendMessage(String.format("%sWhat is the value of player variable %s-%s after choosing the response %s-%s-%s-%s?",
-                MessageUtils.EDITING, args[4], args[5], args[0], args[1], args[2], args[3]));
+        player.sendMessage(String.format("%sWhat is the value of player variable %s-%s after choosing the response %s-%s-%s-%s-%s?",
+                MessageUtils.EDITING, args[5], args[6], args[0], args[1], args[2], args[3], args[4]));
 
         player.sendMessage(MessageUtils.LONG_DASH);
+        StopCommand.startListening(new ReadingConvoResponseVarVal(plugin, args[0], args[1], args[2], args[3], args[4], args[5], args[6]), player);
+
         return true;
     }
 

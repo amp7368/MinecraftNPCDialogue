@@ -49,7 +49,7 @@ public class AllConversations {
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
-    private static void writeGlobal(String global) {
+    public static void writeGlobal(String global) {
         if (hasGlobalCategory(global))
             WriteConvoAll.write(dataFolder.getPath(), allConversations.get(global), global);
     }

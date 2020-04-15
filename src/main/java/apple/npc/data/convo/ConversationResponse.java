@@ -5,12 +5,15 @@ import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.npc.Opinion;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
+import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
@@ -19,6 +22,7 @@ public class ConversationResponse implements Evaluateable {
     private Evaluateable preResponseRequirement;
     public List<String> response;
     private List<PostPlayerResponse> postResponses;
+    private Map<Variable,Integer> varChanges;
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);

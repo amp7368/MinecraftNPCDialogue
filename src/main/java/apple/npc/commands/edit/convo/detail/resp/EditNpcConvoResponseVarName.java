@@ -2,9 +2,11 @@ package apple.npc.commands.edit.convo.detail.resp;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllPlayers;
 import apple.npc.data.player.Variable;
 import apple.npc.data.player.VariableCategory;
+import apple.npc.reading.command.response.var.ReadingConvoResponseVarName;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -16,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Set;
 
 public class EditNpcConvoResponseVarName implements CommandExecutor, TabCompleter {
     JavaPlugin plugin;
@@ -39,27 +40,28 @@ public class EditNpcConvoResponseVarName implements CommandExecutor, TabComplete
             commandSender.sendMessage("nope");
             return false;
         }
-        if (args.length != 5) {
+        if (args.length != 6) {
             player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         player.sendMessage(MessageUtils.LONG_DASH);
 
-        player.sendMessage(String.format("%sWhat is the local name of player variable in %s after choosing the response %s-%s-%s-%s?",
-                MessageUtils.EDITING, args[4], args[0], args[1], args[2], args[3]));
+        player.sendMessage(String.format("%sWhat is the local name of player variable in %s after choosing the response %s-%s-%s-%s-%s?",
+                MessageUtils.EDITING, args[5], args[0], args[1], args[2], args[3],args[4]));
 
 
-        VariableCategory varLocals = AllPlayers.allVars.get(args[4]);
+        VariableCategory varLocals = AllPlayers.allVars.get(args[5]);
         for (Variable var : varLocals.getVariables().values()) {
             TextComponent globalText = new TextComponent();
             globalText.setText(String.format("(Edit %s-%d)", var.name, var.uid));
             globalText.setColor(MessageUtils.EDITING_OPTION);
-            globalText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %s %s %s %s %d",
-                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, args[0], args[1], args[2], args[3], args[4], var.uid)));
+            globalText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %s %s %s %s %s %d",
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, args[0], args[1], args[2], args[3], args[4] ,args[5], var.uid)));
             player.spigot().sendMessage(globalText);
         }
 
         player.sendMessage(MessageUtils.LONG_DASH);
+        StopCommand.startListening(new ReadingConvoResponseVarName(plugin,args[0], args[1], args[2], args[3],args[4],args[5]), player);
         return true;
     }
 

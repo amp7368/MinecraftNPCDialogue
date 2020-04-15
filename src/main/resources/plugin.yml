@@ -87,7 +87,7 @@ commands:
 
 
   # deal with normal post response editing
-  npc_convo_edit_response_postresponse:
+  npc_convo_edit_response_postresponse_make:
     description: starts an editing session to edit a postResponse for a response
   npc_convo_edit_response_post_local:
     description: continues an editing session to edit the local redirect part of a postResponse for a response
@@ -97,6 +97,9 @@ commands:
     description: sets the global.local.convo for resposne
   npc_convo_edit_response_post_bool:
     description: continues an editing session to edit the boolean requirement for this response option
+
+  npc_convo_edit_response_postresponse:
+    description: displays a menu for the player to decide what they want to change about the current post response
   npc_convo_edit_response_var_change:
     description: continues an editing session and requests the user to enter a global category for a variable change
   npc_convo_edit_response_var_change_local:

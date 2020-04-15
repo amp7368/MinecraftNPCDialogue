@@ -19,9 +19,10 @@ public class WritePlayerAll {
                 File.separator, playerUID, YMLFileNavigate.YML));
         YamlConfiguration configOrig = YamlConfiguration.loadConfiguration(file);
         configOrig.set(YMLPlayerVariable.PLAYER_UID, playerUID);
+        ConfigurationSection configVar = configOrig.createSection(YMLPlayerVariable.VARIABLES);
         HashMap<String, VariableCategory> globalCats = AllPlayers.getPlayer(playerUID).getVariables();
         for (String global : globalCats.keySet()) {
-            WritePlayerVars.setConfig(configOrig.createSection(String.valueOf(global)), globalCats.get(global));
+            WritePlayerVars.setConfig(configVar.createSection(String.valueOf(global)), globalCats.get(global));
         }
 
         try {
