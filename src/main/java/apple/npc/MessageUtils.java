@@ -15,4 +15,6 @@ public class MessageUtils {
     ;
     public static final String TAB = "    ";
     public static final net.md_5.bungee.api.ChatColor STOP = net.md_5.bungee.api.ChatColor.RED;
+    public static final net.md_5.bungee.api.ChatColor PATH = net.md_5.bungee.api.ChatColor.GOLD;
+    public static final Boolean PATH_BOLD = false;
 }

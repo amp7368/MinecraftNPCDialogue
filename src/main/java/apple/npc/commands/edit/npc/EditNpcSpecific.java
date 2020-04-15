@@ -3,7 +3,9 @@ package apple.npc.commands.edit.npc;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllNPCs;
+import apple.npc.data.npc.NPCData;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -43,7 +45,20 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "The first argument must be a number");
             return false;
         }
-        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", AllNPCs.getNPCFromUID(uid).name, uid));
+        NPCData npc = AllNPCs.getNPCFromUID(uid);
+        if (npc == null) {
+            //todo enter a new npc
+            return false;
+        }
+        String npcName = npc.name;
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Npc | %s", npcName));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, path);
+
+        player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", npcName, uid));
         TextComponent editName = new TextComponent();
         editName.setText("(Name)");
         editName.setUnderlined(true);

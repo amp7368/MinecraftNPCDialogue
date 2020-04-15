@@ -1,10 +1,13 @@
 package apple.npc.commands.edit.npc.concluCon;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllNPCs;
+import apple.npc.data.npc.NPCData;
 import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionNum;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -55,7 +58,21 @@ public class EditNpcConclusion implements CommandExecutor, TabCompleter {
             commandSender.sendMessage(MessageUtils.BAD + "The first argument must be a number.");
             return false;
         }
+
+        NPCData npc = AllNPCs.getNPCFromUID(npcUID);
+        if (npc == null) {
+            //todo enter a new npc
+            return false;
+        }
+        String npcName = npc.name;
+
         if (AllNPCs.hasUID(npcUID)) {
+            TextComponent path = new TextComponent();
+            path.setText(String.format("Npc-Conclusion To Conversation | %s", npcName));
+            path.setBold(MessageUtils.PATH_BOLD);
+            path.setColor(MessageUtils.PATH);
+            ActionBar.sendLongActionBar(player, path);
+
             player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set? (-1 is the starting conclusion for most Npcs)");
             Collection<Integer> conclusionList = AllNPCs.getConclusionList(npcUID);
             if (conclusionList == null) {

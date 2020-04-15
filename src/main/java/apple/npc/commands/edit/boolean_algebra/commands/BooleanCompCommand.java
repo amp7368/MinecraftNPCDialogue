@@ -55,6 +55,9 @@ public class BooleanCompCommand implements CommandExecutor, TabCompleter {
         player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent path = new TextComponent();
+        path.setText("VarComparison-Value");
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR,path);
 
         return true;

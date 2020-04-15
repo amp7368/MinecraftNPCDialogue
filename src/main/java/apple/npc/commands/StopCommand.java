@@ -147,6 +147,7 @@ public class StopCommand implements CommandExecutor, Listener {
     }
 
     public static void showAbort(Player player) {
+        player.sendMessage(MessageUtils.DASH);
         net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
         abort.setText("(Abort Reading)");
         abort.setUnderlined(true);

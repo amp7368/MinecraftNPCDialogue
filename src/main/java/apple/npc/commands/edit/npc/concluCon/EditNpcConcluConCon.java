@@ -1,16 +1,24 @@
 package apple.npc.commands.edit.npc.concluCon;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.all.AllNPCs;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationLocalCategory;
+import apple.npc.data.npc.NPCData;
 import apple.npc.reading.command.npc.edit.conclusion.ReadingNpcConclusionGlobal;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_14_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -55,17 +63,35 @@ public class EditNpcConcluConCon implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "The first, second, and fourth arguments must be a number");
             return false;
         }
+        NPCData npc = AllNPCs.getNPCFromUID(uid);
+        if (npc == null) {
+            //todo enter a new npc
+            return false;
+        }
+        String npcName = npc.name;
+        String localName = AllConversations.getLocalName(global, local);
+        if (localName == null) {
+            //todo enter a new local category
+            return false;
+        }
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Npc-Conclusion-Global-Local-(Conversation) | %s-%d-%s-%s", npcName, concluNum, global, localName));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
         player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation would you like it to refer to?");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
         player.spigot().sendMessage(welcome);
+        player.sendMessage(MessageUtils.DASH);
 
         ConversationLocalCategory localList = AllConversations.getLocalCategory(global, local);
         Map<Integer, ConversationData> conversations = localList.getConversations();
         for (ConversationData convo : conversations.values()) {
-            player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
             category.setText(String.format("(%s)", convo.name));

@@ -1,6 +1,9 @@
 package apple.npc.commands.make.convo;
 
+import apple.npc.MessageUtils;
 import apple.npc.commands.CreateRedirect;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -47,6 +50,13 @@ public class MakeCon implements CommandExecutor, TabCompleter {
             CreateRedirect.createConvo(args[0], args[1], args[2], player);
             return true;
         }
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Conversation Creation-%s-%s",args[0],local));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,path);
+
         CreateRedirect.createConvo(args[0], local, args[2], player);
 
         return true;

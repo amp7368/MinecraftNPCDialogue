@@ -4,6 +4,7 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -88,7 +89,6 @@ public class BooleanCompLocalCommand implements CommandExecutor, TabCompleter {
         player.spigot().sendMessage(gt);
 
         player.sendMessage(MessageUtils.LONG_DASH);
-
         return true;
     }
 

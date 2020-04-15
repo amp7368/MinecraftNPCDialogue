@@ -6,6 +6,7 @@ import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.npc.NPCData;
 import apple.npc.reading.command.npc.edit.ReadingNpc;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -43,6 +44,12 @@ public class EditNpc implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
+
+        TextComponent path = new TextComponent();
+        path.setText("Npc");
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,path);
 
         player.sendMessage(MessageUtils.LONG_DASH);
 

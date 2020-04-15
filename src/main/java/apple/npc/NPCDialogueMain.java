@@ -12,6 +12,7 @@ public class NPCDialogueMain extends JavaPlugin {
     @Override
     public void onEnable() {
         Commands.initialize(this);
+        ActionBar.initialize(this);
         AllNPCs.initialize(this.getDataFolder());
         AllPlayers.initialize(this.getDataFolder());
         AllConversations.initialize(this.getDataFolder());
