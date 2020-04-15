@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -52,6 +53,13 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
         }
         if (AllConversations.hasLocalCategory(global, local)) {
             String localName = AllConversations.getLocalName(global, local);
+
+
+            TextComponent path = new TextComponent();
+            path.setText(String.format("Convo | Global-Local-(Convo) | %s-local", global, localName));
+            path.setBold(MessageUtils.PATH_BOLD);
+            path.setColor(MessageUtils.PATH);
+            ActionBar.sendLongActionBar(player, path);
 
             TextComponent welcome = new TextComponent();
             welcome.setText("What conversation name you would you like to edit?");

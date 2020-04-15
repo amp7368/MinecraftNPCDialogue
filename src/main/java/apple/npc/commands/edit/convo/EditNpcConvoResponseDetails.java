@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
@@ -55,17 +56,22 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
             return false;
         }
         ConversationData conversation = AllConversations.get(new ConvoID(global, localUID, convoUID));
-        String local = AllConversations.getLocalName(global, localUID);
-        if (conversation == null || local == null) {
+        String localName = AllConversations.getLocalName(global, localUID);
+        if (conversation == null || localName == null) {
             player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
             return false;
         }
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-Local-Convo-Response | %s-%s-%s-%d", global, localName, conversation.name, responseUID));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
 
         player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText(String.format("What would you like to edit about response %s:%s:%s:%d?   ",
-                global, local, conversation.name, responseUID));
+                global, localName, conversation.name, responseUID));
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
 
         TextComponent back = new TextComponent();

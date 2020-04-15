@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -34,6 +35,12 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
+        TextComponent path = new TextComponent();
+        path.setText("Convo");
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
         TextComponent welcome = new TextComponent();
         welcome.setText("What would you like to edit about conversations?   ");
         welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);

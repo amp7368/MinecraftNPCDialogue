@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -39,6 +40,14 @@ public class EditNpcConvoGlobal implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
+
+
+        TextComponent path = new TextComponent();
+        path.setText("Convo | (Global)");
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
         player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();

@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -50,6 +51,13 @@ public class EditNpcConvoLocal implements CommandExecutor, TabCompleter {
             player.sendMessage(ChatColor.RED + String.format("There is no %s conversation global category", global));
             return false;
         }
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-(Local) | %s",global));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
         player.sendMessage(MessageUtils.LONG_DASH);
         TextComponent welcome = new TextComponent();
         welcome.setText("What conversation local category would you like to edit?");

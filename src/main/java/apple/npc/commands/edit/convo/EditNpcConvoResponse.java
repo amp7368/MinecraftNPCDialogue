@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -53,9 +54,6 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "The second and third argument must be a number.");
             return false;
         }
-
-
-        player.sendMessage(MessageUtils.LONG_DASH);
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
             player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
@@ -64,6 +62,15 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
 
         String localName = AllConversations.getLocalName(global, local);
         String convoName = conversation.name;
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-Local-Convo-(Response) | %s-%s-%s", global, localName, convoName));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
+
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         if (localName == null) {
             player.sendMessage(String.format("The local category %s:%d does not exist", global, local));
@@ -100,7 +107,7 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
         player.sendMessage("");
         player.spigot().sendMessage(back);
 
-        StopCommand.startListening(new ReadingTextResponse(global,local,convo), player);
+        StopCommand.startListening(new ReadingTextResponse(global, local, convo), player);
 
         player.sendMessage(MessageUtils.DASH);
         player.sendMessage(MessageUtils.LONG_DASH);
