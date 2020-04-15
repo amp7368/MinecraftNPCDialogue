@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo.detail.resp;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
@@ -70,6 +71,12 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + String.format("I could not get response %s-%s-%s-%d", global, localName, convo.name, responseUID));
             return false;
         }
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-Local-Convo-Response-(Redirect) | %s-%s-%s-%d", global, localName, convo.name, responseUID));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.sendMessage(MessageUtils.EDITING + "Editing PostResponses");

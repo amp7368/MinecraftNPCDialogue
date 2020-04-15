@@ -62,7 +62,7 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
             return false;
         }
         TextComponent path = new TextComponent();
-        path.setText(String.format("Convo | Global-Local-Convo-Response | %s-%s-%s-%d", global, localName, conversation.name, responseUID));
+        path.setText(String.format("Convo | Global-Local-Convo-Response-(?) | %s-%s-%s-%d", global, localName, conversation.name, responseUID));
         path.setBold(MessageUtils.PATH_BOLD);
         path.setColor(MessageUtils.PATH);
         ActionBar.sendLongActionBar(player, path);
