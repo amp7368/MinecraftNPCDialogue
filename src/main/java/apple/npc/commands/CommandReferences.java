@@ -29,7 +29,8 @@ public class CommandReferences {
     public static final String NPC_CONVO_MAKE_LOCAL = "npc_convo_make_local";
     public static final String NPC_CONVO_MAKE_CONVO = "npc_convo_make_convo";
 
-
+    public static final String NPC_CONVO_DELETE_POST_RESPONSE = "npc_convo_delete_post_response";
+    public static final String NPC_CONVO_EDIT_RESPONSE_REQS = "npc_convo_edit_response_reqs";
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_MAKE = "npc_convo_edit_response_postresponse_make";
     public static final String NPC_CONVO_EDIT_RESPONSE_POST = "npc_convo_edit_response_postresponse";
     public static final String NPC_CONVO_EDIT_RESPONSE_POST_LOCAL = "npc_convo_edit_response_post_local";

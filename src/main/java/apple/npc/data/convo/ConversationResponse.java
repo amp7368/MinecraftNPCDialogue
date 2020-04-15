@@ -22,7 +22,6 @@ public class ConversationResponse implements Evaluateable {
     private Evaluateable preResponseRequirement;
     public List<String> response;
     private List<PostPlayerResponse> postResponses;
-    private Map<Variable,Integer> varChanges;
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
@@ -108,5 +107,12 @@ public class ConversationResponse implements Evaluateable {
     public void setPreResponseRequirement(Evaluateable exp) {
         this.preResponseRequirement = exp;
         AllConversations.writeAll();
+    }
+
+    public void setRedirectRequirements(int redirectNum, Evaluateable exp) {
+        if(redirectNum == -1)
+            defaultPostReponse.setRedirectRequirements(exp);
+        else if (postResponses.size()>redirectNum)
+            postResponses.get(redirectNum).setRedirectRequirements(exp);
     }
 }

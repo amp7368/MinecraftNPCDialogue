@@ -8,10 +8,8 @@ import apple.npc.creation.from_scratch.convo.info.ConvoLocalInfo;
 import apple.npc.creation.from_scratch.convo.info.ConvoRespInfo;
 import apple.npc.creation.from_scratch.convo.single.CreateConvoData;
 import apple.npc.creation.from_scratch.convo.single.CreateConvoResponse;
-import apple.npc.data.convo.ConversationGlobalCategory;
-import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.data.convo.ConvoID;
-import apple.npc.data.convo.ConversationData;
+import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.convo.*;
 import apple.npc.defaults.CreateConvoResponseRedirectDefault;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -132,9 +130,10 @@ public class AllConversations {
     }
 
     public static Collection<ConversationLocalCategory> getLocalList(String global) {
-        if (hasGlobalCategory(global)){
+        if (hasGlobalCategory(global)) {
             return allConversations.get(global).getList();
-        }return null;
+        }
+        return null;
     }
 
     public static boolean hasGlobalCategory(String global) {
@@ -165,5 +164,12 @@ public class AllConversations {
 
     public static Collection<String> getList() {
         return allConversations.keySet();
+    }
+
+    public static void setRedirectRequirements(String global, int local, int convo, int responseUID, int redirectNum, Evaluateable exp) {
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).setRedirectRequirements(local, convo, responseUID, redirectNum, exp);
+            writeGlobal(global);
+        }
     }
 }

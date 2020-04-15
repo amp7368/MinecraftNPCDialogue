@@ -1,5 +1,7 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.all.AllConversations;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -111,5 +113,11 @@ public class ConversationGlobalCategory {
         if (hasLocalCategory(local)) {
             localCategoryConversations.get(local).createResponse(global, local, convo, text);
         }
+    }
+
+    public void setRedirectRequirements(int local, int convo, int responseUID, int redirectNum, Evaluateable exp) {
+       if(hasLocalCategory(local)){
+           localCategoryConversations.get(local).setRedirectRequirements(convo,responseUID,redirectNum,exp);
+       }
     }
 }

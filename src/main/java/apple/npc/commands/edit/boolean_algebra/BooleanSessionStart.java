@@ -1,6 +1,7 @@
 package apple.npc.commands.edit.boolean_algebra;
 
 import apple.npc.MessageUtils;
+import apple.npc.afer_boolean.AfterPostResponse;
 import apple.npc.afer_boolean.AfterPreResponse;
 import apple.npc.afer_boolean.AfterVar;
 import apple.npc.afer_boolean.AfterVarConclu;
@@ -32,6 +33,12 @@ public class BooleanSessionStart {
     public static void start(String global, int localUID, int convoUID, int responseUID, Player player) {
         BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
         AfterDataStore.put(player.getUniqueId(), new AfterPreResponse(global, localUID, convoUID, responseUID));
+        step(player);
+    }
+
+    public static void start(String global, int local, int convo, int response, int redirect, Player player) {
+        BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedEmpty(0, null));
+        AfterDataStore.put(player.getUniqueId(), new AfterPostResponse(global, local, convo, response, redirect));
         step(player);
     }
 
@@ -120,5 +127,4 @@ public class BooleanSessionStart {
 
         player.spigot().sendMessage(text.toArray(new TextComponent[0]));
     }
-
 }

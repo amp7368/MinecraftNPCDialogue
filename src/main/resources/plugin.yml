@@ -98,8 +98,13 @@ commands:
   npc_convo_edit_response_post_bool:
     description: continues an editing session to edit the boolean requirement for this response option
 
+  # post response details editing
   npc_convo_edit_response_postresponse:
     description: displays a menu for the player to decide what they want to change about the current post response
+  npc_convo_delete_post_response:
+    description: deletes a postresponse
+  npc_convo_edit_response_reqs:
+    description: starts an editing session to edit the boolean expression (redirect requirements) of a post response
   npc_convo_edit_response_var_change:
     description: continues an editing session and requests the user to enter a global category for a variable change
   npc_convo_edit_response_var_change_local:

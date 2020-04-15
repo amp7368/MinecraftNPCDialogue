@@ -1,4 +1,4 @@
-package apple.npc.commands.edit.convo.detail.resp;
+package apple.npc.commands.edit.convo.detail.resp.editing;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;

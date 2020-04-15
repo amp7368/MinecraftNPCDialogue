@@ -16,7 +16,7 @@ public class PostPlayerResponse {
     private final String responseGlobal;
     private final int responseLocal;
     private final int conversationUID;
-    private final Evaluateable redirectRequirements;
+    private Evaluateable redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
         this.responseGlobal = config.getString(YMLConversationNavigate.RESPONSE_GLOBAL_CATEGORY);
@@ -95,6 +95,10 @@ public class PostPlayerResponse {
     }
 
     public void doVariableChanges(String playerUID) {
-        AllPlayers.doVariableChange(playerUID,variableChanges);
+        AllPlayers.doVariableChange(playerUID, variableChanges);
+    }
+
+    public void setRedirectRequirements(Evaluateable exp) {
+        this.redirectRequirements = exp;
     }
 }

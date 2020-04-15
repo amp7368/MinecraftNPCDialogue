@@ -35,11 +35,13 @@ public class AllPlayers {
 
     public static void doVariableChange(String playerUID, HashSet<VariableChange> variableChanges) {
         if (!allPlayers.containsKey(playerUID)) {
-            allPlayers.put(playerUID,new PlayerData(playerUID));
+            allPlayers.put(playerUID, new PlayerData(playerUID));
         }
         allPlayers.get(playerUID).doVariableChanges(variableChanges);
+        writeplayer(playerUID);
 
     }
+
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
         if (allPlayers.containsKey(playerUID))
             return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
