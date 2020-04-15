@@ -8,6 +8,8 @@ import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
 import apple.npc.commands.edit.boolean_algebra.data.BooleanVarCompDataStore;
 import apple.npc.commands.edit.boolean_algebra.reading.ReadBooleanCompVal;
 import apple.npc.data.booleanEditing.forced.BooleanEditForced;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -51,6 +53,9 @@ public class BooleanCompCommand implements CommandExecutor, TabCompleter {
 
         StopCommand.startListening(new ReadBooleanCompVal(plugin), player);
         player.sendMessage(MessageUtils.LONG_DASH);
+
+        TextComponent path = new TextComponent();
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,path);
 
         return true;
     }

@@ -164,6 +164,6 @@ public class StopCommand implements CommandExecutor, Listener {
     public static void startListening(Reading read, Player player) {
         reading.put(player.getUniqueId(), read);
         showAbort(player);
-        player.sendTitle("Listening", "To abort: /abort_reading", 20, LISTENING_TICKS, 20);
+        player.sendTitle(ChatColor.RED + "Listening", ChatColor.RED + "To abort: /abort_reading", 20, LISTENING_TICKS, 20);
     }
 }
