@@ -1,21 +1,21 @@
 package apple.npc.data.all;
 
-import apple.npc.creation.convo.category.CreateConvoGlobal;
-import apple.npc.creation.convo.category.CreateConvoLocal;
-import apple.npc.creation.convo.info.ConvoDataInfo;
-import apple.npc.creation.convo.info.ConvoLocalInfo;
-import apple.npc.creation.convo.info.ConvoRespInfo;
-import apple.npc.creation.convo.single.CreateConvoData;
-import apple.npc.creation.convo.single.CreateConvoResponse;
-import apple.npc.data.convo.ConversationGlobalCategory;
-import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.data.convo.NpcConvoID;
-import apple.npc.data.convo.ConversationData;
+import apple.npc.creation.from_data.convo.WriteConvoAll;
+import apple.npc.creation.from_scratch.convo.category.CreateConvoGlobal;
+import apple.npc.creation.from_scratch.convo.category.CreateConvoLocal;
+import apple.npc.creation.from_scratch.convo.info.ConvoDataInfo;
+import apple.npc.creation.from_scratch.convo.info.ConvoLocalInfo;
+import apple.npc.creation.from_scratch.convo.info.ConvoRespInfo;
+import apple.npc.creation.from_scratch.convo.single.CreateConvoData;
+import apple.npc.creation.from_scratch.convo.single.CreateConvoResponse;
+import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.convo.*;
 import apple.npc.defaults.CreateConvoResponseRedirectDefault;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +33,6 @@ public class AllConversations {
             return;
         }
         for (String globalCategory : pathNameList) {
-            System.out.println("intializing conversations " + globalCategory);
             File file = new File(String.format("%s%s%s%s%s", folder, File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, globalCategory));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
@@ -45,83 +44,53 @@ public class AllConversations {
         // read that category in
         File file = new File(String.format("%s%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global, YMLFileNavigate.YML));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        System.out.println("putting " + global + " from " + String.format("%s%s%s%s%s", dataFolder.getPath(), File.separator, YMLFileNavigate.CONVERSATION_FOLDER, File.separator, global));
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
+    public static void writeGlobal(String global) {
+        if (hasGlobalCategory(global))
+            WriteConvoAll.write(dataFolder.getPath(), allConversations.get(global), global);
+    }
+
     public static boolean createConvoGlobal(String global) {
-        if (CreateConvoGlobal.create(dataFolder.getPath(), global)) {
-            readGlobal(global);
+        if (!hasGlobalCategory(global)) {
+            allConversations.put(global, new ConversationGlobalCategory());
+            writeGlobal(global);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
 
     public static boolean createConvoLocal(String global, String local) {
         if (!hasGlobalCategory(global)) {
-            System.out.println("this global category doesn't exist");
+            System.err.println("this global category doesn't exist");
             return false;
         }
-        ConversationGlobalCategory globalCategory = allConversations.get(global);
-        // iterate until you find an empty local uid
-        int nextLocalUID = 0;
-        while (globalCategory.hasLocalCategory(nextLocalUID)) {
-            nextLocalUID++;
-        }
-        System.out.println("nextLocalUID: " + nextLocalUID);
-        if (CreateConvoLocal.create(dataFolder.getPath(), global, new ConvoLocalInfo(nextLocalUID, local))) {
-            System.out.println("saved!");
-            readGlobal(global);
-            for (ConversationGlobalCategory cat : allConversations.values()) {
-                System.out.println("there is a conversation here");
-                System.out.println(cat.toString());
-            }
-            return true;
-        } else {
-            return false;
-        }
+        allConversations.get(global).createConvoLocal(local);
+        writeGlobal(global);
+        return true;
     }
 
     public static boolean createConvo(String global, int local, String convo, List<String> text) {
         if (!hasLocalCategory(global, local)) {
             return false;
         }
-        ConversationLocalCategory localCategory = allConversations.get(global).get(local);
-        if (localCategory == null)
-            return false; // we already checked this. wtf happened?
-
-        // iterate until you find an empty convo uid
-        int convoUID = 0;
-        while (localCategory.convoUIDExists(convoUID)) {
-            convoUID++;
-        }
-        if (CreateConvoData.create(dataFolder.getPath(), global, local, new ConvoDataInfo(convoUID, convo, text))) {
-            readGlobal(global);
-            return true;
-        }
-        return false;
+        allConversations.get(global).createConvo(global, local, convo, text);
+        writeGlobal(global);
+        return true;
     }
 
     public static boolean createResponse(String global, int local, int convo, List<String> text) {
-        ConversationData conversation = get(new NpcConvoID(global, local, convo));
-        if (conversation == null)
-            return false;
-
-        int reponseUID = 0;
-        while (conversation.contains(reponseUID)) {
-            reponseUID++;
-        }
-        if (CreateConvoResponse.create(dataFolder.getPath(), global, local, convo, new ConvoRespInfo(reponseUID, text))) {
-            CreateConvoResponseRedirectDefault.create(dataFolder.getPath(), global, local, convo, reponseUID);
-            readGlobal(global);
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).createResponse(global, local, convo, text);
+            writeGlobal(global);
             return true;
         }
         return false;
     }
 
-    public static ConversationData get(NpcConvoID convoID) {
+    public static ConversationData get(ConvoID convoID) {
         if (hasGlobalCategory(convoID.global))
             return allConversations.get(convoID.global).get(convoID.local, convoID.uid);
         return null;
@@ -147,7 +116,22 @@ public class AllConversations {
             ConversationLocalCategory cat = allConversations.get(global).get(local);
             if (cat == null)
                 return null;
-            return cat.name;
+            return cat.getName();
+        }
+        return null;
+    }
+
+    public static ConversationLocalCategory getLocalCategory(String global, int local) {
+        if (hasLocalCategory(global, local)) {
+            ConversationLocalCategory cat = allConversations.get(global).get(local);
+            return cat;
+        }
+        return null;
+    }
+
+    public static Collection<ConversationLocalCategory> getLocalList(String global) {
+        if (hasGlobalCategory(global)) {
+            return allConversations.get(global).getList();
         }
         return null;
     }
@@ -168,5 +152,24 @@ public class AllConversations {
         return allConversations.get(global).hasLocalCategory(local);
     }
 
+    public static void writeAll() {
+        for (String global : allConversations.keySet()) {
+            writeGlobal(global);
+        }
+    }
 
+    public static void readAll() {
+        initialize(dataFolder);
+    }
+
+    public static Collection<String> getList() {
+        return allConversations.keySet();
+    }
+
+    public static void setRedirectRequirements(String global, int local, int convo, int responseUID, int redirectNum, Evaluateable exp) {
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).setRedirectRequirements(local, convo, responseUID, redirectNum, exp);
+            writeGlobal(global);
+        }
+    }
 }

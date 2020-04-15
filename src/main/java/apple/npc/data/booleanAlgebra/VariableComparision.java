@@ -1,38 +1,61 @@
 package apple.npc.data.booleanAlgebra;
 
 import apple.npc.data.all.AllPlayers;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class VariableComparision implements Evaluateable {
     private boolean isNoted;
-    private boolean isConclusionVar;
     private int comparisonType;
-    private int comparisonValue;
+    private long comparisonValue;
 
     private String comparisonVarGlobal;
     private int comparisonVarUID;
+    private String comparisumVarName;
+
+    public VariableComparision(boolean isNoted, int comparisonType, long comparisonValue,
+                               String comparisonVarGlobal, int comparisonVarUID, String comparisumVarName) {
+        this.isNoted = isNoted;
+        this.comparisonType = comparisonType;
+        this.comparisonValue = comparisonValue;
+        this.comparisonVarGlobal = comparisonVarGlobal;
+        this.comparisonVarUID = comparisonVarUID;
+        this.comparisumVarName = comparisumVarName;
+        AllPlayers.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
+    }
 
     public VariableComparision(ConfigurationSection config) {
         isNoted = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
         comparisonType = config.getInt(YMLBooleanNavigate.COMPARISON_TYPE);
-        comparisonValue = config.getInt(YMLBooleanNavigate.COMPARISON_VALUE);
-        if (config.contains(YMLBooleanNavigate.IS_CONCLUSION_VAR)) {
-            isConclusionVar = true;
-        } else {
-            isConclusionVar = false;
-            comparisonVarGlobal = config.getString(String.format("%s%c%s",YMLBooleanNavigate.COMPARISON_VAR,'.',YMLBooleanNavigate.GLOBAL_CATEGORY));
-            comparisonVarUID = config.getInt(String.format("%s%c%s",YMLBooleanNavigate.COMPARISON_VAR,'.',YMLBooleanNavigate.VAR_UID));
-        }
+        comparisonValue = config.getLong(YMLBooleanNavigate.COMPARISON_VALUE);
+        comparisonVarGlobal = config.getString(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.GLOBAL_CATEGORY));
+        comparisonVarUID = config.getInt(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_UID));
+        comparisumVarName = config.getString(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_NAME));
+        // every time a new variable comparison is read, try to put it in player variables list of variables
+        AllPlayers.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
     }
 
     @Override
     public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
-        int varVal;
-        if (isConclusionVar)
-            varVal = currentConclusion;
-        else
-            varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
+        long varVal;
+        switch (comparisonVarGlobal) {
+            case "default":
+                switch (comparisumVarName) {
+                    case "conclusion":
+                        varVal = currentConclusion;
+                        break;
+                    case "time":
+                        varVal = System.currentTimeMillis() - timeLastTalked;
+                        break;
+                    default:
+                        varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
+                }
+                break;
+            default:
+                varVal = AllPlayers.getVarVal(playerUID, comparisonVarGlobal, comparisonVarUID);
+        }
+
 
         boolean result;
         switch (comparisonType) {
@@ -61,15 +84,11 @@ public class VariableComparision implements Evaluateable {
         return isNoted;
     }
 
-    public boolean isConclusionVar() {
-        return isConclusionVar;
-    }
-
     public int getComparisonType() {
         return comparisonType;
     }
 
-    public int getComparisonValue() {
+    public long getComparisonValue() {
         return comparisonValue;
     }
 
@@ -79,5 +98,13 @@ public class VariableComparision implements Evaluateable {
 
     public int getComparisonVarUID() {
         return comparisonVarUID;
+    }
+
+    public String getComparisumVarName() {
+        return comparisumVarName;
+    }
+
+    public String getComparisonVarName() {
+        return comparisumVarName;
     }
 }

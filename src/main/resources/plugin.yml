@@ -1,27 +1,129 @@
 name: NPCDialogue
-version: 1.0
-api-version: 1.15
+version: "1.0"
+api-version: "1.15"
 author: Apple
 main: apple.npc.NPCDialogueMain
 description: allow the player to teleport using player made paper scrolls
 commands:
-  make_con_global:
-    description: creates a global category for conversations
-  make_con_local:
-    description: creates a local category for conversations
-  make_con:
-    description: creates conversation
+  # make commands (obsolete I believe)
+  npc_convo_make_global:
+    description: starts a session to make a conversation global category
+  npc_convo_make_local:
+    description: starts a session to make a conversation local category
+  npc_convo_make_convo:
+    description: starts a session to make something that is related to conversations
   make_con_response:
-    description: creates a response for a given conversations
-  stop_reading:
-    description: stops text from being entered by the user
-  make_npc:
-    description: makes an npc with no conversation associated with it
+    description: starts an editing session of creating a response in a conversation
+
+  # the main branch of editing stuff
   npc:
-    description: starts a session of editing an npc
+    description: starts an editing session
+  npc_convo_edit:
+    description: starts an editing session to edit anything related to conversations
+  npc_convo_edit_global:
+    description: starts an editing session to edit conversation global categories
+  npc_convo_edit_local:
+    description: starts an editing session to edit conversation local categories
+  npc_convo_edit_convo:
+    description: will be starts an editing session to edit a conversation
+  npc_convo_edit_response:
+    description: starts an editing session to edit a response in a conversation
+  npc_convo_edit_response_details:
+    description: starts an editing session to edit the details of a response
+
+  # obsolete maybe
+  npc_make:
+    description: makes a default npc with a name
+
+  # editing details for an npc
+  npc_edit:
+    description: starts an editing session to edit an npc
+  npc_specific_edit:
+    description: starts an editing session to edit an alread specified npc
   npc_edit_conclusionsToConvo:
-    description: starts a session to edit the conclusion to conversation mapping
-  ping:
-    description: just ping
+    description: starts an editing session to edit any conclusionsToConversation for an npc
+  npc_edit_name:
+    description: edits the name of an npc
+
+  # editing details for the vars to conclusion part of an npc
+  npc_edit_vars:
+    description: starts an editing session to edit the vars to conclusion
+  npc_edit_vars_specific:
+    description: continues an editing session to edit the vars to conclusion given a conclusion to map to
+  npc_edit_vars_comp:
+    description: continues the editing session inserting a comparison into an expression
+  npc_edit_vars_double:
+    description: continues the editing session inserting a double expression where an expression used to be
+  npc_edit_vars_comp_type:
+    description: continues the editing session and asks what type of variable comparison the new expression will be
+  npc_edit_vars_comp_local:
+    description: continues the editing session and creates a local comparison variable with a given uid
+  npc_edit_vars_double_type:
+    description: continues the editing session and asks what operators the new double expression will have
+
+  # editing details for the conclusion to convo part of an npc
+  npc_edit_concluToConvo_global:
+    description: starts an editing session to edit the concluToConvo mapping to get the global category
+  npc_edit_concluToConvo_local:
+    description: continues an editing session to edit the concluToConvo mapping to get the local category
+  npc_edit_concluToConvo_con:
+    description: continues an editing session to edit the concluToConvo mapping to get the convo category
+  npc_edit_concluToConvo_make:
+    description: finishes a session editing to conclusionToConvo for an npc
+
+  # general commands used by the player
   npc_respond:
-    description: used for responding to an npc (usually done through clicking chat)
+    description: a command for the user to respond to an npc
+  stop_reading:
+    description: makes the server finish listening to what the user is saying
+  abort_reading:
+    description: makes the server stop listening to the player and ignore what was said
+  ping:
+    description: ping
+  npc_write:
+    description: writes everything currently in the datastructures into the files
+  npc_read:
+    description: reads everything currently in the files into the data structures
+
+
+  # deal with normal post response editing
+  npc_convo_edit_response_postresponse_make:
+    description: starts an editing session to edit a postResponse for a response
+  npc_convo_edit_response_post_local:
+    description: continues an editing session to edit the local redirect part of a postResponse for a response
+  npc_convo_edit_response_post_convo:
+    description: continues an editing session to edit the convo redirect part of a postResponse for a response
+  npc_convo_edit_response_set:
+    description: sets the global.local.convo for resposne
+  npc_convo_edit_response_post_bool:
+    description: continues an editing session to edit the boolean requirement for this response option
+
+  # post response details editing
+  npc_convo_edit_response_postresponse:
+    description: displays a menu for the player to decide what they want to change about the current post response
+  npc_convo_delete_post_response:
+    description: deletes a postresponse
+  npc_convo_edit_response_reqs:
+    description: starts an editing session to edit the boolean expression (redirect requirements) of a post response
+  npc_convo_edit_response_var_change:
+    description: continues an editing session and requests the user to enter a global category for a variable change
+  npc_convo_edit_response_var_change_local:
+    description: continues an editing session and requests the user to enter a variable name for a variable change
+  npc_convo_edit_response_var_change_val:
+    description: continues an editing session and requests the user to enter a variable value for a variable change
+
+  # will be commands
+  npc_convo_edit_local_name:
+    description: will be edits the name of a local category
+  npc_convo_edit_convo_name:
+    description: will be edits the name of a conversation
+  npc_convo_edit_convo_text:
+    description: will be edits the text of a conversation
+  npc_convo_edit_convo_imm:
+    description: will be edits the immediateConvo of a conversation
+  npc_convo_edit_response_preResponse:
+    description: will be starts an editing session to edit the boolean expression that is the preResponseRequirements
+  npc_convo_edit_response_text:
+    description: will be starts an editing session to edit the text of the response
+  npc_convo_edit_response_default:
+    description: will be starts an editing session to edit the default_response

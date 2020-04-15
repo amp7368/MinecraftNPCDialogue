@@ -10,5 +10,6 @@ public class AllConversationsTest {
     @Test
     public void conversationReading() {
         AllConversations.initialize(dataFolder);
+        AllConversations.writeAll();
     }
 }

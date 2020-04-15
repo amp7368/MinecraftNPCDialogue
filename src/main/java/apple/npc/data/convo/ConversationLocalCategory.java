@@ -1,16 +1,15 @@
 package apple.npc.data.convo;
 
-import apple.npc.data.convo.ConversationData;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
 
 public class ConversationLocalCategory {
-    public int uid;
-    public String name;
-    public Map<Integer, ConversationData> conversations;
+    private int uid;
+    private String name;
+    private Map<Integer, ConversationData> conversations;
 
     public ConversationLocalCategory(ConfigurationSection config) {
         conversations = new HashMap<>();
@@ -24,11 +23,21 @@ public class ConversationLocalCategory {
         }
         Set<String> conversationUIDs = conversationsConfig.getKeys(false);
         for (String conversation : conversationUIDs) {
-            if (!StringUtils.isNumeric(conversation))
+            int conversationUID;
+            try {
+                conversationUID = Integer.parseInt(conversation);
+            } catch (NumberFormatException e) {
+                System.err.println("not numeric");
                 continue;
-            int conversationUID = Integer.parseInt(conversation);
+            }
             conversations.put(conversationUID, new ConversationData(conversationsConfig.getConfigurationSection(conversation)));
         }
+    }
+
+    public ConversationLocalCategory(int uid, String name) {
+        conversations = new HashMap<>();
+        this.uid = uid;
+        this.name = name;
     }
 
     @Override
@@ -51,7 +60,7 @@ public class ConversationLocalCategory {
     }
 
     public ConversationData get(int uid) {
-        return conversations.get(uid);
+        return conversations.getOrDefault(uid, null);
     }
 
     public List<Integer> getConvoUIDs(String convoName) {
@@ -75,4 +84,36 @@ public class ConversationLocalCategory {
         return false;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<Integer, ConversationData> getConversations() {
+        return conversations;
+    }
+
+    public void createConvo(String global, int local, String convo, List<String> text) {
+        // iterate until you find an empty convo uid
+        int convoUID = 0;
+        while (conversations.containsKey(convoUID)) {
+            convoUID++;
+        }
+        conversations.put(convoUID, new ConversationData(global, local, convoUID, convo, text));
+
+    }
+
+    public void createResponse(String global, int local, int convo, List<String> text) {
+        if (conversations.containsKey(convo)) {
+            conversations.get(convo).createResponse(global, local, convo, text);
+        }
+    }
+
+    public void setRedirectRequirements(int convo, int responseUID, int redirectNum, Evaluateable exp) {
+        if (conversations.containsKey(convo))
+            conversations.get(convo).setRedirectRequirements(responseUID, redirectNum, exp);
+    }
 }

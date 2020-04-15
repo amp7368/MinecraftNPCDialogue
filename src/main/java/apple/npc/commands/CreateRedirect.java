@@ -1,7 +1,7 @@
 package apple.npc.commands;
 
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.all.AllNPCs;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
 import apple.npc.reading.text.ReadingTextConvo;
@@ -89,6 +89,24 @@ public class CreateRedirect {
             localUID = localUIDs.get(0);
         }
         StopCommand.startListening(new ReadingTextConvo(global, localUID, convoName), player);
+    }
+
+    /**
+     * (probably will be replaced by making local an int)
+     * creates a conversation with the request of text
+     *
+     * @param global    the global category (global is always String)
+     * @param local     the local category uid
+     * @param convoName the convoName we're requesting (Creates a conversation with a new UID regardless)
+     * @param player    the player requesting this service
+     */
+    public static void createConvo(String global, int local, String convoName, Player player) {
+        if (!AllConversations.hasLocalCategory(global, local)) {
+            player.sendMessage(String.format(MessageUtils.BAD + "The conversation local category of %s does not exist for category %s.", local, global));
+            return;
+        }
+        player.sendMessage(String.format(MessageUtils.EDITING + "Type the conversation text you would like for %s:%s:%s.", global, AllConversations.getLocalName(global, local), convoName));
+        StopCommand.startListening(new ReadingTextConvo(global, local, convoName), player);
     }
 
 
@@ -188,15 +206,4 @@ public class CreateRedirect {
         return convoUIDs;
     }
 
-    /**
-     * create a default npc with the name of name
-     *
-     * @param name   the name of the npc we're creating
-     * @param player the player requesting this service
-     */
-    public static void createNpc(String name, Player player) {
-        if (AllNPCs.makeNPC(name, player.getLocation())) {
-
-        }
-    }
 }
