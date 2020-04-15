@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.npc;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.afer_boolean.AfterVarConclu;
 import apple.npc.commands.CommandReferences;
@@ -10,6 +11,7 @@ import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
 import apple.npc.data.npc.NPCData;
 import apple.npc.data.npc.VarsConclusionMap;
 import apple.npc.reading.command.npc.edit.ReadingBooleanForced;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -64,7 +66,13 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
                 return false;
             }
 
-            player.sendMessage("Starting to deal with your conclusion but it was default");
+            String npcName = npc.name;
+
+            TextComponent path = new TextComponent();
+            path.setText(String.format("Npc-ConclusionSet | %s-%d", npcName,conclusionNum));
+            path.setBold(MessageUtils.PATH_BOLD);
+            path.setColor(MessageUtils.PATH);
+            ActionBar.sendLongActionBar(player, path);
             // otherwise give a default val for this
             BooleanSessionStart.start(npcUID, conclusionNum, player);
 

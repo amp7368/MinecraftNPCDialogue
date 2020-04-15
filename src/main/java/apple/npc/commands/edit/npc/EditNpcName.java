@@ -51,7 +51,9 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
             player.sendMessage("There is no Npc with uid of " + npcUID);
             return false;
         }
+        player.sendMessage(MessageUtils.LONG_DASH);
         player.sendMessage(MessageUtils.EDITING + "Enter the new name for the npc.");
+        player.sendMessage(MessageUtils.LONG_DASH);
         StopCommand.startListening(new ReadingNpcName(npc), player);
         return true;
     }

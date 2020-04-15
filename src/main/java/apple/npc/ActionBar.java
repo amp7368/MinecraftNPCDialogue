@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class ActionBar {
     private static final int DEFAULT_TIME = 20 * 60 * 3;
-    private static final int SKIP_TIME = 20 * 2;
+    private static final int SKIP_TIME = 20 * 3;
     private static JavaPlugin plugin;
     private static HashMap<UUID, Integer> timeLeft;
     private static HashMap<UUID, TextComponent> messages;
@@ -45,6 +45,7 @@ public class ActionBar {
             messages.remove(playerUID);
             return;
         }
+        player.sendMessage("sending action bar for " + ticks);
         // send an action bar and send another later
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, message);
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> sendLongActionBar(player), SKIP_TIME);

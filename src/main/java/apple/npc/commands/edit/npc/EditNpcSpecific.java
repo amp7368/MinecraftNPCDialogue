@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.npc;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllNPCs;
@@ -56,7 +57,7 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
         path.setText(String.format("Npc | %s", npcName));
         path.setBold(MessageUtils.PATH_BOLD);
         path.setColor(MessageUtils.PATH);
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, path);
+        ActionBar.sendLongActionBar(player, path);
 
         player.sendMessage(ChatColor.BLUE + String.format("What would you like to edit about %s (uid=%d)?", npcName, uid));
         TextComponent editName = new TextComponent();

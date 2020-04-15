@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.npc;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -49,7 +50,7 @@ public class EditNpc implements CommandExecutor, TabCompleter {
         path.setText("Npc");
         path.setBold(MessageUtils.PATH_BOLD);
         path.setColor(MessageUtils.PATH);
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,path);
+        ActionBar.sendLongActionBar(player, path);
 
         player.sendMessage(MessageUtils.LONG_DASH);
 

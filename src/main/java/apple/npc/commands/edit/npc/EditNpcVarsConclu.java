@@ -1,9 +1,11 @@
 package apple.npc.commands.edit.npc;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllNPCs;
+import apple.npc.data.npc.NPCData;
 import apple.npc.reading.command.npc.edit.ReadingNpcConclusionNumVars;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -53,13 +55,28 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
             return false;
         }
         if (AllNPCs.hasUID(npcUID)) {
-            player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set?");
             Collection<Integer> conclusionList = AllNPCs.getConclusionList(npcUID);
             if (conclusionList == null) {
                 // wtf happened we just checked that AllNPCs has a list
                 player.sendMessage(MessageUtils.BAD + "There is no npc with uid " + npcUID);
                 return false;
             }
+
+
+            NPCData npc = AllNPCs.getNPCFromUID(npcUID);
+            if (npc == null) {
+                //todo enter a new npc
+                return false;
+            }
+            String npcName = npc.name;
+
+            TextComponent path = new TextComponent();
+            path.setText(String.format("Npc Vars To Conclusion | %s", npcName));
+            path.setBold(MessageUtils.PATH_BOLD);
+            path.setColor(MessageUtils.PATH);
+            ActionBar.sendLongActionBar(player, path);
+
+            player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set?");
             for (int conclusion : conclusionList) {
                 player.sendMessage(MessageUtils.DASH);
                 TextComponent conclu = new TextComponent();
