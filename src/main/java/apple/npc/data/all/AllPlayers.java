@@ -1,6 +1,7 @@
 package apple.npc.data.all;
 
 import apple.npc.creation.from_data.player.WritePlayerAll;
+import apple.npc.data.convo.VariableChange;
 import apple.npc.data.player.PlayerData;
 import apple.npc.data.player.Variable;
 import apple.npc.data.player.VariableCategory;
@@ -8,10 +9,7 @@ import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AllPlayers {
 
@@ -35,6 +33,13 @@ public class AllPlayers {
         }
     }
 
+    public static void doVariableChange(String playerUID, HashSet<VariableChange> variableChanges) {
+        if (!allPlayers.containsKey(playerUID)) {
+            allPlayers.put(playerUID,new PlayerData(playerUID));
+        }
+        allPlayers.get(playerUID).doVariableChanges(variableChanges);
+
+    }
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
         if (allPlayers.containsKey(playerUID))
             return allPlayers.get(playerUID).getVarVal(comparisonVarGlobal, comparisonVarUID);
@@ -79,7 +84,9 @@ public class AllPlayers {
     }
 
     private static void writeplayer(String player) {
+        //todo make it only read one player
         if (allPlayers.containsKey(player))
             WritePlayerAll.write(folder.getPath(), player);
     }
+
 }

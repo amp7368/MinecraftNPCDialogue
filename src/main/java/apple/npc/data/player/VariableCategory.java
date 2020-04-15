@@ -46,9 +46,7 @@ public class VariableCategory {
     }
 
     public void addVar(@NotNull Variable local) {
-        if (!variables.containsKey(local.uid)) {
-            variables.put(local.uid, local);
-        }
+        variables.put(local.uid, local);
     }
 
     public List<Integer> getVarLocalUIDs(String localName) {

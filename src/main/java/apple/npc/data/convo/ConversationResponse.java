@@ -79,13 +79,15 @@ public class ConversationResponse implements Evaluateable {
         return preResponseRequirement.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
 
-    public ConvoID getPostResponse(Opinion opinion, long lastTalked, String playerUID) {
+    public ConvoID doGetPostResponse(Opinion opinion, long lastTalked, String playerUID) {
         for (PostPlayerResponse postResponse : postResponses) {
             if (postResponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+                postResponse.doVariableChanges(playerUID);
                 return postResponse.toNpcConvoID();
             }
         }
         if (defaultPostReponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+            defaultPostReponse.doVariableChanges(playerUID);
             return defaultPostReponse.toNpcConvoID();
         }
         return null;

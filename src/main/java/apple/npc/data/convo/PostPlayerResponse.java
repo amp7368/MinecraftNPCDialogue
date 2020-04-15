@@ -1,5 +1,6 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.all.AllPlayers;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
@@ -91,5 +92,9 @@ public class PostPlayerResponse {
 
     public void putVarChange(String respGlobal, Variable variable, int respVal) {
         variableChanges.add(new VariableChange(respGlobal, variable, respVal));
+    }
+
+    public void doVariableChanges(String playerUID) {
+        AllPlayers.doVariableChange(playerUID,variableChanges);
     }
 }

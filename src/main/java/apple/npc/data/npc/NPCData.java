@@ -227,7 +227,7 @@ public class NPCData {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                ConvoID redirect = response.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.doGetPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 
