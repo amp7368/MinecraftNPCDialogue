@@ -4,6 +4,7 @@ import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
@@ -226,7 +227,7 @@ public class NPCData {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                ConvoID redirect = response.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.doGetPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 
@@ -272,5 +273,15 @@ public class NPCData {
 
     public Collection<Integer> getConclusionList() {
         return conclusionsToConvo.keySet();
+    }
+
+    public void setVarToConclu(int conclusionResult, Evaluateable finished) {
+        for (VarsConclusionMap varMap : varsToConclusion) {
+            if (conclusionResult == varMap.conclusionResult) {
+                varMap.setExpression(finished);
+                return;
+            }
+        }
+        varsToConclusion.add(new VarsConclusionMap(conclusionResult, finished));
     }
 }

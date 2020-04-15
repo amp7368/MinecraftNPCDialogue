@@ -1,6 +1,6 @@
 package apple.npc.creation.from_data.bool;
 
-import apple.npc.data.booleanAlgebra.BooleanExp;
+import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.booleanAlgebra.VariableComparision;
@@ -9,9 +9,9 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class WriteBoolean {
     public static void setConfig(ConfigurationSection config, Evaluateable booleanExp) {
-        if (booleanExp instanceof BooleanExp) {
+        if (booleanExp instanceof BooleanDoubleExp) {
             // we're combining booleans
-            BooleanExp bool = (BooleanExp) booleanExp;
+            BooleanDoubleExp bool = (BooleanDoubleExp) booleanExp;
             config.set(YMLBooleanNavigate.IS_AND_OP, bool.isAndOp());
             config.set(YMLBooleanNavigate.IS_NOTED, bool.isNot());
             WriteBoolean.setConfig(config.createSection(YMLBooleanNavigate.EXPRESSION_1), bool.getExp1());
@@ -28,12 +28,12 @@ public class WriteBoolean {
             // we're comparing variables
             VariableComparision bool = (VariableComparision) booleanExp;
             config.set(YMLBooleanNavigate.IS_NOTED, bool.isNot());
-            config.set(YMLBooleanNavigate.IS_CONCLUSION_VAR, bool.isConclusionVar());
             config.set(YMLBooleanNavigate.COMPARISON_TYPE, bool.getComparisonType());
             config.set(YMLBooleanNavigate.COMPARISON_VALUE, bool.getComparisonValue());
             ConfigurationSection configVar = config.createSection(YMLBooleanNavigate.COMPARISON_VAR);
             configVar.set(YMLBooleanNavigate.GLOBAL_CATEGORY,bool.getComparisonVarGlobal());
             configVar.set(YMLBooleanNavigate.VAR_UID,bool.getComparisonVarUID());
+            configVar.set(YMLBooleanNavigate.VAR_NAME,bool.getComparisumVarName());
 
         }
     }

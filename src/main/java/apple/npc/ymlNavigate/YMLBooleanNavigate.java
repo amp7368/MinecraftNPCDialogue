@@ -13,5 +13,5 @@ public class YMLBooleanNavigate {
     public static final String COMPARISON_VAR = "comparisonVar";
     public static final String GLOBAL_CATEGORY = "globalCategory";
     public static final String VAR_UID = "varUID";
-    public static final String IS_CONCLUSION_VAR = "isConclusionVar";
+    public static final String VAR_NAME = "varName";
 }

@@ -44,6 +44,24 @@ commands:
     description: starts an editing session to edit any conclusionsToConversation for an npc
   npc_edit_name:
     description: edits the name of an npc
+
+  # editing details for the vars to conclusion part of an npc
+  npc_edit_vars:
+    description: starts an editing session to edit the vars to conclusion
+  npc_edit_vars_specific:
+    description: continues an editing session to edit the vars to conclusion given a conclusion to map to
+  npc_edit_vars_comp:
+    description: continues the editing session inserting a comparison into an expression
+  npc_edit_vars_double:
+    description: continues the editing session inserting a double expression where an expression used to be
+  npc_edit_vars_comp_type:
+    description: continues the editing session and asks what type of variable comparison the new expression will be
+  npc_edit_vars_comp_local:
+    description: continues the editing session and creates a local comparison variable with a given uid
+  npc_edit_vars_double_type:
+    description: continues the editing session and asks what operators the new double expression will have
+
+  # editing details for the conclusion to convo part of an npc
   npc_edit_concluToConvo_global:
     description: starts an editing session to edit the concluToConvo mapping to get the global category
   npc_edit_concluToConvo_local:
@@ -69,7 +87,7 @@ commands:
 
 
   # deal with normal post response editing
-  npc_convo_edit_response_postresponse:
+  npc_convo_edit_response_postresponse_make:
     description: starts an editing session to edit a postResponse for a response
   npc_convo_edit_response_post_local:
     description: continues an editing session to edit the local redirect part of a postResponse for a response
@@ -78,7 +96,21 @@ commands:
   npc_convo_edit_response_set:
     description: sets the global.local.convo for resposne
   npc_convo_edit_response_post_bool:
-    description: continues an editing sessiion to edit the boolean requirement for this response option
+    description: continues an editing session to edit the boolean requirement for this response option
+
+  # post response details editing
+  npc_convo_edit_response_postresponse:
+    description: displays a menu for the player to decide what they want to change about the current post response
+  npc_convo_delete_post_response:
+    description: deletes a postresponse
+  npc_convo_edit_response_reqs:
+    description: starts an editing session to edit the boolean expression (redirect requirements) of a post response
+  npc_convo_edit_response_var_change:
+    description: continues an editing session and requests the user to enter a global category for a variable change
+  npc_convo_edit_response_var_change_local:
+    description: continues an editing session and requests the user to enter a variable name for a variable change
+  npc_convo_edit_response_var_change_val:
+    description: continues an editing session and requests the user to enter a variable value for a variable change
 
   # will be commands
   npc_convo_edit_local_name:

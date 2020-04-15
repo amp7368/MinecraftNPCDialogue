@@ -1,5 +1,6 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -105,9 +106,14 @@ public class ConversationLocalCategory {
 
     }
 
-    public void createResponse(String global,int local, int convo, List<String> text) {
-        if(conversations.containsKey(convo)){
-            conversations.get(convo).createResponse(global,local,convo,text);
+    public void createResponse(String global, int local, int convo, List<String> text) {
+        if (conversations.containsKey(convo)) {
+            conversations.get(convo).createResponse(global, local, convo, text);
         }
+    }
+
+    public void setRedirectRequirements(int convo, int responseUID, int redirectNum, Evaluateable exp) {
+        if (conversations.containsKey(convo))
+            conversations.get(convo).setRedirectRequirements(responseUID, redirectNum, exp);
     }
 }

@@ -2,12 +2,13 @@ package apple.npc.commands.edit.convo.detail.resp;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
-import apple.npc.reading.command.ResponseType;
-import apple.npc.reading.command.response.ReadingConvoResponseGlobal;
+import apple.npc.data.convo.PostPlayerResponse;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -61,18 +62,67 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
         }
         ConversationData convo = AllConversations.get(new ConvoID(global, localUID, convoUID));
         if (convo == null) {
-            player.sendMessage(MessageUtils.BAD + String.format("I could not get conversation %s:%d:%d", global, localName, convoUID));
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get conversation %s:%s:%d", global, localName, convoUID));
             return false;
         }
-        String convoName = convo.name;
-
+        ConversationResponse response = convo.responses.get(responseUID);
+        if (response == null) {
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get response %s-%s-%s-%d", global, localName, convo.name, responseUID));
+            return false;
+        }
 
         player.sendMessage(MessageUtils.LONG_DASH);
-        player.sendMessage(MessageUtils.EDITING + String.format("Starting to edit the normal conversation redirect for %s:%s:%s:%d",
-                global, localName, convoName, responseUID));
+        player.sendMessage(MessageUtils.EDITING + "Editing PostResponses");
+        player.sendMessage(MessageUtils.DASH);
+
+        List<PostPlayerResponse> redirects = response.getPostResponses();
+        int i = 0;
+        for (PostPlayerResponse redirect : redirects) {
+            TextComponent varChange = new TextComponent();
+            varChange.setText(String.format("(Edit Variable Changes %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+            varChange.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+            varChange.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID, i++)));
+            player.spigot().sendMessage(varChange);
+
+            TextComponent redirectReqs = new TextComponent();
+            redirectReqs.setText(String.format("(Edit Redirect Reqs %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+            redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+            redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, i++)));
+            player.spigot().sendMessage(redirectReqs);
+
+            TextComponent delete = new TextComponent();
+            delete.setText(String.format("(Delete %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+            delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+            delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                    CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, i++)));
+            player.spigot().sendMessage(delete);
+        }
+        player.sendMessage(MessageUtils.DASH);
+        PostPlayerResponse redirect = response.getDefaultPostReponse();
+        TextComponent varChange = new TextComponent();
+        varChange.setText(String.format("(Edit Variable Changes %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        varChange.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        varChange.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(varChange);
+
+        TextComponent redirectReqs = new TextComponent();
+        redirectReqs.setText(String.format("(Edit Redirect Reqs %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(redirectReqs);
+
+        TextComponent delete = new TextComponent();
+        delete.setText(String.format("(Delete %s-%d-%d)", redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
+                CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, -1)));
+        player.spigot().sendMessage(delete);
         player.sendMessage(MessageUtils.LONG_DASH);
 
-        StopCommand.startListening(new ReadingConvoResponseGlobal(global, localUID, convoUID, responseUID, ResponseType.NORMAL_POST_RESPONSE, player), player);
 
         return true;
     }

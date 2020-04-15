@@ -72,7 +72,7 @@ public class EditNpcSpecific implements CommandExecutor, TabCompleter {
         varsToConclusions.setText("(Vars to Conclusion)");
         varsToConclusions.setUnderlined(true);
         varsToConclusions.setColor(ChatColor.GREEN);
-        varsToConclusions.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit_varsToConclusions " + uid));
+        varsToConclusions.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d ", CommandReferences.NPC_EDIT_VARS, uid)));
 
         TextComponent conclusionsToConvoUid = new TextComponent();
         conclusionsToConvoUid.setText("(Insert Convo)");
