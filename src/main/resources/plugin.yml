@@ -101,6 +101,8 @@ commands:
     description: continues an editing session and requests the user to enter a global category for a variable change
   npc_convo_edit_response_var_change_local:
     description: continues an editing session and requests the user to enter a variable name for a variable change
+  npc_convo_edit_response_var_change_val:
+    description: continues an editing session and requests the user to enter a variable value for a variable change
 
   # will be commands
   npc_convo_edit_local_name:

@@ -22,6 +22,7 @@ public class CommandReferences {
     public static final String NPC_CONVO_EDIT_RESPONSE_DEFAULT = "npc_convo_edit_response_default";
     public static final String NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL = "npc_convo_edit_response_var_change";
     public static final String NPC_CONVO_EDIT_RESPONSE_VAR_LOCAL ="npc_convo_edit_response_var_change_local" ;
+    public static final String NPC_CONVO_EDIT_RESPONSE_VAR_VAL = "npc_convo_edit_response_var_change_val";
 
     public static final String NPC_CONVO_MAKE_LOCAL = "npc_convo_make_local";
     public static final String NPC_CONVO_MAKE_CONVO = "npc_convo_make_convo";

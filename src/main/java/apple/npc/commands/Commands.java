@@ -67,6 +67,8 @@ public class Commands {
         new EditNpcConvoResponseConvo(plugin);
         new EditnpcConvoResponseSet(plugin);
         new EditNpcConvoResponseVar(plugin);
+        new EditNpcConvoResponseVarName(plugin);
+        new EditNpcConvoResponseVarVal(plugin);
 
         new EditNpc(plugin);
         new EditNpcName(plugin);
