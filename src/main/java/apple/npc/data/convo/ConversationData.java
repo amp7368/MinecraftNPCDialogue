@@ -1,5 +1,6 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -82,6 +83,11 @@ public class ConversationData {
             responseUID++;
         }
         responses.add(new ConversationResponse(global, local, convo, responseUID, text));
+    }
+
+    public void setRedirectRequirements(int responseUID, int redirectNum, Evaluateable exp) {
+        if(responses.size()>responseUID)
+            responses.get(responseUID).setRedirectRequirements(redirectNum,exp);
     }
 }
 

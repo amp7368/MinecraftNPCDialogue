@@ -1,6 +1,8 @@
 package apple.npc.commands.make.npc;
 
+import apple.npc.MessageUtils;
 import apple.npc.commands.CreateRedirect;
+import apple.npc.data.all.AllNPCs;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -32,8 +34,12 @@ public class MakeNpc implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-
-        CreateRedirect.makeNpc(player, plugin);
+        if (args.length != 1) {
+            player.sendMessage(MessageUtils.BAD + "Invalide number of arguments");
+        }
+        String npc = args[0];
+        AllNPCs.makeNPC(npc, player.getLocation());
+        player.sendMessage(MessageUtils.GOOD + String.format("The npc %s has been created.", npc));
         return true;
     }
 

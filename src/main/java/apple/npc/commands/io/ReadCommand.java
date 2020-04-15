@@ -1,6 +1,6 @@
 package apple.npc.commands.io;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.ReadEverything;
 import org.bukkit.command.Command;
@@ -25,7 +25,7 @@ public class ReadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         ReadEverything.read();
-        commandSender.sendMessage(ColorScheme.GOOD+"You just read a lot");
+        commandSender.sendMessage(MessageUtils.GOOD+"You just read a lot");
         return true;
     }
 }

@@ -8,15 +8,14 @@ import apple.npc.creation.from_scratch.convo.info.ConvoLocalInfo;
 import apple.npc.creation.from_scratch.convo.info.ConvoRespInfo;
 import apple.npc.creation.from_scratch.convo.single.CreateConvoData;
 import apple.npc.creation.from_scratch.convo.single.CreateConvoResponse;
-import apple.npc.data.convo.ConversationGlobalCategory;
-import apple.npc.data.convo.ConversationLocalCategory;
-import apple.npc.data.convo.ConvoID;
-import apple.npc.data.convo.ConversationData;
+import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.convo.*;
 import apple.npc.defaults.CreateConvoResponseRedirectDefault;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class AllConversations {
         allConversations.put(global, new ConversationGlobalCategory(config));
     }
 
-    private static void writeGlobal(String global) {
+    public static void writeGlobal(String global) {
         if (hasGlobalCategory(global))
             WriteConvoAll.write(dataFolder.getPath(), allConversations.get(global), global);
     }
@@ -83,9 +82,10 @@ public class AllConversations {
     }
 
     public static boolean createResponse(String global, int local, int convo, List<String> text) {
-        if(hasGlobalCategory(global)){
-            allConversations.get(global).createResponse(global,local,convo,text);
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).createResponse(global, local, convo, text);
             writeGlobal(global);
+            return true;
         }
         return false;
     }
@@ -121,6 +121,21 @@ public class AllConversations {
         return null;
     }
 
+    public static ConversationLocalCategory getLocalCategory(String global, int local) {
+        if (hasLocalCategory(global, local)) {
+            ConversationLocalCategory cat = allConversations.get(global).get(local);
+            return cat;
+        }
+        return null;
+    }
+
+    public static Collection<ConversationLocalCategory> getLocalList(String global) {
+        if (hasGlobalCategory(global)) {
+            return allConversations.get(global).getList();
+        }
+        return null;
+    }
+
     public static boolean hasGlobalCategory(String global) {
         return allConversations.containsKey(global);
     }
@@ -145,5 +160,16 @@ public class AllConversations {
 
     public static void readAll() {
         initialize(dataFolder);
+    }
+
+    public static Collection<String> getList() {
+        return allConversations.keySet();
+    }
+
+    public static void setRedirectRequirements(String global, int local, int convo, int responseUID, int redirectNum, Evaluateable exp) {
+        if (hasGlobalCategory(global)) {
+            allConversations.get(global).setRedirectRequirements(local, convo, responseUID, redirectNum, exp);
+            writeGlobal(global);
+        }
     }
 }

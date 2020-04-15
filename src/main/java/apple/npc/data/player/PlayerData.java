@@ -1,10 +1,13 @@
 package apple.npc.data.player;
 
+import apple.npc.data.all.AllPlayers;
+import apple.npc.data.convo.VariableChange;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class PlayerData {
@@ -22,6 +25,20 @@ public class PlayerData {
         }
     }
 
+    public PlayerData(String playerUID) {
+        this.uid = playerUID;
+        this.variables = new HashMap<>();
+    }
+
+    public void doVariableChanges(HashSet<VariableChange> variableChanges) {
+        for (VariableChange variable : variableChanges) {
+            if (!variables.containsKey(variable.globalVar)) {
+                variables.put(variable.globalVar, new VariableCategory());
+            }
+            variables.get(variable.globalVar).addVar(new Variable(variable));
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -35,6 +52,15 @@ public class PlayerData {
     }
 
     public int getVarVal(String varGlobal, int varUID) {
-        return variables.get(varGlobal).getVarVal(varUID);
+        if (variables.containsKey(varGlobal))
+            return variables.get(varGlobal).getVarVal(varUID);
+        else
+            return AllPlayers.DEFAULT_PLAYER_VAR_VAL;
     }
+
+    public HashMap<String, VariableCategory> getVariables() {
+        return variables;
+    }
+
+
 }

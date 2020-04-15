@@ -1,13 +1,13 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
-import apple.npc.reading.command.convo.ReadingConvoConvo;
+import apple.npc.reading.text.ReadingTextResponse;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -40,7 +40,7 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             return false;
         }
         if (args.length != 3) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         String global = args[0];
@@ -50,40 +50,60 @@ public class EditNpcConvoResponse implements CommandExecutor, TabCompleter {
             local = Integer.parseInt(args[1]);
             convo = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The second and third argument must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The second and third argument must be a number.");
             return false;
         }
+
+
+        player.sendMessage(MessageUtils.LONG_DASH);
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
-            player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
+            player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, local, convo));
             return false;
         }
 
+        String localName = AllConversations.getLocalName(global, local);
+        String convoName = conversation.name;
+
+        if (localName == null) {
+            player.sendMessage(String.format("The local category %s:%d does not exist", global, local));
+            return false;
+        }
+        TextComponent welcome = new TextComponent();
+        welcome.setText("What response id you would you like to edit?");
+        welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+        player.spigot().sendMessage(welcome);
+
+
         for (ConversationResponse response : conversation.responses) {
-            player.sendMessage(ColorScheme.DASH);
+            player.sendMessage(MessageUtils.DASH);
 
             TextComponent category = new TextComponent();
-            category.setText(String.format("(Edit %s:%s:%s:%d", global, local, convo, response.uid));
+            category.setText(String.format("(Edit %s:%s:%s:%d)", global, localName, convoName, response.uid));
             category.setUnderlined(true);
-            category.setColor(ColorScheme.EDITING_OPTION);
+            category.setColor(MessageUtils.EDITING_OPTION);
             category.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DETAILS, global, local, convo, response.uid)));
 
 
             player.spigot().sendMessage(category);
             for (String text : response.response) {
-                player.sendMessage(text);
+                player.sendMessage(MessageUtils.TAB + text);
             }
         }
-        player.sendMessage(ColorScheme.DASH);
 
         TextComponent back = new TextComponent();
         back.setText("(Back)");
         back.setUnderlined(true);
-        back.setColor(ColorScheme.EDITING_OPTION);
-        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d", CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
-        player.spigot().sendMessage(back);
+        back.setColor(MessageUtils.EDITING_OPTION);
+        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d",
+                CommandReferences.NPC_CONVO_EDIT_CONVO, global, local)));
         player.sendMessage("");
+        player.spigot().sendMessage(back);
 
+        StopCommand.startListening(new ReadingTextResponse(global,local,convo), player);
+
+        player.sendMessage(MessageUtils.DASH);
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         return true;
     }

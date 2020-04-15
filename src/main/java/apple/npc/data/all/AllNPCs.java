@@ -1,10 +1,9 @@
 package apple.npc.data.all;
 
 import apple.npc.creation.from_data.npc.WriteNpcAll;
-import apple.npc.creation.from_scratch.npc.components.CreateNpcPlayerData;
 import apple.npc.creation.from_scratch.npc.info.NpcInfo;
-import apple.npc.creation.from_scratch.npc.info.NpcPlayerDataInfo;
 import apple.npc.creation.from_scratch.npc.single.CreateNpcData;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLFileNavigate;
@@ -14,13 +13,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AllNPCs {
 
@@ -45,19 +40,20 @@ public class AllNPCs {
     }
 
     private static void readNpc(String fileName) {
-        File file = new File(String.format("%s%s%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, fileName));
+        File file = new File(String.format("%s%s%s%s%s", folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER,
+                File.separator, fileName));
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         NPCData npc = new NPCData(config);
         allGameUIDToNpcs.put(npc.gameUID, npc);
         allUIDToNpcs.put(npc.uid, npc);
     }
 
-    private static void writeNpc(int npcUID) {
+    public static void writeNpc(int npcUID) {
         WriteNpcAll.write(folder.getPath(), npcUID, allUIDToNpcs.get(npcUID).name);
         for (String gameUID : allGameUIDToNpcs.keySet()) {
             if (allGameUIDToNpcs.get(gameUID).uid == npcUID) {
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(String.format("%s%s%s%s%d%c%s%s",
-                        folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER,File.separator,npcUID, ',', allUIDToNpcs.get(npcUID).name, YMLFileNavigate.YML)));
+                        folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, npcUID, ',', allUIDToNpcs.get(npcUID).name, YMLFileNavigate.YML)));
                 allGameUIDToNpcs.put(gameUID, new NPCData(config));
             }
         }
@@ -151,4 +147,29 @@ public class AllNPCs {
         writeNpc(npcUid);
     }
 
+    public static void deleteFile(NPCData npcData) {
+        File deleteMe = new File(String.format("%s%s%s%s%d%c%s%s",
+                folder.getPath(), File.separator, YMLFileNavigate.NPC_FOLDER, File.separator, npcData.uid, ',',
+                npcData.name, YMLFileNavigate.YML));
+        deleteMe.delete();
+    }
+
+    public static Collection<NPCData> getList() {
+        return allUIDToNpcs.values();
+    }
+
+    public static Collection<Integer> getConclusionList(int npcUID) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            return allUIDToNpcs.get(npcUID).getConclusionList();
+        } else {
+            return null;
+        }
+    }
+
+    public static void setVarToConclu(int npcUID, int conclusionResult, Evaluateable finished) {
+        if (allUIDToNpcs.containsKey(npcUID)) {
+            allUIDToNpcs.get(npcUID).setVarToConclu(conclusionResult, finished);
+            writeNpc(npcUID);
+        }
+    }
 }

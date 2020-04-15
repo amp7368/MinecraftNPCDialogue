@@ -1,14 +1,19 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.all.AllConversations;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.npc.Opinion;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
+import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
@@ -20,7 +25,7 @@ public class ConversationResponse implements Evaluateable {
 
     public ConversationResponse(ConfigurationSection config) {
         this.uid = config.getInt(YMLConversationNavigate.RESPONSE_UID);
-        this.preResponseRequirement = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT + "." + YMLBooleanNavigate.EXPRESSION));
+        this.preResponseRequirement = BooleanRedirect.make(config.getConfigurationSection(YMLConversationNavigate.PRE_RESPONSE_REQUIREMENT + "." + YMLBooleanNavigate.EXPRESSION));
         this.response = config.getStringList(YMLConversationNavigate.RESPONSE_TEXT);
         this.postResponses = getPostResponses(config.getConfigurationSection(YMLConversationNavigate.POST_RESPONSES));
         this.defaultPostReponse = new PostPlayerResponse(config.getConfigurationSection(String.format("%s",
@@ -73,13 +78,15 @@ public class ConversationResponse implements Evaluateable {
         return preResponseRequirement.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
 
-    public ConvoID getPostResponse(Opinion opinion, long lastTalked, String playerUID) {
+    public ConvoID doGetPostResponse(Opinion opinion, long lastTalked, String playerUID) {
         for (PostPlayerResponse postResponse : postResponses) {
             if (postResponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+                postResponse.doVariableChanges(playerUID);
                 return postResponse.toNpcConvoID();
             }
         }
         if (defaultPostReponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
+            defaultPostReponse.doVariableChanges(playerUID);
             return defaultPostReponse.toNpcConvoID();
         }
         return null;
@@ -95,5 +102,17 @@ public class ConversationResponse implements Evaluateable {
 
     public List<PostPlayerResponse> getPostResponses() {
         return postResponses;
+    }
+
+    public void setPreResponseRequirement(Evaluateable exp) {
+        this.preResponseRequirement = exp;
+        AllConversations.writeAll();
+    }
+
+    public void setRedirectRequirements(int redirectNum, Evaluateable exp) {
+        if(redirectNum == -1)
+            defaultPostReponse.setRedirectRequirements(exp);
+        else if (postResponses.size()>redirectNum)
+            postResponses.get(redirectNum).setRedirectRequirements(exp);
     }
 }

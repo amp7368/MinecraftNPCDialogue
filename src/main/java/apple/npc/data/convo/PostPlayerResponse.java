@@ -1,6 +1,10 @@
 package apple.npc.data.convo;
 
+import apple.npc.data.all.AllPlayers;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
+import apple.npc.data.booleanAlgebra.BooleanRedirect;
+import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -12,13 +16,13 @@ public class PostPlayerResponse {
     private final String responseGlobal;
     private final int responseLocal;
     private final int conversationUID;
-    private final BooleanExpRequirement redirectRequirements;
+    private Evaluateable redirectRequirements;
 
     public PostPlayerResponse(ConfigurationSection config) {
         this.responseGlobal = config.getString(YMLConversationNavigate.RESPONSE_GLOBAL_CATEGORY);
         this.responseLocal = config.getInt(YMLConversationNavigate.RESPONSE_LOCAL_CATEGORY_UID);
         this.conversationUID = config.getInt(YMLConversationNavigate.RESPONSE_CONVERSATION_UID);
-        this.redirectRequirements = new BooleanExpRequirement(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
+        this.redirectRequirements = BooleanRedirect.make(config.getConfigurationSection(YMLConversationNavigate.REDIRECT_REQUIREMENT));
 
         this.variableChanges = new HashSet<>();
         ConfigurationSection changesConfig = config.getConfigurationSection(YMLConversationNavigate.VARIABLE_CHANGES);
@@ -27,6 +31,7 @@ public class PostPlayerResponse {
         }
         Set<String> changesKeys = changesConfig.getKeys(false);
         for (String changeKey : changesKeys) {
+            System.out.println(changeKey);
             this.variableChanges.add(new VariableChange(changesConfig.getConfigurationSection(changeKey)));
         }
     }
@@ -81,7 +86,19 @@ public class PostPlayerResponse {
         return conversationUID;
     }
 
-    public BooleanExpRequirement getRedirectRequirements() {
+    public Evaluateable getRedirectRequirements() {
         return redirectRequirements;
+    }
+
+    public void putVarChange(String respGlobal, Variable variable, int respVal) {
+        variableChanges.add(new VariableChange(respGlobal, variable, respVal));
+    }
+
+    public void doVariableChanges(String playerUID) {
+        AllPlayers.doVariableChange(playerUID, variableChanges);
+    }
+
+    public void setRedirectRequirements(Evaluateable exp) {
+        this.redirectRequirements = exp;
     }
 }

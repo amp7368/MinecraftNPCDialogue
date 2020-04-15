@@ -1,9 +1,10 @@
 package apple.npc.data.npc;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
+import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
@@ -11,9 +12,11 @@ import apple.npc.data.player.PlayerData;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -27,6 +30,7 @@ public class NPCData {
     private Map<Integer, ConvoID> conclusionsToConvo;
     private Map<String, NPCPlayerData> playerDataMap;
     private long maxTimeSinceTalk;
+    private HashMap<String, Long> cooldown = new HashMap<>();
 
     public NPCData(YamlConfiguration config) {
         playerDataMap = new HashMap<>();
@@ -36,7 +40,6 @@ public class NPCData {
         startingConclusion = config.getInt(YMLNpcNavigate.STARTING_CONCLUSION);
         maxTimeSinceTalk = config.getInt(YMLNpcNavigate.MAX_TIME_SINCE_LAST_TALK);
         varsToConclusion = new ArrayList<>();
-        System.out.println("Current path: " + config.getCurrentPath());
         ConfigurationSection varConcluConfig = config.getConfigurationSection(YMLNpcNavigate.VARS_TO_CONCLUSIONS);
         Set<String> varConcluKeys = varConcluConfig.getKeys(false);
         for (String varConcluKey : varConcluKeys) {
@@ -81,6 +84,11 @@ public class NPCData {
      */
     public void doEntireConversation(PlayerData playerData, Player realPlayer) {
         String playerUID = realPlayer.getUniqueId().toString();
+
+        if (cooldown.containsKey(playerUID) && System.currentTimeMillis() - cooldown.get(playerUID) < 6000) {
+            return;
+        }
+        cooldown.put(playerUID, System.currentTimeMillis());
 
         int currentOpinion;
         boolean playerLeftEarlier; // false if we want to move on to the next conversation found in defaultPostResponse
@@ -150,24 +158,25 @@ public class NPCData {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
                     message.setUnderlined(true);
-                    message.setColor(net.md_5.bungee.api.ChatColor.GRAY);
+                    message.setColor(net.md_5.bungee.api.ChatColor.AQUA);
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/npc_respond %d %d", uid, resp.uid)));
                     realPlayer.spigot().sendMessage(message);
-                    realPlayer.sendMessage(ColorScheme.DASH);
                 }
             }
+            realPlayer.sendMessage(MessageUtils.DASH);
+
         }
         realPlayer.sendMessage("");
         return null;
     }
 
     private void talkAtPlayer(Player realPlayer, ConvoID convoID) {
-        realPlayer.sendMessage(ColorScheme.DASH);
+        realPlayer.sendMessage(MessageUtils.DASH);
         ConversationData convo = AllConversations.get(convoID);
         for (String text : convo.conversationText) {
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
-        realPlayer.sendMessage(ColorScheme.DASH);
+        realPlayer.sendMessage(MessageUtils.DASH);
 
     }
 
@@ -218,7 +227,7 @@ public class NPCData {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                ConvoID redirect = response.getPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.doGetPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 
@@ -254,4 +263,25 @@ public class NPCData {
         return maxTimeSinceTalk;
     }
 
+    public void setName(String name) {
+        AllNPCs.deleteFile(this);
+        this.name = name;
+        Entity entity = Bukkit.getEntity(UUID.fromString(gameUID));
+        if (entity != null)
+            entity.setCustomName(name);
+    }
+
+    public Collection<Integer> getConclusionList() {
+        return conclusionsToConvo.keySet();
+    }
+
+    public void setVarToConclu(int conclusionResult, Evaluateable finished) {
+        for (VarsConclusionMap varMap : varsToConclusion) {
+            if (conclusionResult == varMap.conclusionResult) {
+                varMap.setExpression(finished);
+                return;
+            }
+        }
+        varsToConclusion.add(new VarsConclusionMap(conclusionResult, finished));
+    }
 }

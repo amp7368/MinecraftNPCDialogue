@@ -1,9 +1,11 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConversationLocalCategory;
 import apple.npc.reading.command.convo.ReadingConvoConvo;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -37,7 +39,7 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             return false;
         }
         if (args.length != 2) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         String global = args[0];
@@ -45,22 +47,40 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
         try {
             local = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The second argument must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The second argument must be a number.");
             return false;
         }
         if (AllConversations.hasLocalCategory(global, local)) {
+            String localName = AllConversations.getLocalName(global, local);
+
             TextComponent welcome = new TextComponent();
-            welcome.setText("Type what conversation name you would you like to edit.   ");
+            welcome.setText("What conversation name you would you like to edit?");
             welcome.setColor(net.md_5.bungee.api.ChatColor.BLUE);
+            player.spigot().sendMessage(welcome);
+
+            ConversationLocalCategory conversations = AllConversations.getLocalCategory(global, local);
+            for (ConversationData conversation : conversations.getConversations().values()) {
+                TextComponent convo = new TextComponent();
+                convo.setText(String.format("(Edit %s:%s:%s (UID:%d))", global, localName, conversation.name, conversation.uid));
+                convo.setUnderlined(true);
+                convo.setColor(MessageUtils.EDITING_OPTION);
+                convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                        String.format("/%s %s %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE, global, local, conversation.uid)));
+                player.spigot().sendMessage(convo);
+            }
+
+
             TextComponent back = new TextComponent();
             back.setText("(Back)");
             back.setUnderlined(true);
-            back.setColor(ColorScheme.EDITING_OPTION);
+            back.setColor(MessageUtils.EDITING_OPTION);
             back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s", CommandReferences.NPC_CONVO_EDIT_LOCAL, global)));
-            player.spigot().sendMessage(welcome, back);
+
+            player.sendMessage("");
+            player.spigot().sendMessage(back);
             StopCommand.startListening(new ReadingConvoConvo(global, local), player);
         } else {
-            player.sendMessage(ColorScheme.BAD + String.format("%s:%s is an invalid conversation category", global, local));
+            player.sendMessage(MessageUtils.BAD + String.format("%s:%s is an invalid conversation category", global, local));
 
         }
         return true;

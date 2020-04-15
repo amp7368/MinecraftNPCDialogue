@@ -1,15 +1,13 @@
 package apple.npc.commands;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.data.all.AllConversations;
 import apple.npc.exceptions.BadUIDException;
 import apple.npc.exceptions.NoUIDException;
-import apple.npc.reading.command.npc.make.ReadingMakeNpc;
 import apple.npc.reading.text.ReadingTextConvo;
 import apple.npc.reading.text.ReadingTextResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
@@ -104,10 +102,10 @@ public class CreateRedirect {
      */
     public static void createConvo(String global, int local, String convoName, Player player) {
         if (!AllConversations.hasLocalCategory(global, local)) {
-            player.sendMessage(String.format(ColorScheme.BAD + "The conversation local category of %s does not exist for category %s.", local, global));
+            player.sendMessage(String.format(MessageUtils.BAD + "The conversation local category of %s does not exist for category %s.", local, global));
             return;
         }
-        player.sendMessage(String.format(ColorScheme.EDITING + "Type the conversation text you would like for %s:%s:%s.", global, AllConversations.getLocalName(global, local), convoName));
+        player.sendMessage(String.format(MessageUtils.EDITING + "Type the conversation text you would like for %s:%s:%s.", global, AllConversations.getLocalName(global, local), convoName));
         StopCommand.startListening(new ReadingTextConvo(global, local, convoName), player);
     }
 
@@ -208,13 +206,4 @@ public class CreateRedirect {
         return convoUIDs;
     }
 
-    /**
-     * create a default npc with the name of name
-     *
-     * @param player the player requesting this service
-     */
-    public static void makeNpc(Player player, JavaPlugin plugin) {
-        player.sendMessage(ChatColor.BLUE + "What is the name of the Npc you would like to create?");
-        StopCommand.startListening(new ReadingMakeNpc(plugin), player);
-    }
 }

@@ -1,8 +1,7 @@
 package apple.npc.commands.edit.convo;
 
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
-import apple.npc.commands.CreateRedirect;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -51,30 +50,12 @@ public class EditNpcConvo implements CommandExecutor, TabCompleter {
         global.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         global.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + CommandReferences.NPC_CONVO_EDIT_GLOBAL));
 
-        TextComponent local = new TextComponent();
-        local.setText("(Local Categories)");
-        local.setUnderlined(true);
-        local.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        local.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_local"));
-
-        TextComponent convo = new TextComponent();
-        convo.setText("(Conversations)");
-        convo.setUnderlined(true);
-        convo.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_convo"));
-
-        TextComponent response = new TextComponent();
-        response.setText("(Responses)");
-        response.setUnderlined(true);
-        response.setColor(ChatColor.GREEN);
-        response.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit_response"));
-
-        TextComponent separator = new TextComponent();
-        separator.setText("   ");
-
-        player.spigot().sendMessage(welcome, back);
-        player.spigot().sendMessage(global, separator, local, separator, convo, separator, response);
+        player.sendMessage(MessageUtils.LONG_DASH);
+        player.spigot().sendMessage(welcome);
+        player.spigot().sendMessage(global);
         player.sendMessage("");
+        player.spigot().sendMessage(back);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 

@@ -9,6 +9,12 @@ public class BooleanExpRequirement implements Evaluateable {
     private boolean defaultVal;
     private Evaluateable exp;
 
+    public BooleanExpRequirement(boolean isDefault, boolean defaultVal, Evaluateable exp) {
+        this.isDefault = isDefault;
+        this.defaultVal = defaultVal;
+        this.exp = exp;
+    }
+
     public BooleanExpRequirement(@Nullable ConfigurationSection config) {
         if (config == null) {
             isDefault = true;
@@ -22,15 +28,15 @@ public class BooleanExpRequirement implements Evaluateable {
                 // we should get the default value
                 isDefault = true;
                 defaultVal = config.getBoolean(YMLBooleanNavigate.DEFAULT);
+            } else if (config.contains(YMLBooleanNavigate.EXPRESSION)) {
+                this.exp = BooleanRedirect.make(config.getConfigurationSection(YMLBooleanNavigate.EXPRESSION));
             } else {
-                // we should get the variable comparison
-                isDefault = false;
-                exp = new VariableComparision(config);
+                isDefault = true;
+                defaultVal = false;
             }
         } else {
-            // we should get the BooleanExp
-            isDefault = false;
-            exp = new BooleanExp(config);
+            isDefault = true;
+            defaultVal = false;
         }
     }
 

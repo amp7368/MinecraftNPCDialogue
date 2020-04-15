@@ -1,5 +1,6 @@
 package apple.npc.commands;
 
+import apple.npc.MessageUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -34,6 +35,8 @@ public class NpcCommand implements CommandExecutor {
             commandSender.sendMessage("nope");
             return false;
         }
+        player.sendMessage(MessageUtils.LONG_DASH);
+
         player.sendMessage(net.md_5.bungee.api.ChatColor.BLUE + "What would you like to do?");
 
         TextComponent editNpcs = new TextComponent();
@@ -48,22 +51,10 @@ public class NpcCommand implements CommandExecutor {
         editConversations.setColor(ChatColor.GREEN);
         editConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit"));
 
-        TextComponent makeNpcs = new TextComponent();
-        makeNpcs.setText("(make Npcs)");
-        makeNpcs.setUnderlined(true);
-        makeNpcs.setColor(ChatColor.GREEN);
-        makeNpcs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_make"));
-
-        TextComponent makeConversations = new TextComponent();
-        makeConversations.setText("(make Conversations)");
-        makeConversations.setUnderlined(true);
-        makeConversations.setColor(ChatColor.GREEN);
-        makeConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_make"));
-
-        TextComponent separator = new TextComponent();
-        separator.setText("   ");
-
-        player.spigot().sendMessage(editNpcs, separator, editConversations, separator, makeNpcs, separator, makeConversations);
+        player.sendMessage(MessageUtils.LONG_DASH);
+        player.spigot().sendMessage(editNpcs);
+        player.spigot().sendMessage(editConversations);
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 }

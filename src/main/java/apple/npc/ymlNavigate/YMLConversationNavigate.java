@@ -22,4 +22,5 @@ public class YMLConversationNavigate {
     public static final String VARIABLE_CHANGE_VAR_UID = "varUID";
     public static final String VARIABLE_CHANGE_NEW_VALUE = "newValue";
     public static final String IMMEDIATE_CONVO = "immediateConvo";
+    public static final String VARIABLE_CHANGE_VAR_NAME = "varName";
 }

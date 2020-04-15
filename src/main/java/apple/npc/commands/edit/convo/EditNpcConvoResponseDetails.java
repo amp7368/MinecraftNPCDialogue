@@ -1,12 +1,10 @@
 package apple.npc.commands.edit.convo;
 
-import apple.npc.ColorScheme;
+import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
-import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -41,7 +39,7 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         }
 
         if (args.length != 4) {
-            player.sendMessage(ColorScheme.BAD + "Invalid number of arguments");
+            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
         String global = args[0];
@@ -53,16 +51,17 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
             convoUID = Integer.parseInt(args[2]);
             responseUID = Integer.parseInt(args[3]);
         } catch (NumberFormatException e) {
-            player.sendMessage(ColorScheme.BAD + "The second, third, and fourth arguments must be a number.");
+            player.sendMessage(MessageUtils.BAD + "The second, third, and fourth arguments must be a number.");
             return false;
         }
         ConversationData conversation = AllConversations.get(new ConvoID(global, localUID, convoUID));
         String local = AllConversations.getLocalName(global, localUID);
         if (conversation == null || local == null) {
-            player.sendMessage(ColorScheme.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
+            player.sendMessage(MessageUtils.BAD + String.format("%s:%d:%d is an invalid conversation", global, localUID, convoUID));
             return false;
         }
-        ConversationResponse response = conversation.get(responseUID);
+
+        player.sendMessage(MessageUtils.LONG_DASH);
 
         TextComponent welcome = new TextComponent();
         welcome.setText(String.format("What would you like to edit about response %s:%s:%s:%d?   ",
@@ -73,38 +72,55 @@ public class EditNpcConvoResponseDetails implements CommandExecutor, TabComplete
         back.setText("(Back)");
         back.setUnderlined(true);
         back.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE, global, localUID, convoUID)));
+        back.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE, global, localUID, convoUID)));
 
         TextComponent preResponse = new TextComponent();
         preResponse.setText("(PreResponseRequirement)");
         preResponse.setUnderlined(true);
         preResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        preResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_PRERESPONSE, global, localUID, convoUID,responseUID)));
+        preResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_PRERESPONSE, global, localUID, convoUID, responseUID)));
 
         TextComponent text = new TextComponent();
         text.setText("(Text)");
         text.setUnderlined(true);
         text.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_TEXT, global, localUID, convoUID,responseUID)));
+        text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_TEXT, global, localUID, convoUID, responseUID)));
 
         TextComponent postResponse = new TextComponent();
         postResponse.setText("(PostResponses)");
         postResponse.setUnderlined(true);
         postResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        postResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_POSTRESPONSE, global, localUID, convoUID,responseUID)));
+        postResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_POST, global, localUID, convoUID, responseUID)));
+
+        TextComponent postResponseMake = new TextComponent();
+        postResponseMake.setText("(Make PostResponse)");
+        postResponseMake.setUnderlined(true);
+        postResponseMake.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        postResponseMake.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_POST_MAKE, global, localUID, convoUID, responseUID)));
 
         TextComponent defaultResponse = new TextComponent();
         defaultResponse.setText("(DefaultPostResponse)");
         defaultResponse.setUnderlined(true);
         defaultResponse.setColor(net.md_5.bungee.api.ChatColor.GREEN);
-        defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID,responseUID)));
+        defaultResponse.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d",
+                CommandReferences.NPC_CONVO_EDIT_RESPONSE_DEFAULT, global, localUID, convoUID, responseUID)));
 
-        TextComponent separator = new TextComponent();
-        separator.setText("   ");
-
-        player.spigot().sendMessage(welcome, back);
-        player.spigot().sendMessage(preResponse, separator, text, separator, postResponse, separator, defaultResponse);
+        player.sendMessage(MessageUtils.LONG_DASH);
+        player.spigot().sendMessage(welcome);
+        player.spigot().sendMessage(preResponse);
+        player.spigot().sendMessage(text);
+        player.spigot().sendMessage(postResponse);
+        player.spigot().sendMessage(postResponseMake);
+        player.spigot().sendMessage(defaultResponse);
         player.sendMessage("");
+        player.spigot().sendMessage(back);
+
+        player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }
 
