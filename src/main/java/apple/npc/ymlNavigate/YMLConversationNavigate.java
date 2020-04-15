@@ -1,7 +1,6 @@
 package apple.npc.ymlNavigate;
 
 public class YMLConversationNavigate {
-
     public static final String LOCAL_UID = "uid";
     public static final String NAME = "name";
     public static final String CONVERSATION_TEXT = "conversationText";

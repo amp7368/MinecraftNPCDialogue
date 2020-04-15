@@ -1,5 +1,6 @@
 package apple.npc.commands.edit.convo.detail.resp.making;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
@@ -8,6 +9,7 @@ import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.reading.command.ResponseType;
 import apple.npc.reading.command.response.ReadingConvoResponseGlobal;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -66,6 +68,11 @@ public class EditNpcConvoResponsePostMake implements CommandExecutor, TabComplet
         }
         String convoName = convo.name;
 
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-Local-Convo-Response-(newGlobal) | %s-%s-%s-%d", global, localName, convoName, responseUID));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.sendMessage(MessageUtils.EDITING + String.format("Starting to edit the normal conversation redirect for %s:%s:%s:%d",

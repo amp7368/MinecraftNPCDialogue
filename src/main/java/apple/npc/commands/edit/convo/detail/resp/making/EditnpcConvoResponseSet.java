@@ -1,11 +1,13 @@
 package apple.npc.commands.edit.convo.detail.resp.making;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.convo.PostPlayerResponse;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -27,7 +29,6 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
         command.setExecutor(this);
         command.setTabCompleter(this);
     }
-
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         Player player = Bukkit.getPlayer(commandSender.getName());
@@ -35,7 +36,6 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-
         String global;
         int local;
         int convo;
@@ -59,12 +59,26 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
             return false;
         }
         newGlobal = args[4];
-
+        String localName = AllConversations.getLocalName(global, local);
+        if (localName == null) {
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get local category %s:%d", global, local));
+            return false;
+        }
         ConversationData conversation = AllConversations.get(new ConvoID(global, local, convo));
         if (conversation == null) {
             player.sendMessage(MessageUtils.BAD + String.format("The conversation %s:%d:%d does not exist.", global, local, convo));
             return false;
         } else {
+            ConversationData newConversation = AllConversations.get(new ConvoID(newGlobal, newLocal, newConvoUID));
+            if (newConversation == null) {
+                player.sendMessage(MessageUtils.BAD + String.format("The new conversation %s:%d:%d does not exist.", newGlobal, newLocal, newConvoUID));
+                return false;
+            }
+            TextComponent path = new TextComponent();
+            path.setText(String.format("Convo | Global-Local-Convo-Response-newGlobal-newLocal-newConvo | %s-%s-%s-%d-%s-%s-%s", global, localName, conversation.name, response, newGlobal, newLocal, newConversation.name));
+            path.setBold(MessageUtils.PATH_BOLD);
+            path.setColor(MessageUtils.PATH);
+            ActionBar.sendLongActionBar(player, path);
             List<PostPlayerResponse> resp = conversation.get(response).getPostResponses();
             if (resp.isEmpty())
                 resp.add(new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
@@ -75,7 +89,6 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
         }
         return true;
     }
-
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         return null;

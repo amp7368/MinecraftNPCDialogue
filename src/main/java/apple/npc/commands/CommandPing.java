@@ -1,6 +1,5 @@
 package apple.npc.commands;
 
-import apple.npc.NPCDialogueMain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,5 +31,5 @@ public class CommandPing implements CommandExecutor {
             player.sendMessage(ChatColor.LIGHT_PURPLE + "pong");
         }
         return false;
-    }
-}
+        }
+        }

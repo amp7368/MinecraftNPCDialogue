@@ -1,11 +1,16 @@
 package apple.npc.commands.edit.convo.detail.resp.making;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
+import apple.npc.data.all.AllConversations;
+import apple.npc.data.convo.ConversationData;
+import apple.npc.data.convo.ConvoID;
 import apple.npc.reading.command.ResponseType;
 import apple.npc.reading.command.response.ReadingConvoResponseGlobal;
 import apple.npc.reading.command.response.ReadingConvoResponseLocal;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -57,6 +62,24 @@ public class EditNpcConvoResponseLocal implements CommandExecutor, TabCompleter 
             return false;
         }
         newGlobal = args[4];
+
+        String localName = AllConversations.getLocalName(global, local);
+        if (localName == null) {
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get local category %s:%d", global, local));
+            return false;
+        }
+        ConversationData conversationData = AllConversations.get(new ConvoID(global, local, convo));
+        if (conversationData == null) {
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get conversation %s:%s:%d", global, localName, convo));
+            return false;
+        }
+
+        TextComponent path = new TextComponent();
+        path.setText(String.format("Convo | Global-Local-Convo-Response-newGlobal-(newLocal) | %s-%s-%s-%d-%s", global, localName, conversationData.name, response, newGlobal));
+        path.setBold(MessageUtils.PATH_BOLD);
+        path.setColor(MessageUtils.PATH);
+        ActionBar.sendLongActionBar(player, path);
+
 
         StopCommand.startListening(new ReadingConvoResponseLocal(global, local, convo, response, ResponseType.NORMAL_POST_RESPONSE, newGlobal, player), player);
         return true;

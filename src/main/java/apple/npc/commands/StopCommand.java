@@ -1,5 +1,6 @@
 package apple.npc.commands;
 
+import apple.npc.ActionBar;
 import apple.npc.MessageUtils;
 import apple.npc.reading.Reading;
 import apple.npc.reading.command.ReadingCommand;
@@ -41,6 +42,7 @@ public class StopCommand implements CommandExecutor, Listener {
      */
     public StopCommand(JavaPlugin pl) {
         reading = new HashMap<>();
+        lastRead = new HashMap<>();
         plugin = pl;
         Bukkit.getPluginManager().registerEvents(this, plugin);
         PluginCommand command = plugin.getCommand("stop_reading");
@@ -56,6 +58,16 @@ public class StopCommand implements CommandExecutor, Listener {
             return;
         }
         command.setExecutor(this);
+    }
+
+    private void remove(Player player) {
+        reading.remove(player.getUniqueId());
+        lastRead.remove(player.getUniqueId());
+        player.sendTitle(null, null, 0, 0, 0);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent());
+        ActionBar.remove(player);
+        player.sendMessage(MessageUtils.BAD + "We're not listening anymore.");
+
     }
 
     /**
@@ -76,8 +88,7 @@ public class StopCommand implements CommandExecutor, Listener {
         }
         UUID playerUID = player.getUniqueId();
         if (command.getName().equals("abort_reading")) {
-            reading.remove(playerUID);
-            player.sendMessage(MessageUtils.BAD + "We're not listening anymore.");
+            remove(player);
             return true;
         } else {
             if (lastRead.containsKey(playerUID)) {
@@ -89,8 +100,8 @@ public class StopCommand implements CommandExecutor, Listener {
             if (reading.containsKey(playerUID) && reading.get(playerUID) instanceof ReadingText) {
                 // otherwise finish what you were doing with the text
                 Reading read = reading.remove(playerUID);
-                lastRead.remove(playerUID);
                 read.dealWithStop(player);
+                remove(player);
                 return true;
             }
             player.sendMessage(ChatColor.GRAY + "We weren't recording whatever you just wrote");
@@ -136,10 +147,10 @@ public class StopCommand implements CommandExecutor, Listener {
             } else if (read instanceof ReadingCommand) {
                 ReadingCommand readCommand = (ReadingCommand) read;
                 readCommand.setCommand(event.getMessage());
-                lastRead.remove(playerUID);
-                reading.remove(playerUID);
                 readCommand.dealWithStop(player);
+                lastRead.remove(playerUID);
 
+                // let the player know what they just said
                 player.sendMessage(event.getMessage());
                 event.setCancelled(true);
             }
@@ -147,7 +158,6 @@ public class StopCommand implements CommandExecutor, Listener {
     }
 
     public static void showAbort(Player player) {
-        player.sendTitle(null, null, 0, 0, 0);
         player.sendMessage(MessageUtils.DASH);
         net.md_5.bungee.api.chat.TextComponent abort = new TextComponent();
         abort.setText("(Abort Reading)");

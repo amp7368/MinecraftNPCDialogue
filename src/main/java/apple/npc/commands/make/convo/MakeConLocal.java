@@ -44,7 +44,6 @@ public class MakeConLocal implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] strings) {
-        List<String> tabComplete = new ArrayList<>();
         return null;
     }
 }

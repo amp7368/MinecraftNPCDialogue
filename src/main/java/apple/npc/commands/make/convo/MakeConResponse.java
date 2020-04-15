@@ -28,7 +28,6 @@ public class MakeConResponse implements CommandExecutor, TabCompleter {
         command.setTabCompleter(this);
     }
 
-
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         Player player = Bukkit.getPlayer(commandSender.getName());
@@ -47,7 +46,6 @@ public class MakeConResponse implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] strings) {
-        List<String> tabComplete = new ArrayList<>();
         return null;
     }
 }

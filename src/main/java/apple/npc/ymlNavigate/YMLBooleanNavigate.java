@@ -1,7 +1,6 @@
 package apple.npc.ymlNavigate;
 
 public class YMLBooleanNavigate {
-
     public static final String IS_AND_OP = "isAndOp";
     public static final String IS_NOTED = "isNoted";
     public static final String EXPRESSION = "exp";

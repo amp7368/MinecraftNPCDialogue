@@ -1,7 +1,6 @@
 package apple.npc.ymlNavigate;
 
 public class YMLPlayerVariable {
-
     public static final String PLAYER_UID = "uid";
     public static final String VARIABLES = "variables";
     public static final String CURRENT_CONVERSATION_ID = "currentConvoUID";

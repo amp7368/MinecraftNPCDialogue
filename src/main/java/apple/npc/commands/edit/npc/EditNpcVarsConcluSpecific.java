@@ -65,7 +65,6 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
                 player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));
                 return false;
             }
-
             String npcName = npc.name;
 
             TextComponent path = new TextComponent();
@@ -75,7 +74,6 @@ public class EditNpcVarsConcluSpecific implements CommandExecutor, TabCompleter 
             ActionBar.sendLongActionBar(player, path);
             // otherwise give a default val for this
             BooleanSessionStart.start(npcUID, conclusionNum, player);
-
         } else {
             player.sendMessage(MessageUtils.BAD + String.format("The npc for uid %d does not exist.", npcUID));
             return false;

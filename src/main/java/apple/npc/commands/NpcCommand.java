@@ -27,7 +27,6 @@ public class NpcCommand implements CommandExecutor {
         command.setExecutor(this);
     }
 
-
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         Player player = Bukkit.getPlayer(commandSender.getName());

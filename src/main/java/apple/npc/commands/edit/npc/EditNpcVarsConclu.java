@@ -61,15 +61,12 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
                 player.sendMessage(MessageUtils.BAD + "There is no npc with uid " + npcUID);
                 return false;
             }
-
-
             NPCData npc = AllNPCs.getNPCFromUID(npcUID);
             if (npc == null) {
                 //todo enter a new npc
                 return false;
             }
             String npcName = npc.name;
-
             TextComponent path = new TextComponent();
             path.setText(String.format("Npc Vars To Conclusion | %s", npcName));
             path.setBold(MessageUtils.PATH_BOLD);
@@ -77,6 +74,7 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
             ActionBar.sendLongActionBar(player, path);
 
             player.sendMessage(ChatColor.BLUE + "What conclusion would you like to set?");
+
             for (int conclusion : conclusionList) {
                 player.sendMessage(MessageUtils.DASH);
                 TextComponent conclu = new TextComponent();
@@ -87,6 +85,7 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
                         CommandReferences.NPC_EDIT_VARS_SPECIFIC, npcUID, conclusion)));
                 player.spigot().sendMessage(conclu);
             }
+
             StopCommand.startListening(new ReadingNpcConclusionNumVars(npcUID, plugin), player);
             player.sendMessage(MessageUtils.DASH);
 
@@ -100,6 +99,7 @@ public class EditNpcVarsConclu implements CommandExecutor, TabCompleter {
 
             player.sendMessage(MessageUtils.DASH);
             player.sendMessage(MessageUtils.LONG_DASH);
+
         } else {
             player.sendMessage(MessageUtils.LONG_DASH);
             player.sendMessage(MessageUtils.BAD + "There is no npc with uid " + npcUID);

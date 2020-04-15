@@ -21,6 +21,7 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
             System.err.println(String.format("[NPCDialogue] could not get the %s command", CommandReferences.NPC_EDIT_NAME));
             return;
         }
+
         command.setExecutor(this);
         command.setTabCompleter(this);
     }
@@ -38,6 +39,7 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
         }
+
         int npcUID;
         try {
             npcUID = Integer.parseInt(args[0]);
@@ -51,6 +53,7 @@ public class EditNpcName implements CommandExecutor, TabCompleter {
             player.sendMessage("There is no Npc with uid of " + npcUID);
             return false;
         }
+
         player.sendMessage(MessageUtils.LONG_DASH);
         player.sendMessage(MessageUtils.EDITING + "Enter the new name for the npc.");
         player.sendMessage(MessageUtils.LONG_DASH);

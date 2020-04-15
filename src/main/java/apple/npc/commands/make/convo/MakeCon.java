@@ -38,7 +38,6 @@ public class MakeCon implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("nope");
             return false;
         }
-
         if (args.length != 3) {
             commandSender.sendMessage(String.format(ChatColor.RED + "args length of %d is not valid.", args.length));
             return true;
@@ -50,7 +49,6 @@ public class MakeCon implements CommandExecutor, TabCompleter {
             CreateRedirect.createConvo(args[0], args[1], args[2], player);
             return true;
         }
-
         TextComponent path = new TextComponent();
         path.setText(String.format("Conversation Creation-%s-%s",args[0],local));
         path.setBold(MessageUtils.PATH_BOLD);
