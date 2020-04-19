@@ -5,7 +5,7 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.all.AllPlayers;
+import apple.npc.data.all.AllVariables;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.player.Variable;
@@ -84,7 +84,7 @@ public class EditNpcConvoResponseVarName implements CommandExecutor, TabComplete
                 MessageUtils.EDITING, args[5], global, localName, conversationData.name, args[3],args[4]));
 
 
-        VariableCategory varLocals = AllPlayers.allVars.get(args[5]);
+        VariableCategory varLocals = AllVariables.allVars.get(args[5]);
         for (Variable var : varLocals.getVariables().values()) {
             TextComponent globalText = new TextComponent();
             globalText.setText(String.format("(Edit %s-%d)", var.name, var.uid));

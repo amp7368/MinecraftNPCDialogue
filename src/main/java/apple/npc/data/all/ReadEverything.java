@@ -6,5 +6,6 @@ public class ReadEverything {
         AllConversations.readAll();
         AllNPCs.readAll();
         AllPlayers.readAll();
+        AllVariables.readAll();
     }
 }

@@ -69,7 +69,7 @@ public class EditNpcConvoConvo implements CommandExecutor, TabCompleter {
             ConversationLocalCategory conversations = AllConversations.getLocalCategory(global, local);
             for (ConversationData conversation : conversations.getConversations().values()) {
                 TextComponent convo = new TextComponent();
-                convo.setText(String.format("(Edit %s:%s:%s (UID:%d))", global, localName, conversation.name, conversation.uid));
+                convo.setText(String.format("(Edit %s (UID:%d))",conversation.name, conversation.uid));
                 convo.setUnderlined(true);
                 convo.setColor(MessageUtils.EDITING_OPTION);
                 convo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,

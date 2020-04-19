@@ -1,6 +1,7 @@
 package apple.npc.data.booleanAlgebra;
 
 import apple.npc.data.all.AllPlayers;
+import apple.npc.data.all.AllVariables;
 import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -22,7 +23,7 @@ public class VariableComparision implements Evaluateable {
         this.comparisonVarGlobal = comparisonVarGlobal;
         this.comparisonVarUID = comparisonVarUID;
         this.comparisumVarName = comparisumVarName;
-        AllPlayers.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
+        AllVariables.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
     }
 
     public VariableComparision(ConfigurationSection config) {
@@ -33,7 +34,7 @@ public class VariableComparision implements Evaluateable {
         comparisonVarUID = config.getInt(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_UID));
         comparisumVarName = config.getString(String.format("%s%c%s", YMLBooleanNavigate.COMPARISON_VAR, '.', YMLBooleanNavigate.VAR_NAME));
         // every time a new variable comparison is read, try to put it in player variables list of variables
-        AllPlayers.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
+        AllVariables.addVar(comparisonVarGlobal, new Variable(comparisonVarUID, comparisumVarName));
     }
 
     @Override

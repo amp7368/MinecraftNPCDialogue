@@ -5,5 +5,6 @@ public class WriteEverything {
         AllConversations.writeAll();
         AllNPCs.writeAll();
         AllPlayers.writeAll();
+        AllVariables.writeAll();
     }
 }

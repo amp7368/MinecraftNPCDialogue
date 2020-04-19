@@ -5,6 +5,7 @@ import apple.npc.commands.CreateRedirect;
 import apple.npc.data.all.AllConversations;
 import apple.npc.data.all.AllNPCs;
 import apple.npc.data.all.AllPlayers;
+import apple.npc.data.all.AllVariables;
 import apple.npc.listeners.ClickListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +14,7 @@ public class NPCDialogueMain extends JavaPlugin {
     public void onEnable() {
         Commands.initialize(this);
         ActionBar.initialize(this);
+        AllVariables.initialize(this.getDataFolder());
         AllNPCs.initialize(this.getDataFolder());
         AllPlayers.initialize(this.getDataFolder());
         AllConversations.initialize(this.getDataFolder());
