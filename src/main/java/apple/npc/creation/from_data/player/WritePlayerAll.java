@@ -15,6 +15,17 @@ public class WritePlayerAll {
     public static void write(String dataFolder, String playerUID) {
         File file = new File(String.format("%s%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.PLAYER_FOLDER,
                 File.separator, playerUID, YMLFileNavigate.YML));
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    System.err.println("There was an error making a new file the global conversation.");
+                    return;
+                }
+            } catch (IOException e) {
+                System.err.println("There was an error making a new file the global conversation.");
+                return;
+            }
+        }
         YamlConfiguration configOrig = YamlConfiguration.loadConfiguration(file);
         configOrig.set(YMLPlayerVariable.PLAYER_UID, playerUID);
         ConfigurationSection configVar = configOrig.createSection(YMLPlayerVariable.VARIABLES);

@@ -15,7 +15,6 @@ public class AllPlayers {
 
     public static final int DEFAULT_PLAYER_VAR_VAL = 0;
     private static Map<String, PlayerData> allPlayers = new HashMap<>();
-    public static HashMap<String, VariableCategory> allVars = new HashMap<>();
     private static File folder;
 
     public static void initialize(File dataFolder) {
@@ -39,7 +38,6 @@ public class AllPlayers {
         }
         allPlayers.get(playerUID).doVariableChanges(variableChanges);
         writeplayer(playerUID);
-
     }
 
     public static int getVarVal(String playerUID, String comparisonVarGlobal, int comparisonVarUID) {
@@ -52,27 +50,6 @@ public class AllPlayers {
 
     public static PlayerData getPlayer(String uid) {
         return allPlayers.get(uid);
-    }
-
-    public static void addVar(String global, Variable local) {
-        if (!allVars.containsKey(global)) {
-            allVars.put(global, new VariableCategory());
-        }
-        allVars.get(global).addVar(local);
-    }
-
-    public static List<Integer> getVarLocalUIDs(String global, String localName) {
-        if (allVars.containsKey(global)) {
-            return allVars.get(global).getVarLocalUIDs(localName);
-        }
-        return new ArrayList<>();
-    }
-
-    public static int getNextUID(String global) {
-        if (allVars.containsKey(global)) {
-            return allVars.get(global).getNextUID();
-        }
-        return 0;
     }
 
     public static void readAll() {

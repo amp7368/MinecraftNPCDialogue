@@ -5,7 +5,7 @@ import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.commands.StopCommand;
 import apple.npc.data.all.AllConversations;
-import apple.npc.data.all.AllPlayers;
+import apple.npc.data.all.AllVariables;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.reading.command.response.var.ReadingConvoResponseVarGlobal;
@@ -84,7 +84,7 @@ public class EditNpcConvoResponseVar implements CommandExecutor, TabCompleter {
         player.sendMessage(String.format("%sWhat global category of player variables do you want to change in %s-%s-%s-%s-%s",
                 MessageUtils.EDITING, global, localName, conversationData.name, args[3],args[4]));
 
-        Set<String> varGlobals = AllPlayers.allVars.keySet();
+        Set<String> varGlobals = AllVariables.allVars.keySet();
         for (String varGlobal : varGlobals) {
             TextComponent globalText = new TextComponent();
             globalText.setText(String.format("(Edit %s)", varGlobal));
