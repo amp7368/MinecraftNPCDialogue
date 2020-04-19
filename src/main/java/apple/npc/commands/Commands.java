@@ -33,6 +33,7 @@ public class Commands {
         new MakeConLocal(plugin);
         new MakeConResponse(plugin);
         new MakeNpc(plugin);
+        new GetUID(plugin);
 
         new WriteCommand(plugin);
         new ReadCommand(plugin);

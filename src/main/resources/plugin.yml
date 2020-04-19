@@ -127,3 +127,5 @@ commands:
     description: will be starts an editing session to edit the text of the response
   npc_convo_edit_response_default:
     description: will be starts an editing session to edit the default_response
+  npc_getuid:
+    description: gets uids around a player

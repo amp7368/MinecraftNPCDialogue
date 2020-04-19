@@ -18,7 +18,7 @@ public class ConversationLocalCategory {
         name = config.getString(YMLConversationNavigate.NAME);
         ConfigurationSection conversationsConfig = config.getConfigurationSection(YMLConversationNavigate.CONVERSATIONS);
         if (conversationsConfig == null) {
-            // todo show and error message
+            // todo show an error message
             config.createSection(YMLConversationNavigate.CONVERSATIONS);
             return;
         }
