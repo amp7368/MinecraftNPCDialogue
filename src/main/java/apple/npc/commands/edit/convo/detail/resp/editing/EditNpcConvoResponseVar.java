@@ -44,7 +44,7 @@ public class EditNpcConvoResponseVar implements CommandExecutor, TabCompleter {
             return false;
         }
         if (args.length != 5) {
-            player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
+            player.sendMessage(String.format("%sArgument length of %d is invalid", MessageUtils.BAD, args.length));
             return false;
         }
 
@@ -59,7 +59,7 @@ public class EditNpcConvoResponseVar implements CommandExecutor, TabCompleter {
             response = Integer.parseInt(args[3]);
             redirect = Integer.parseInt(args[4]);
         } catch (NumberFormatException e) {
-            player.sendMessage(String.format("%sArgument length of %d is invalid", MessageUtils.BAD, args.length));
+            player.sendMessage(MessageUtils.BAD + "The second, third, fourth, and fifth arguments must be numeric");
             return false;
         }
         String localName = AllConversations.getLocalName(global, local);

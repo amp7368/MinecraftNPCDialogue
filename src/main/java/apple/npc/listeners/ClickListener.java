@@ -29,7 +29,6 @@ public class ClickListener implements Listener {
         Entity entity = event.getRightClicked();
         UUID uuid = entity.getUniqueId();
         Player player = event.getPlayer();
-        System.out.println(uuid.toString());
         if (AllNPCs.hasGameUID(uuid.toString())) {
             doConversation(entity, player);
             event.setCancelled(true);
@@ -43,7 +42,6 @@ public class ClickListener implements Listener {
             return;
         }
         cooldown.put(playerUID, System.currentTimeMillis());
-
 
         NPCData npc = AllNPCs.getNPCFromUID(entity.getUniqueId().toString());
         PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());

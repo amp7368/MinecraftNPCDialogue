@@ -54,6 +54,18 @@ public class AllVariables {
         return 0;
     }
 
+    public static VariableCategory getVarCategory(String catName) {
+        if (!allVars.containsKey(catName))
+            allVars.put(catName, new VariableCategory());
+        return allVars.get(catName);
+    }
+
+    public static int getVarUID(String respGlobal, String varName) {
+        if (!allVars.containsKey(respGlobal))
+            allVars.put(respGlobal, new VariableCategory());
+        return allVars.get(respGlobal).getNextUID();
+    }
+
     public static void readAll() {
         initialize(folder);
     }
@@ -67,4 +79,5 @@ public class AllVariables {
     private static void writeVar(String global) {
         WriteGlobalAll.write(folder.getPath(), global, allVars.get(global));
     }
+
 }

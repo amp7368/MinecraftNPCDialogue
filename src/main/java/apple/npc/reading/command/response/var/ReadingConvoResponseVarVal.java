@@ -3,6 +3,7 @@ package apple.npc.reading.command.response.var;
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
 import apple.npc.data.all.AllConversations;
+import apple.npc.data.all.AllVariables;
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
@@ -94,6 +95,7 @@ public class ReadingConvoResponseVarVal extends ReadingCommand {
         }
 
         post.putVarChange(respGlobal, new Variable(respNameInt, respName), respVal);
+        AllVariables.addVar(respGlobal,new Variable(respNameInt,respName));
         AllConversations.writeGlobal(global);
         player.sendMessage(MessageUtils.GOOD + "You just set the response variable change");
 

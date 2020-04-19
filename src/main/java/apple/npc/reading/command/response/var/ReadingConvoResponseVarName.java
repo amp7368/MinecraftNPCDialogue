@@ -1,6 +1,7 @@
 package apple.npc.reading.command.response.var;
 
 import apple.npc.commands.CommandReferences;
+import apple.npc.data.all.AllVariables;
 import apple.npc.reading.command.ReadingCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -28,7 +29,8 @@ public class ReadingConvoResponseVarName extends ReadingCommand {
 
     @Override
     public void dealWithStop(Player player) {
+        int varUID = AllVariables.getVarUID(respGlobal,command);
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> player.performCommand(String.format(
-                "%s %s %s %s %s %s %s %s", CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, global, local, con, resp, post, respGlobal, command)));
+                "%s %s %s %s %s %s %s %d", CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, global, local, con, resp, post, respGlobal, varUID)));
     }
 }

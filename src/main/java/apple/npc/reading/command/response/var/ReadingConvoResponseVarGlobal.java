@@ -19,6 +19,7 @@ public class ReadingConvoResponseVarGlobal extends ReadingCommand {
         this.local = local;
         this.con = con;
         this.resp = resp;
+        this.post = post;
         this.plugin = plugin;
     }
 

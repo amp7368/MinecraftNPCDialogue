@@ -28,9 +28,9 @@ public class GetUID implements CommandExecutor {
         if (player == null) {
             commandSender.sendMessage("nope");
         } else {
-            for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(), 2, 2, 2)){
-                player.sendMessage(entity.getName() + " - " + entity.getUniqueId().toString());
-                System.out.println(entity.getName() + " - " + entity.getUniqueId().toString());
+            for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(), 2, 2, 2)) {
+                player.sendMessage(entity.getType() + "-" + entity.getName() + " - " + entity.getUniqueId().toString());
+                System.out.println("UID: " + entity.getType() + "-" + entity.getName() + " - " + entity.getUniqueId().toString());
             }
         }
         return false;

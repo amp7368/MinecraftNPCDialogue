@@ -95,6 +95,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             edit.setText(String.format("(Edit %s-%s-%s)", redirect.getResponseGlobal(),
                     AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), conversation.name));
             edit.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+            edit.setItalic(true);
             player.spigot().sendMessage(edit);
 
             TextComponent varChange = new TextComponent();
@@ -110,7 +111,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
                     CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, i++)));
-            varChange.setUnderlined(true);
+            redirectReqs.setUnderlined(true);
             player.spigot().sendMessage(redirectReqs);
 
             TextComponent delete = new TextComponent();
@@ -118,7 +119,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
                     CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, i++)));
-            varChange.setUnderlined(true);
+            delete.setUnderlined(true);
             player.spigot().sendMessage(delete);
         }
 
@@ -129,9 +130,10 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             return true; // the default just doesn't exist with a correct convo. this is fine
         }
         TextComponent edit = new TextComponent();
-        edit.setText(String.format("(Edit %s-%s-%s)", redirect.getResponseGlobal(),
+        edit.setText(String.format("(Edit default %s-%s-%s)", redirect.getResponseGlobal(),
                 AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), conversation.name));
         edit.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+        edit.setItalic(true);
         player.spigot().sendMessage(edit);
 
 
@@ -149,7 +151,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
         redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
                 CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, -1)));
-        varChange.setUnderlined(true);
+        redirectReqs.setUnderlined(true);
         player.spigot().sendMessage(redirectReqs);
 
         TextComponent delete = new TextComponent();
@@ -157,7 +159,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
         delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
                 CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, -1)));
-        varChange.setUnderlined(true);
+        delete.setUnderlined(true);
         player.spigot().sendMessage(delete);
         player.sendMessage(MessageUtils.LONG_DASH);
 

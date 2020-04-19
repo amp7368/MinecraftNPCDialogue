@@ -84,7 +84,7 @@ public class EditNpcConvoResponseVarName implements CommandExecutor, TabComplete
                 MessageUtils.EDITING, args[5], global, localName, conversationData.name, args[3],args[4]));
 
 
-        VariableCategory varLocals = AllVariables.allVars.get(args[5]);
+        VariableCategory varLocals = AllVariables.getVarCategory(args[5]);
         for (Variable var : varLocals.getVariables().values()) {
             TextComponent globalText = new TextComponent();
             globalText.setText(String.format("(Edit %s-%d)", var.name, var.uid));

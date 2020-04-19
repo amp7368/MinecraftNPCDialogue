@@ -31,7 +31,6 @@ public class PostPlayerResponse {
         }
         Set<String> changesKeys = changesConfig.getKeys(false);
         for (String changeKey : changesKeys) {
-            System.out.println(changeKey);
             this.variableChanges.add(new VariableChange(changesConfig.getConfigurationSection(changeKey)));
         }
     }
