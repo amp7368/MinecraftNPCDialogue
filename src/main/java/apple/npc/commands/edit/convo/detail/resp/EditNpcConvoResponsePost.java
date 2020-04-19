@@ -85,9 +85,15 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
         List<PostPlayerResponse> redirects = response.getPostResponses();
         int i = 0;
         for (PostPlayerResponse redirect : redirects) {
+
+            ConversationData conversation = AllConversations.get(new ConvoID(redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+            if (conversation == null) {
+                continue; // this response just doesn't exist with a correct convo. this is fine
+            }
+
             TextComponent edit = new TextComponent();
-            edit.setText(String.format("(Edit %s-%s-%d)", redirect.getResponseGlobal(),
-                    AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), redirect.getConversationUID()));
+            edit.setText(String.format("(Edit %s-%s-%s)", redirect.getResponseGlobal(),
+                    AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), conversation.name));
             edit.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             player.spigot().sendMessage(edit);
 
@@ -118,10 +124,13 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
 
         player.sendMessage(MessageUtils.DASH);
         PostPlayerResponse redirect = response.getDefaultPostReponse();
-
+        ConversationData conversation = AllConversations.get(new ConvoID(redirect.getResponseGlobal(), redirect.getResponseLocal(), redirect.getConversationUID()));
+        if (conversation == null) {
+            return true; // the default just doesn't exist with a correct convo. this is fine
+        }
         TextComponent edit = new TextComponent();
-        edit.setText(String.format("(Edit %s-%s-%d)", redirect.getResponseGlobal(),
-                AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), redirect.getConversationUID()));
+        edit.setText(String.format("(Edit %s-%s-%s)", redirect.getResponseGlobal(),
+                AllConversations.getLocalName(redirect.getResponseGlobal(), redirect.getResponseLocal()), conversation.name));
         edit.setColor(net.md_5.bungee.api.ChatColor.GREEN);
         player.spigot().sendMessage(edit);
 
