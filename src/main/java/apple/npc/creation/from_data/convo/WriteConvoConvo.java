@@ -2,6 +2,7 @@ package apple.npc.creation.from_data.convo;
 
 import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
+import apple.npc.data.convo.ConversationTag;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -16,6 +17,11 @@ public class WriteConvoConvo {
             WriteConvoResponse.setConfig(options.createSection(String.valueOf(response.uid)), response);
         }
         WriteConvoPostResponse.setConfig(config.createSection(YMLConversationNavigate.IMMEDIATE_CONVO), conversation.immediateConvo);
+
+        ConfigurationSection tagConfig = config.createSection(YMLConversationNavigate.TAGS);
+        for (ConversationTag tag : conversation.tags.tags) {
+            tagConfig.set(tag.name, true);
+        }
 
     }
 }

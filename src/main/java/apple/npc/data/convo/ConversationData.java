@@ -12,6 +12,7 @@ public class ConversationData {
     public List<String> conversationText;
     public List<ConversationResponse> responses;
     public PostPlayerResponse immediateConvo;
+    public ConversationTagCollection tags;
 
     public ConversationData(ConfigurationSection config) {
         conversationText = new ArrayList<>();
@@ -20,6 +21,7 @@ public class ConversationData {
         this.conversationText = config.getStringList(YMLConversationNavigate.CONVERSATION_TEXT);
         this.responses = getResponses(config.getConfigurationSection(YMLConversationNavigate.OPTIONS));
         this.immediateConvo = new PostPlayerResponse(config.getConfigurationSection(YMLConversationNavigate.IMMEDIATE_CONVO));
+        this.tags = getTags(config.getConfigurationSection(YMLConversationNavigate.TAGS));
     }
 
     public ConversationData(String global, int local, int uid, String name, List<String> text) {
@@ -28,7 +30,20 @@ public class ConversationData {
         this.conversationText = text;
         responses = new ArrayList<>();
         immediateConvo = new PostPlayerResponse(global, local, uid);
+        tags = new ConversationTagCollection();
+    }
 
+    public ConversationTagCollection collectTags() {
+        return tags;
+    }
+
+    private ConversationTagCollection getTags(ConfigurationSection config) {
+        Set<ConversationTag> tags = new HashSet<>();
+        Set<String> keys = config.getKeys(false);
+        for (String key : keys) {
+            tags.add(new ConversationTag(key));
+        }
+        return new ConversationTagCollection(tags);
     }
 
     private List<ConversationResponse> getResponses(ConfigurationSection config) {
@@ -86,8 +101,8 @@ public class ConversationData {
     }
 
     public void setRedirectRequirements(int responseUID, int redirectNum, Evaluateable exp) {
-        if(responses.size()>responseUID)
-            responses.get(responseUID).setRedirectRequirements(redirectNum,exp);
+        if (responses.size() > responseUID)
+            responses.get(responseUID).setRedirectRequirements(redirectNum, exp);
     }
 }
 

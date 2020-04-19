@@ -45,7 +45,7 @@ public class BooleanDoubleTypeCommand implements CommandExecutor, TabCompleter {
         boolean isNot;
         try {
             int op = Integer.parseInt(args[0]);
-            int not = Integer.parseInt(args[0]);
+            int not = Integer.parseInt(args[1]);
             if (op == 0) {
                 isAnd = false;
             } else if (op == 1) {

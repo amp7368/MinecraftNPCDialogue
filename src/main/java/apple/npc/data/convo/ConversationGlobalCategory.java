@@ -12,6 +12,7 @@ public class ConversationGlobalCategory {
 
 
     private HashMap<Integer, ConversationLocalCategory> localCategoryConversations;
+    private HashMap<Integer, ConversationTagCollection> localTags;
 
     public ConversationGlobalCategory(YamlConfiguration config) {
         // we're just barely in the file
@@ -30,10 +31,22 @@ public class ConversationGlobalCategory {
                 continue; // wtf happened if this happens?
             localCategoryConversations.put(localInt, new ConversationLocalCategory(configLocal));
         }
+        localTags = new HashMap<>();
     }
 
     public ConversationGlobalCategory() {
         localCategoryConversations = new HashMap<>();
+    }
+
+    public ConversationTagCollection collectTags() {
+        ConversationTagCollection tags = new ConversationTagCollection();
+        for (Integer localKey : localCategoryConversations.keySet()) {
+            ConversationLocalCategory local = localCategoryConversations.get(localKey);
+            ConversationTagCollection localTag = local.collectTags();
+            localTags.put(localKey, localTag);
+            tags.add(localTag);
+        }
+        return tags;
     }
 
     @Override
@@ -87,9 +100,10 @@ public class ConversationGlobalCategory {
         return false;
     }
 
-    public Collection<ConversationLocalCategory> getList(){
+    public Collection<ConversationLocalCategory> getList() {
         return localCategoryConversations.values();
     }
+
     public HashMap<Integer, ConversationLocalCategory> getLocalCategoryConversations() {
         return localCategoryConversations;
     }
@@ -116,8 +130,8 @@ public class ConversationGlobalCategory {
     }
 
     public void setRedirectRequirements(int local, int convo, int responseUID, int redirectNum, Evaluateable exp) {
-       if(hasLocalCategory(local)){
-           localCategoryConversations.get(local).setRedirectRequirements(convo,responseUID,redirectNum,exp);
-       }
+        if (hasLocalCategory(local)) {
+            localCategoryConversations.get(local).setRedirectRequirements(convo, responseUID, redirectNum, exp);
+        }
     }
 }

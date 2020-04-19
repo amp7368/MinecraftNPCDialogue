@@ -32,6 +32,7 @@ public class ClickListener implements Listener {
         System.out.println(uuid.toString());
         if (AllNPCs.hasGameUID(uuid.toString())) {
             doConversation(entity, player);
+            event.setCancelled(true);
         }
     }
 

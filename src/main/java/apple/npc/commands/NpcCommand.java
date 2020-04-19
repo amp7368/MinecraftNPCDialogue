@@ -40,19 +40,31 @@ public class NpcCommand implements CommandExecutor {
 
         TextComponent editNpcs = new TextComponent();
         editNpcs.setText("(Edit Npcs)");
-        editNpcs.setUnderlined(true);
         editNpcs.setColor(ChatColor.GREEN);
         editNpcs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_edit"));
 
         TextComponent editConversations = new TextComponent();
         editConversations.setText("(Edit Conversations)");
-        editConversations.setUnderlined(true);
         editConversations.setColor(ChatColor.GREEN);
         editConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_edit"));
+
+        TextComponent deleteNpcs = new TextComponent();
+        deleteNpcs.setText("(Delete Npcs)");
+        deleteNpcs.setColor(ChatColor.RED);
+        deleteNpcs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_delete"));
+
+        TextComponent deleteConversations = new TextComponent();
+        deleteConversations.setText("(Delete Conversations)");
+        deleteConversations.setColor(ChatColor.RED);
+        deleteConversations.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/npc_convo_delete"));
 
         player.sendMessage(MessageUtils.LONG_DASH);
         player.spigot().sendMessage(editNpcs);
         player.spigot().sendMessage(editConversations);
+        player.sendMessage(MessageUtils.DASH);
+        player.sendMessage(MessageUtils.DASH);
+        player.spigot().sendMessage(deleteNpcs);
+        player.spigot().sendMessage(deleteConversations);
         player.sendMessage(MessageUtils.LONG_DASH);
         return true;
     }

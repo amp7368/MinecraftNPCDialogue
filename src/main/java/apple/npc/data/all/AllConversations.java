@@ -38,6 +38,13 @@ public class AllConversations {
             ConversationGlobalCategory global = new ConversationGlobalCategory(config);
             allConversations.put(globalCategory.replace(".yml", ""), global);
         }
+        collectTags();
+    }
+
+    private static void collectTags(){
+        for(ConversationGlobalCategory global:allConversations.values()){
+            global.collectTags();
+        }
     }
 
     private static void readGlobal(String global) {

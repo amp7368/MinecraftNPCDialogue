@@ -10,6 +10,7 @@ public class ConversationLocalCategory {
     private int uid;
     private String name;
     private Map<Integer, ConversationData> conversations;
+    private Map<Integer, ConversationTagCollection> convoTags;
 
     public ConversationLocalCategory(ConfigurationSection config) {
         conversations = new HashMap<>();
@@ -32,12 +33,24 @@ public class ConversationLocalCategory {
             }
             conversations.put(conversationUID, new ConversationData(conversationsConfig.getConfigurationSection(conversation)));
         }
+        convoTags = new HashMap<>();
     }
 
     public ConversationLocalCategory(int uid, String name) {
         conversations = new HashMap<>();
         this.uid = uid;
         this.name = name;
+    }
+
+
+    public ConversationTagCollection collectTags() {
+        ConversationTagCollection tags = new ConversationTagCollection();
+        for (Integer key : conversations.keySet()) {
+            ConversationTagCollection tag = conversations.get(key).collectTags();
+            convoTags.put(key, tag);
+            tags.add(tag);
+        }
+        return tags;
     }
 
     @Override

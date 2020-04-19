@@ -1,8 +1,6 @@
 package apple.npc.creation.from_data.player;
 
-import apple.npc.creation.from_data.convo.WriteConvoLocal;
 import apple.npc.data.all.AllPlayers;
-import apple.npc.data.convo.ConversationLocalCategory;
 import apple.npc.data.player.VariableCategory;
 import apple.npc.ymlNavigate.YMLFileNavigate;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
