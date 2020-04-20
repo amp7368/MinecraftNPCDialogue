@@ -79,14 +79,40 @@ public class BooleanItemSetCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(MessageUtils.BAD + "Sorry, but the item your holding somehow doesn't have itemMeta! O.o");
                 return false;
             }
-
-            TextComponent sure = new TextComponent();
-            sure.setText(String.format(
-                    "Are you sure you want me to check if the player has an item in their inventory that has the localized name of \"%s\" and the custom name of \"%s\" and the type of \"%s\"",
-                    itemMeta.getDisplayName(), itemMeta.getLocalizedName(),item.getType().toString()));
-            sure.setColor(ChatColor.BLUE);
-            player.spigot().sendMessage(sure);
-
+            TextComponent sure;
+            switch (trackingTye) {
+                case 0:
+                    sure = new TextComponent();
+                    sure.setText(String.format(
+                            "Are you sure you want me to check if the player has an item in their inventory that hasthe type of \"%s\"",
+                            item.getType().toString()));
+                    sure.setColor(ChatColor.BLUE);
+                    player.spigot().sendMessage(sure);
+                    break;
+                case 1:
+                    sure = new TextComponent();
+                    sure.setText(String.format(
+                            "Are you sure you want me to check if the player has an item in their inventory that has the localized name of \"%s\" and the type of \"%s\"",
+                            itemMeta.getLocalizedName(), item.getType().toString()));
+                    sure.setColor(ChatColor.BLUE);
+                    player.spigot().sendMessage(sure);
+                    break;
+                case 2:
+                    sure = new TextComponent();
+                    sure.setText(String.format(
+                            "Are you sure you want me to check if the player has an item in their inventory that has the custom name of \"%s\" and the type of \"%s\"",
+                            itemMeta.getDisplayName(), item.getType().toString()));
+                    sure.setColor(ChatColor.BLUE);
+                    player.spigot().sendMessage(sure);
+                    break;
+                case 3:
+                    sure = new TextComponent();
+                    sure.setText(String.format(
+                            "Are you sure you want me to check if the player has an item in their inventory that has the localized name of \"%s\" and the custom name of \"%s\" and the type of \"%s\"",
+                            itemMeta.getLocalizedName(), itemMeta.getDisplayName(), item.getType().toString()));
+                    sure.setColor(ChatColor.BLUE);
+                    player.spigot().sendMessage(sure);
+            }
             TextComponent yes = new TextComponent();
             yes.setText("(Yes) - Don't change what item is in your hand!");
             yes.setUnderlined(true);

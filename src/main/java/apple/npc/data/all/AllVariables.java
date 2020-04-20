@@ -30,12 +30,6 @@ public class AllVariables {
             allVars.put(pathName.replace(".yml", ""), new VariableCategory(config));
         }
 
-        for (String gl : AllVariables.allVars.keySet()) {
-            System.out.println(gl + ": ");
-            for (Variable lo : AllVariables.allVars.get(gl).getVariables().values()) {
-                System.out.println(lo.name);
-            }
-        }
     }
 
     public static void addVar(String global, Variable local) {

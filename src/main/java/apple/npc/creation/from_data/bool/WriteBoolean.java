@@ -1,9 +1,6 @@
 package apple.npc.creation.from_data.bool;
 
-import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
-import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
-import apple.npc.data.booleanAlgebra.Evaluateable;
-import apple.npc.data.booleanAlgebra.VariableComparision;
+import apple.npc.data.booleanAlgebra.*;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -34,7 +31,14 @@ public class WriteBoolean {
             configVar.set(YMLBooleanNavigate.GLOBAL_CATEGORY,bool.getComparisonVarGlobal());
             configVar.set(YMLBooleanNavigate.VAR_UID,bool.getComparisonVarUID());
             configVar.set(YMLBooleanNavigate.VAR_NAME,bool.getComparisumVarName());
-
+        }else if (booleanExp instanceof BooleanHasItem){
+            BooleanHasItem bool = (BooleanHasItem) booleanExp;
+            config.set(YMLBooleanNavigate.IS_NOTED,bool.isNot());
+            config.set(YMLBooleanNavigate.ITEM_LOCAL,bool.getLocal());
+            config.set(YMLBooleanNavigate.ITEM_DISPLAY,bool.getDisplay());
+            config.set(YMLBooleanNavigate.ITEM_MATERIAL,bool.getMaterial());
+            config.set(YMLBooleanNavigate.ITEM_SLOT,bool.getSlot());
+            config.set(YMLBooleanNavigate.TRACKING_TYPE,bool.getTracking());
         }
     }
 }

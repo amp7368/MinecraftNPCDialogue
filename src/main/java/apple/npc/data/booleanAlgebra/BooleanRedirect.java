@@ -9,8 +9,10 @@ public class BooleanRedirect {
         if (exp1 == null) {
             // then we should get either the default value or the variable comparison
             if (!config.contains(YMLBooleanNavigate.COMPARISON_TYPE)) {
-                // we should get the default value
-                return new BooleanExpRequirement(config);
+                if (config.contains(YMLBooleanNavigate.TRACKING_TYPE)) {
+                    return new BooleanHasItem(config);
+                } else // we should get the default value
+                    return new BooleanExpRequirement(config);
             } else {
                 // we should get the variable comparison
                 return new VariableComparision(config);

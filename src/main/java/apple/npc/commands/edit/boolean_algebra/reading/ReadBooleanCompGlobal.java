@@ -30,14 +30,6 @@ public class ReadBooleanCompGlobal extends ReadingCommand {
 
         VariableCategory globalCategory = AllVariables.allVars.get(command);
 
-        for (String gl : AllVariables.allVars.keySet()) {
-            System.out.println(gl + ": ");
-            for (Variable lo : AllVariables.allVars.get(gl).getVariables().values()) {
-                System.out.println(lo.name);
-            }
-        }
-
-
         if (globalCategory == null) {
             player.sendMessage(MessageUtils.EDITING + "Scroll up. What is the global name of the player variable?");
             StopCommand.startListening(new ReadBooleanCompGlobal(plugin), player);

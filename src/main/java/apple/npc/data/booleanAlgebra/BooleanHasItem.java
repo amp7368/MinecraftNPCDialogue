@@ -1,6 +1,7 @@
 package apple.npc.data.booleanAlgebra;
 
-import org.bukkit.Bukkit;
+import apple.npc.ymlNavigate.YMLBooleanNavigate;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,35 +31,39 @@ public class BooleanHasItem implements Evaluateable {
         slot = 0;
     }
 
+    public BooleanHasItem(ConfigurationSection config) {
+        this.isNot = config.getBoolean(YMLBooleanNavigate.IS_NOTED);
+        this.localName = config.getString(YMLBooleanNavigate.ITEM_LOCAL);
+        this.displayName = config.getString(YMLBooleanNavigate.ITEM_DISPLAY);
+        this.material = config.getString(YMLBooleanNavigate.ITEM_MATERIAL);
+        this.slot = config.getInt(YMLBooleanNavigate.ITEM_SLOT);
+        this.trackingType = config.getInt(YMLBooleanNavigate.TRACKING_TYPE);
+    }
+
 
     @Override
     public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
         @NotNull ItemStack[] extra = player.getInventory().getExtraContents();
         for (ItemStack itemInInv : extra) {
             if (checkItem(itemInInv))
-                return true;
+                return !isNot;
         }
         @NotNull ItemStack[] inv = player.getInventory().getContents();
         for (ItemStack itemInInv : inv) {
             if (checkItem(itemInInv))
-                return true;
+                return !isNot;
         }
-        return false;
+        return isNot;
     }
 
     private boolean checkItem(ItemStack itemInInv) {
-        if(itemInInv == null)
+        if (itemInInv == null)
             return false;
         if (itemInInv.getType().toString().equals(material)) {
             ItemMeta im;
             switch (trackingType) {
                 case 0:
-                    im = itemInInv.getItemMeta();
-                    if (im == null) break;
-                    if (im.getDisplayName().equals(displayName)) {
-                        return true;
-                    }
-                    break;
+                    return true;
                 case 1:
                     im = itemInInv.getItemMeta();
                     if (im == null) break;
@@ -84,5 +89,29 @@ public class BooleanHasItem implements Evaluateable {
             }
         }
         return false;
+    }
+
+    public boolean isNot() {
+        return isNot;
+    }
+
+    public String getLocal() {
+        return localName;
+    }
+
+    public String getDisplay() {
+        return displayName;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public int getTracking() {
+        return trackingType;
     }
 }
