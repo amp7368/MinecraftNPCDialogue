@@ -4,6 +4,7 @@ import apple.npc.data.all.AllPlayers;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.npc.NPCData;
 import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
@@ -93,8 +94,8 @@ public class PostPlayerResponse {
         variableChanges.add(new VariableChange(respGlobal, variable, respVal));
     }
 
-    public void doVariableChanges(String playerUID) {
-        AllPlayers.doVariableChange(playerUID, variableChanges);
+    public void doVariableChanges(NPCData npc, String playerUID) {
+        AllPlayers.doVariableChange(npc,playerUID, variableChanges);
     }
 
     public void setRedirectRequirements(Evaluateable exp) {

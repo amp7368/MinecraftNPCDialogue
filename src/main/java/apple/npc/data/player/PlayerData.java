@@ -2,6 +2,7 @@ package apple.npc.data.player;
 
 import apple.npc.data.all.AllPlayers;
 import apple.npc.data.convo.VariableChange;
+import apple.npc.data.npc.NPCData;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,12 +31,16 @@ public class PlayerData {
         this.variables = new HashMap<>();
     }
 
-    public void doVariableChanges(HashSet<VariableChange> variableChanges) {
+    public void doVariableChanges(NPCData npc, HashSet<VariableChange> variableChanges) {
         for (VariableChange variable : variableChanges) {
-            if (!variables.containsKey(variable.globalVar)) {
-                variables.put(variable.globalVar, new VariableCategory());
+            if (variable.globalVar.equals("default"))
+                npc.setConclusionVar(uid, new Variable(variable));
+            else {
+                if (!variables.containsKey(variable.globalVar)) {
+                    variables.put(variable.globalVar, new VariableCategory());
+                }
+                variables.get(variable.globalVar).addVar(new Variable(variable));
             }
-            variables.get(variable.globalVar).addVar(new Variable(variable));
         }
     }
 

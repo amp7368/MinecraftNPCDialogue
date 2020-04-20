@@ -9,6 +9,7 @@ import apple.npc.data.convo.ConversationData;
 import apple.npc.data.convo.ConversationResponse;
 import apple.npc.data.convo.ConvoID;
 import apple.npc.data.player.PlayerData;
+import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -220,7 +221,7 @@ public class NPCData {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                ConvoID redirect = response.doGetPostResponse(npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.doGetPostResponse(this, npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 
@@ -234,6 +235,17 @@ public class NPCData {
 
     public void setPlayerData(String playerUID, ConvoID conversation, int currentOpinion, String opinionName) {
         playerDataMap.put(playerUID, new NPCPlayerData(playerUID, conversation, System.currentTimeMillis(), new Opinion(currentOpinion, opinionName)));
+    }
+
+    public void setConclusionVar(String uid, Variable variable) {
+        if (playerDataMap.containsKey(uid)) {
+            if (variable.name.equals("conclusion")) {
+                System.out.println("variable done");
+                playerDataMap.get(uid).opinion = new Opinion(variable.value, "This will be implemented eventually");
+            } else if (variable.name.equals("time")) {
+                playerDataMap.get(uid).lastTalked = variable.value;
+            }
+        }
     }
 
     public int getStartingConclusion() {
@@ -277,4 +289,5 @@ public class NPCData {
         }
         varsToConclusion.add(new VarsConclusionMap(conclusionResult, finished));
     }
+
 }

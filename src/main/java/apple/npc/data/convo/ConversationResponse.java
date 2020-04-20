@@ -4,6 +4,7 @@ import apple.npc.data.all.AllConversations;
 import apple.npc.data.booleanAlgebra.BooleanExpRequirement;
 import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
+import apple.npc.data.npc.NPCData;
 import apple.npc.data.npc.Opinion;
 import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
@@ -78,15 +79,15 @@ public class ConversationResponse implements Evaluateable {
         return preResponseRequirement.evaluate(playerUID, currentConclusion, timeLastTalked);
     }
 
-    public ConvoID doGetPostResponse(Opinion opinion, long lastTalked, String playerUID) {
+    public ConvoID doGetPostResponse(NPCData npc, Opinion opinion, long lastTalked, String playerUID) {
         for (PostPlayerResponse postResponse : postResponses) {
             if (postResponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
-                postResponse.doVariableChanges(playerUID);
+                postResponse.doVariableChanges(npc,playerUID);
                 return postResponse.toNpcConvoID();
             }
         }
         if (defaultPostReponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
-            defaultPostReponse.doVariableChanges(playerUID);
+            defaultPostReponse.doVariableChanges(npc,playerUID);
             return defaultPostReponse.toNpcConvoID();
         }
         return null;

@@ -64,7 +64,7 @@ public class BooleanConvoResponsePre implements CommandExecutor, TabCompleter {
         }
         ConversationData convo = AllConversations.get(new ConvoID(global, localUID, convoUID));
         if (convo == null) {
-            player.sendMessage(MessageUtils.BAD + String.format("I could not get conversation %s:%d:%d", global, localName, convoUID));
+            player.sendMessage(MessageUtils.BAD + String.format("I could not get conversation %s:%s :%d", global, localName, convoUID));
             return false;
         }
         String convoName = convo.name;

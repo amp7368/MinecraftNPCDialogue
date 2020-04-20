@@ -2,6 +2,7 @@ package apple.npc.data.all;
 
 import apple.npc.creation.from_data.player.WritePlayerAll;
 import apple.npc.data.convo.VariableChange;
+import apple.npc.data.npc.NPCData;
 import apple.npc.data.player.PlayerData;
 import apple.npc.data.player.Variable;
 import apple.npc.data.player.VariableCategory;
@@ -32,11 +33,12 @@ public class AllPlayers {
         }
     }
 
-    public static void doVariableChange(String playerUID, HashSet<VariableChange> variableChanges) {
+    public static void doVariableChange(NPCData npc, String playerUID, HashSet<VariableChange> variableChanges) {
         if (!allPlayers.containsKey(playerUID)) {
             allPlayers.put(playerUID, new PlayerData(playerUID));
         }
-        allPlayers.get(playerUID).doVariableChanges(variableChanges);
+
+        allPlayers.get(playerUID).doVariableChanges(npc,variableChanges);
         writeplayer(playerUID);
     }
 

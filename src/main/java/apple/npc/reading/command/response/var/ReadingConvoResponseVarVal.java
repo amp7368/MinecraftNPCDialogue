@@ -95,7 +95,13 @@ public class ReadingConvoResponseVarVal extends ReadingCommand {
         }
 
         post.putVarChange(respGlobal, new Variable(respNameInt, respName), respVal);
-        AllVariables.addVar(respGlobal,new Variable(respNameInt,respName));
+        if (respGlobal.equals("default")) {
+            if (respNameInt > 1) {
+                player.sendMessage(MessageUtils.BAD + "You can't create new default variables D:");
+            }
+        } else {
+            AllVariables.addVar(respGlobal, new Variable(respNameInt, respName));
+        }
         AllConversations.writeGlobal(global);
         player.sendMessage(MessageUtils.GOOD + "You just set the response variable change");
 

@@ -80,4 +80,10 @@ public class AllVariables {
         WriteGlobalAll.write(folder.getPath(), global, allVars.get(global));
     }
 
+    public static String getVarName(String global, int uid) {
+        if (allVars.containsKey(global))
+            return allVars.get(global).getVarName(uid);
+        else
+            return "null";
+    }
 }

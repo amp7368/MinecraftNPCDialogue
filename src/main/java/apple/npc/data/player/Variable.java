@@ -1,5 +1,6 @@
 package apple.npc.data.player;
 
+import apple.npc.data.all.AllVariables;
 import apple.npc.data.convo.VariableChange;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import apple.npc.ymlNavigate.YMLPlayerVariable;
@@ -24,8 +25,8 @@ public class Variable {
 
     public Variable(VariableChange variable) {
         this.uid = variable.varUID;
-        this.name = variable.varName;
         this.value = variable.newValue;
+        this.name = AllVariables.getVarName(variable.globalVar, uid);
     }
 
     public String toString() {

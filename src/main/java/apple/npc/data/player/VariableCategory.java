@@ -69,4 +69,11 @@ public class VariableCategory {
     public Map<Integer, Variable> getVariables() {
         return variables;
     }
+
+    public String getVarName(int uid) {
+        if(variables.containsKey(uid)){
+            return variables.get(uid).name;
+        }else
+            return "nullVarName";
+    }
 }
