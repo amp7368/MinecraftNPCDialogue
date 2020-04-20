@@ -46,28 +46,36 @@ public class BooleanItemTrackingCommand implements CommandExecutor, TabCompleter
         player.spigot().sendMessage(welcome);
 
         TextComponent both = new TextComponent();
-        both.setText("(type && displayName && localizedName) == hasItem");
+        both.setText("(type & displayName & localizedName) == hasItem");
         both.setUnderlined(true);
         both.setColor(MessageUtils.EDITING_OPTION);
         both.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d %d %d",
-                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,2,0)));
+                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,3,0)));
         player.spigot().sendMessage(both);
 
         TextComponent display = new TextComponent();
-        display.setText("(type && displayName) == hasItem");
+        display.setText("(type & displayName) == hasItem");
         display.setUnderlined(true);
         display.setColor(MessageUtils.EDITING_OPTION);
         display.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d %d %d",
-                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,1,0)));
+                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,2,0)));
         player.spigot().sendMessage(display);
 
         TextComponent localized = new TextComponent();
-        localized.setText("(type && localizedName) == hasItem");
+        localized.setText("(type & localizedName) == hasItem");
         localized.setUnderlined(true);
         localized.setColor(MessageUtils.EDITING_OPTION);
         localized.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d %d %d",
-                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,0,0)));
+                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,1,0)));
         player.spigot().sendMessage(localized);
+
+        TextComponent none = new TextComponent();
+        none.setText("(type) == hasItem");
+        none.setUnderlined(true);
+        none.setColor(MessageUtils.EDITING_OPTION);
+        none.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %d %d %d",
+                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM_SET, 0,0,0)));
+        player.spigot().sendMessage(none);
 
 
         return true;

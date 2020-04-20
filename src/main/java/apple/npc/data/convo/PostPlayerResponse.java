@@ -8,6 +8,7 @@ import apple.npc.data.npc.NPCData;
 import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -66,8 +67,8 @@ public class PostPlayerResponse {
         return new ConvoID(responseGlobal, responseLocal, conversationUID);
     }
 
-    public boolean evaluate(String playerUID, int currentOpinion, long timeLastTalked) {
-        return redirectRequirements.evaluate(playerUID, currentOpinion, timeLastTalked);
+    public boolean evaluate(Player player, int currentOpinion, long timeLastTalked) {
+        return redirectRequirements.evaluate(player, currentOpinion, timeLastTalked);
     }
 
     public HashSet<VariableChange> getVariableChanges() {

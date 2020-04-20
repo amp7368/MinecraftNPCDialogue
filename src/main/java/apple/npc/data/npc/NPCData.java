@@ -23,6 +23,7 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class NPCData {
+    private static final String NAME_REGEX = "\\*name\\*";
     public int uid;
     public String name;
     public String gameUID;
@@ -90,7 +91,7 @@ public class NPCData {
         if (playerDataMap.containsKey(playerUID)) {
             if (System.currentTimeMillis() - playerDataMap.get(playerUID).lastTalked > maxTimeSinceTalk) {
                 // the player waited too long
-                currentOpinion = doConclusion(playerUID);
+                currentOpinion = doConclusion(realPlayer);
                 playerLeftEarlier = true;
             } else {
                 currentOpinion = playerDataMap.get(playerUID).opinion.opinionUID;
@@ -99,7 +100,7 @@ public class NPCData {
         } else {
             // check what we should say
             playerLeftEarlier = true; // this is made true to stay at this conversation
-            currentOpinion = doConclusion(playerUID);
+            currentOpinion = doConclusion(realPlayer);
         }
         // if we want to go to the next conversation in sequence regardless of opinion
         ConvoID conversation;
@@ -148,7 +149,7 @@ public class NPCData {
                 opinion = playerDataMap.get(playerUID).opinion.opinionUID;
             else
                 opinion = startingConclusion;
-            if (resp.evaluate(playerUID, opinion, timeLastTalked)) {
+            if (resp.evaluate(realPlayer, opinion, timeLastTalked)) {
                 for (String textToSay : resp.response) {
                     TextComponent message = new TextComponent(textToSay);
                     message.setUnderlined(true);
@@ -167,7 +168,12 @@ public class NPCData {
     private void talkAtPlayer(Player realPlayer, ConvoID convoID) {
         realPlayer.sendMessage(MessageUtils.DASH);
         ConversationData convo = AllConversations.get(convoID);
+        if (convo == null) {
+            // just ignore fails. nothing will happen
+            return;
+        }
         for (String text : convo.conversationText) {
+            text = text.replaceAll(NAME_REGEX, realPlayer.getDisplayName());
             realPlayer.sendMessage(ChatColor.GREEN + text);
         }
         realPlayer.sendMessage(MessageUtils.DASH);
@@ -178,10 +184,10 @@ public class NPCData {
      * never talked to the player or the time limit was reached
      * so we need to recheck what the npc should say
      *
-     * @param playerUID the uid of the player
      * @return the value of the new opinion
      */
-    private int doConclusion(String playerUID) {
+    private int doConclusion(Player player) {
+        String playerUID = player.getUniqueId().toString();
         int opinion;
         long timeLastTalked;
         if (playerDataMap.containsKey(playerUID)) {
@@ -193,7 +199,7 @@ public class NPCData {
             timeLastTalked = -1;
         }
         for (VarsConclusionMap map : varsToConclusion) {
-            if (map.evaluate(playerUID, opinion, timeLastTalked)) {
+            if (map.evaluate(player, opinion, timeLastTalked)) {
                 // return the conclusion
                 return map.conclusionResult;
             }
@@ -217,11 +223,11 @@ public class NPCData {
                     player.sendMessage("Sorry to ruin immersion, but something went wrong with the retrieving of this response");
                     return;
                 }
-                if (!response.evaluate(playerUID, npcPlayerData.opinion.opinionUID, npcPlayerData.lastTalked)) {
+                if (!response.evaluate(player, npcPlayerData.opinion.opinionUID, npcPlayerData.lastTalked)) {
                     player.sendMessage("Good try, but you don't have the prerequisites to do this response");
                     return;
                 }
-                ConvoID redirect = response.doGetPostResponse(this, npcPlayerData.opinion, npcPlayerData.lastTalked, playerUID);
+                ConvoID redirect = response.doGetPostResponse(this, npcPlayerData.opinion, npcPlayerData.lastTalked, player);
                 doConversation(playerUID, redirect, npcPlayerData.opinion.opinionUID, player, AllPlayers.getPlayer(playerUID));
             }
 

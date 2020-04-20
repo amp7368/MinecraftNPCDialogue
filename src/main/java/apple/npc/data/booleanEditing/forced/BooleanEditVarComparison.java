@@ -54,9 +54,9 @@ public class BooleanEditVarComparison implements BooleanEditForced {
     @Override
     public int nextExp() {
         if (isFinished) {
-            return name;
+            return -1;
         }
-        return -1;
+        return name;
     }
 
     @Override

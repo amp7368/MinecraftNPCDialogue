@@ -5,6 +5,7 @@ import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLNpcNavigate;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 public class VarsConclusionMap implements Evaluateable {
     public int conclusionResult;
@@ -21,8 +22,8 @@ public class VarsConclusionMap implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
-        return exp.evaluate(playerUID, currentConclusion, timeLastTalked);
+    public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
+        return exp.evaluate(player, currentConclusion, timeLastTalked);
     }
 
     public Evaluateable getExpression() {

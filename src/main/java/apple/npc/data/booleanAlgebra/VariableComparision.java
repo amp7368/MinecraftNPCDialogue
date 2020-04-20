@@ -5,6 +5,7 @@ import apple.npc.data.all.AllVariables;
 import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 public class VariableComparision implements Evaluateable {
     private boolean isNoted;
@@ -38,7 +39,8 @@ public class VariableComparision implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
+    public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
+        String playerUID = player.getUniqueId().toString();
         long varVal;
         switch (comparisonVarGlobal) {
             case "default":

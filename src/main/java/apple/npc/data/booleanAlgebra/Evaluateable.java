@@ -1,5 +1,7 @@
 package apple.npc.data.booleanAlgebra;
 
+import org.bukkit.entity.Player;
+
 public interface Evaluateable {
-    boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked);
+    boolean evaluate(Player player, int currentConclusion, long timeLastTalked);
 }

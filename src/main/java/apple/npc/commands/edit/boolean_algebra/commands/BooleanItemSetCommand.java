@@ -2,6 +2,12 @@ package apple.npc.commands.edit.boolean_algebra.commands;
 
 import apple.npc.MessageUtils;
 import apple.npc.commands.CommandReferences;
+import apple.npc.commands.edit.boolean_algebra.BooleanSessionStart;
+import apple.npc.commands.edit.boolean_algebra.data.BooleanDataStore;
+import apple.npc.data.booleanEditing.forced.BooleanEditForced;
+import apple.npc.data.booleanEditing.forced.BooleanEditForcedDouble;
+import apple.npc.data.booleanEditing.forced.BooleanEditForcedExpBase;
+import apple.npc.data.booleanEditing.forced.BooleanEditForcedItem;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -42,11 +48,12 @@ public class BooleanItemSetCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(MessageUtils.BAD + String.format("An argument length of %d is invalid", args.length));
             return false;
         }
-        int isNot;
+        boolean isNot;
         int trackingTye;
         int isSure;
         try {
-            isNot = Integer.parseInt(args[0]);
+            int isNotInt = Integer.parseInt(args[0]);
+            isNot = isNotInt == 1;
             trackingTye = Integer.parseInt(args[1]);
             isSure = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
@@ -76,7 +83,7 @@ public class BooleanItemSetCommand implements CommandExecutor, TabCompleter {
             TextComponent sure = new TextComponent();
             sure.setText(String.format(
                     "Are you sure you want me to check if the player has an item in their inventory that has the localized name of \"%s\" and the custom name of \"%s\" and the type of \"%s\"",
-                    item.getType().toString(), itemMeta.getDisplayName(), itemMeta.getLocalizedName()));
+                    itemMeta.getDisplayName(), itemMeta.getLocalizedName(),item.getType().toString()));
             sure.setColor(ChatColor.BLUE);
             player.spigot().sendMessage(sure);
 
@@ -100,6 +107,22 @@ public class BooleanItemSetCommand implements CommandExecutor, TabCompleter {
         } else {
             // make the variable
 
+            BooleanEditForced root = BooleanDataStore.get(player.getUniqueId());
+            // VarConcluObject has already been gotten
+            BooleanEditForced exp = root.getLeftMost();
+            // set exp to this variable comparison
+            BooleanEditForced parent = exp.getParent();
+            if (parent == null) {
+                BooleanDataStore.put(player.getUniqueId(), new BooleanEditForcedItem(isNot, player.getInventory().getItemInMainHand(), trackingTye, null, 0));
+            } else {
+                // these should be the only possible parents besides no parent
+                if (parent instanceof BooleanEditForcedDouble) {
+                    ((BooleanEditForcedDouble) parent).set(isNot, player.getInventory().getItemInMainHand(), trackingTye, root.getBiggestName());
+                } else if (parent instanceof BooleanEditForcedExpBase) {
+                    ((BooleanEditForcedExpBase) parent).set(isNot, player.getInventory().getItemInMainHand(), trackingTye, root.getBiggestName());
+                }
+            }
+            BooleanSessionStart.step(player);
 
         }
         return true;

@@ -2,6 +2,7 @@ package apple.npc.data.booleanAlgebra;
 
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 public class BooleanDoubleExp implements Evaluateable {
     private boolean isAndOp;
@@ -24,9 +25,9 @@ public class BooleanDoubleExp implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
-        boolean exp1Bool = exp1.evaluate(playerUID, currentConclusion, timeLastTalked);
-        boolean exp2Bool = exp2.evaluate(playerUID, currentConclusion, timeLastTalked);
+    public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
+        boolean exp1Bool = exp1.evaluate(player, currentConclusion, timeLastTalked);
+        boolean exp2Bool = exp2.evaluate(player, currentConclusion, timeLastTalked);
         boolean result;
         if (isAndOp)
             result = exp1Bool && exp2Bool;

@@ -3,6 +3,7 @@ package apple.npc.data.booleanEditing.forced;
 import apple.npc.commands.edit.boolean_algebra.data.VarComparisonObject;
 import apple.npc.data.booleanAlgebra.BooleanDoubleExp;
 import apple.npc.data.booleanAlgebra.Evaluateable;
+import org.bukkit.inventory.ItemStack;
 
 public class BooleanEditForcedDouble implements BooleanEditForced {
     private boolean isAndOp;
@@ -127,6 +128,15 @@ public class BooleanEditForcedDouble implements BooleanEditForced {
             exp2 = new BooleanEditForcedDouble(isNot, isAnd, this, name + 1);
         } else {
             exp1 = new BooleanEditForcedDouble(isNot, isAnd, this, name + 2);
+        }
+    }
+
+    public void set(boolean isNot, ItemStack item, int trackingTye, int biggestName) {
+        if (exp1.isFinished()) {
+            // fix exp2
+            exp2 = new BooleanEditForcedItem(isNot, item, trackingTye,this, name + 1);
+        } else {
+            exp1 = new BooleanEditForcedItem(isNot, item, trackingTye,this, name + 1);
         }
     }
 }

@@ -58,6 +58,7 @@ public class Commands {
         new BooleanCompLocalCommand(plugin);
         new BooleanItemNotCommand(plugin);
         new BooleanItemSetCommand(plugin);
+        new BooleanItemTrackingCommand(plugin);
 
         // conclusionVars main branch
         new EditNpcConcluConGlobal(plugin);

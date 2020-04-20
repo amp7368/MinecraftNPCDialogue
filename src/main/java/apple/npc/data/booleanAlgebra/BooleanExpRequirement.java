@@ -3,6 +3,7 @@ package apple.npc.data.booleanAlgebra;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
+import org.bukkit.entity.Player;
 
 public class BooleanExpRequirement implements Evaluateable {
     private boolean isDefault;
@@ -46,10 +47,10 @@ public class BooleanExpRequirement implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
+    public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
         if (isDefault)
             return defaultVal;
-        return exp.evaluate(playerUID, currentConclusion, timeLastTalked);
+        return exp.evaluate(player, currentConclusion, timeLastTalked);
     }
 
     public boolean isDefault() {

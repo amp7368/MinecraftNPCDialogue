@@ -6,15 +6,13 @@ import apple.npc.data.booleanAlgebra.BooleanRedirect;
 import apple.npc.data.booleanAlgebra.Evaluateable;
 import apple.npc.data.npc.NPCData;
 import apple.npc.data.npc.Opinion;
-import apple.npc.data.player.Variable;
 import apple.npc.ymlNavigate.YMLBooleanNavigate;
 import apple.npc.ymlNavigate.YMLConversationNavigate;
-import apple.npc.ymlNavigate.YMLPlayerVariable;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class ConversationResponse implements Evaluateable {
@@ -75,19 +73,20 @@ public class ConversationResponse implements Evaluateable {
     }
 
     @Override
-    public boolean evaluate(String playerUID, int currentConclusion, long timeLastTalked) {
-        return preResponseRequirement.evaluate(playerUID, currentConclusion, timeLastTalked);
+    public boolean evaluate(Player player, int currentConclusion, long timeLastTalked) {
+        return preResponseRequirement.evaluate(player, currentConclusion, timeLastTalked);
     }
 
-    public ConvoID doGetPostResponse(NPCData npc, Opinion opinion, long lastTalked, String playerUID) {
+    public ConvoID doGetPostResponse(NPCData npc, Opinion opinion, long lastTalked, Player player) {
+        String playerUID = player.getUniqueId().toString();
         for (PostPlayerResponse postResponse : postResponses) {
-            if (postResponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
-                postResponse.doVariableChanges(npc,playerUID);
+            if (postResponse.evaluate(player, opinion.opinionUID, lastTalked)) {
+                postResponse.doVariableChanges(npc, playerUID);
                 return postResponse.toNpcConvoID();
             }
         }
-        if (defaultPostReponse.evaluate(playerUID, opinion.opinionUID, lastTalked)) {
-            defaultPostReponse.doVariableChanges(npc,playerUID);
+        if (defaultPostReponse.evaluate(player, opinion.opinionUID, lastTalked)) {
+            defaultPostReponse.doVariableChanges(npc, playerUID);
             return defaultPostReponse.toNpcConvoID();
         }
         return null;
@@ -111,9 +110,9 @@ public class ConversationResponse implements Evaluateable {
     }
 
     public void setRedirectRequirements(int redirectNum, Evaluateable exp) {
-        if(redirectNum == -1)
+        if (redirectNum == -1)
             defaultPostReponse.setRedirectRequirements(exp);
-        else if (postResponses.size()>redirectNum)
+        else if (postResponses.size() > redirectNum)
             postResponses.get(redirectNum).setRedirectRequirements(exp);
     }
 }
