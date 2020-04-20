@@ -29,6 +29,7 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
         command.setExecutor(this);
         command.setTabCompleter(this);
     }
+
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] args) {
         Player player = Bukkit.getPlayer(commandSender.getName());
@@ -80,15 +81,26 @@ public class EditnpcConvoResponseSet implements CommandExecutor, TabCompleter {
             path.setColor(MessageUtils.PATH);
             ActionBar.sendLongActionBar(player, path);
             List<PostPlayerResponse> resp = conversation.get(response).getPostResponses();
-            if (resp.isEmpty())
-                resp.add(new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
+            boolean isAlreadyResponse = false;
+            int i = 0;
+            for (PostPlayerResponse post : resp) {
+                if (post.equals(newGlobal, newLocal, newConvoUID)) {
+                    isAlreadyResponse = true;
+                    break;
+                }
+                i++;
+            }
+
+            if (isAlreadyResponse)
+                resp.set(i, new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
             else
-                resp.set(0, new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
+                resp.add(new PostPlayerResponse(newGlobal, newLocal, newConvoUID));
             AllConversations.writeAll();
             player.sendMessage("You just set the thing");
         }
         return true;
     }
+
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         return null;

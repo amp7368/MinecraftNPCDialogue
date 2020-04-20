@@ -95,10 +95,14 @@ public class PostPlayerResponse {
     }
 
     public void doVariableChanges(NPCData npc, String playerUID) {
-        AllPlayers.doVariableChange(npc,playerUID, variableChanges);
+        AllPlayers.doVariableChange(npc, playerUID, variableChanges);
     }
 
     public void setRedirectRequirements(Evaluateable exp) {
         this.redirectRequirements = exp;
+    }
+
+    public boolean equals(String newGlobal, int newLocal, int newConvoUID) {
+        return (responseGlobal.equals(newGlobal) && responseLocal == newLocal && conversationUID == newConvoUID);
     }
 }

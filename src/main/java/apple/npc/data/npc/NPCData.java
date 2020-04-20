@@ -240,7 +240,6 @@ public class NPCData {
     public void setConclusionVar(String uid, Variable variable) {
         if (playerDataMap.containsKey(uid)) {
             if (variable.name.equals("conclusion")) {
-                System.out.println("variable done");
                 playerDataMap.get(uid).opinion = new Opinion(variable.value, "This will be implemented eventually");
             } else if (variable.name.equals("time")) {
                 playerDataMap.get(uid).lastTalked = variable.value;

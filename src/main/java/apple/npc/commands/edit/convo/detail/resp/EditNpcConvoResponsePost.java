@@ -102,7 +102,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             varChange.setText("(Edit Variable Changes)");
             varChange.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             varChange.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
-                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID, i++)));
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_GLOBAL, global, localUID, convoUID, responseUID, i)));
             varChange.setUnderlined(true);
             player.spigot().sendMessage(varChange);
 
@@ -110,7 +110,7 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             redirectReqs.setText("(Edit Redirect Reqs)");
             redirectReqs.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             redirectReqs.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
-                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, i++)));
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_REQS, global, localUID, convoUID, responseUID, i)));
             redirectReqs.setUnderlined(true);
             player.spigot().sendMessage(redirectReqs);
 
@@ -118,9 +118,10 @@ public class EditNpcConvoResponsePost implements CommandExecutor, TabCompleter {
             delete.setText("(Delete)");
             delete.setColor(net.md_5.bungee.api.ChatColor.GREEN);
             delete.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %d %d %d %d",
-                    CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, i++)));
+                    CommandReferences.NPC_CONVO_DELETE_POST_RESPONSE, global, localUID, convoUID, responseUID, i)));
             delete.setUnderlined(true);
             player.spigot().sendMessage(delete);
+            i++;
         }
 
         player.sendMessage(MessageUtils.DASH);

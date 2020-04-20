@@ -39,6 +39,7 @@ public class Commands {
         new ReadCommand(plugin);
 
         new NpcCommand(plugin);
+        new CommandForcedChatSend(plugin);
 
         // npc main branch
         new EditNpcSpecific(plugin);
@@ -55,6 +56,8 @@ public class Commands {
         new BooleanDoubleCommand(plugin);
         new BooleanDoubleTypeCommand(plugin);
         new BooleanCompLocalCommand(plugin);
+        new BooleanItemNotCommand(plugin);
+        new BooleanItemSetCommand(plugin);
 
         // conclusionVars main branch
         new EditNpcConcluConGlobal(plugin);

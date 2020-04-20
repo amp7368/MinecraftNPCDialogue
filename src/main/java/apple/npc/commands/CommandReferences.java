@@ -55,7 +55,11 @@ public class CommandReferences {
     public static final String NPC_EDIT_VARS_SPECIFIC_COMP_TYPE = "npc_edit_vars_comp_type";
     public static final String NPC_EDIT_VARS_SPECIFIC_DOUBLE_TYPE = "npc_edit_vars_double_type";
     public static final String NPC_EDIT_VARS_SPECIFIC_COMP_LOCAL = "npc_edit_vars_comp_local";
+    public static final String NPC_EDIT_VARS_SPECIFIC_ITEM = "npc_edit_vars_item_isNot";
+    public static final String NPC_EDIT_VARS_SPECIFIC_ITEM_TRACKING = "npc_edit_vars_item_trackingtype";
+    public static final String NPC_EDIT_VARS_SPECIFIC_ITEM_SET = "npc_edit_vars_item_set";
 
     public static final String DELETE_NPC = "npc_delete_npc";
     public static final String DELETE_CONVO_GLOBAL = "npc_delete_convo_global";
+    public static final String FORCED_CHAT_SEND = "npc_force_chat";
 }

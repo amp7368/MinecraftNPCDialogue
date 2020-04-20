@@ -32,6 +32,8 @@ public class WriteGlobalAll {
             ConfigurationSection varConfig = config.createSection(String.valueOf(varUID));
             Variable variable = variables.get(varUID);
             varConfig.set(YMLPlayerVariable.VARIABLE_NAME, variable.name);
+            varConfig.set(YMLPlayerVariable.VARIABLE_UID, variable.uid);
+            varConfig.set(YMLPlayerVariable.VARIABLE_VALUE, 0);
         }
         try {
             config.save(file);

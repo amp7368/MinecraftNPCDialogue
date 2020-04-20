@@ -1,7 +1,6 @@
 package apple.npc.data.all;
 
 import apple.npc.creation.from_data.vars.WriteGlobalAll;
-import apple.npc.data.player.PlayerData;
 import apple.npc.data.player.Variable;
 import apple.npc.data.player.VariableCategory;
 import apple.npc.ymlNavigate.YMLFileNavigate;
@@ -17,6 +16,7 @@ public class AllVariables {
     private static File folder;
 
     public static void initialize(File dataFolder) {
+        allVars = new HashMap<>();
         folder = dataFolder;
         File directory = new File(String.format("%s%s%s", dataFolder, File.separator, YMLFileNavigate.VARIABLE_FOLDER));
         String[] pathNameList = directory.list();
@@ -28,6 +28,13 @@ public class AllVariables {
             File file = new File(String.format("%s%s%s%s%s", dataFolder, File.separator, YMLFileNavigate.PLAYER_FOLDER, File.separator, pathName));
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             allVars.put(pathName.replace(".yml", ""), new VariableCategory(config));
+        }
+
+        for (String gl : AllVariables.allVars.keySet()) {
+            System.out.println(gl + ": ");
+            for (Variable lo : AllVariables.allVars.get(gl).getVariables().values()) {
+                System.out.println(lo.name);
+            }
         }
     }
 

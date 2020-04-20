@@ -77,6 +77,14 @@ public class BooleanSessionStart {
                 CommandReferences.NPC_EDIT_VARS_SPECIFIC_DOUBLE)));
         player.spigot().sendMessage(doubleExp);
 
+        TextComponent hasItem = new TextComponent();
+        hasItem.setText("(hasItem)");
+        hasItem.setUnderlined(true);
+        hasItem.setColor(MessageUtils.EDITING_OPTION);
+        hasItem.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s",
+                CommandReferences.NPC_EDIT_VARS_SPECIFIC_ITEM)));
+        player.spigot().sendMessage(hasItem);
+
         player.sendMessage(MessageUtils.LONG_DASH);
     }
 

@@ -26,6 +26,5 @@ public class AfterPostResponse implements AfterVar {
     @Override
     public void dealWithDone(Player player, Evaluateable exp) {
         AllConversations.setRedirectRequirements(global,local,convo,responseUID,redirectNum,exp);
-
     }
 }

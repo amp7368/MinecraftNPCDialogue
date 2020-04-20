@@ -47,7 +47,8 @@ public class EditNpcConvoResponseVarName implements CommandExecutor, TabComplete
         if (args.length != 6) {
             player.sendMessage(MessageUtils.BAD + "Invalid number of arguments");
             return false;
-        }String global = args[0];
+        }
+        String global = args[0];
         int local;
         int convo;
         int response;
@@ -81,21 +82,25 @@ public class EditNpcConvoResponseVarName implements CommandExecutor, TabComplete
         player.sendMessage(MessageUtils.LONG_DASH);
 
         player.sendMessage(String.format("%sWhat is the local name of player variable in %s after choosing the response %s-%s-%s-%s-%s?",
-                MessageUtils.EDITING, args[5], global, localName, conversationData.name, args[3],args[4]));
+                MessageUtils.EDITING, args[5], global, localName, conversationData.name, args[3], args[4]));
 
 
         VariableCategory varLocals = AllVariables.getVarCategory(args[5]);
+        if (varLocals == null) {
+            //todo
+            return false;
+        }
         for (Variable var : varLocals.getVariables().values()) {
             TextComponent globalText = new TextComponent();
             globalText.setText(String.format("(Edit %s-%d)", var.name, var.uid));
             globalText.setColor(MessageUtils.EDITING_OPTION);
             globalText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s %s %s %s %s %s %s %d",
-                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, args[0], args[1], args[2], args[3], args[4] ,args[5], var.uid)));
+                    CommandReferences.NPC_CONVO_EDIT_RESPONSE_VAR_VAL, args[0], args[1], args[2], args[3], args[4], args[5], var.uid)));
             player.spigot().sendMessage(globalText);
         }
 
         player.sendMessage(MessageUtils.LONG_DASH);
-        StopCommand.startListening(new ReadingConvoResponseVarName(plugin,args[0], args[1], args[2], args[3],args[4],args[5]), player);
+        StopCommand.startListening(new ReadingConvoResponseVarName(plugin, args[0], args[1], args[2], args[3], args[4], args[5]), player);
         return true;
     }
 

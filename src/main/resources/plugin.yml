@@ -4,19 +4,34 @@ api-version: "1.15"
 author: Apple
 main: apple.npc.NPCDialogueMain
 description: allow the player to teleport using player made paper scrolls
+permissions:
+  npc.create:
+    description: Allows players to create conversations and npcs
+    default: false
+
 commands:
   # make commands (obsolete I believe)
   npc_convo_make_global:
     description: starts a session to make a conversation global category
+    permission: npc.create
+    permission-message: You do not have permission!
   npc_convo_make_local:
+    permission: npc.create
+    permission-message: You do not have permission!
     description: starts a session to make a conversation local category
   npc_convo_make_convo:
+    permission: npc.create
+    permission-message: You do not have permission!
     description: starts a session to make something that is related to conversations
   make_con_response:
+    permission: npc.create
+    permission-message: You do not have permission!
     description: starts an editing session of creating a response in a conversation
 
   # the main branch of editing stuff
   npc:
+    permission: npc.create
+    permission-message: You do not have permission!
     description: starts an editing session
   npc_convo_edit:
     description: starts an editing session to edit anything related to conversations
@@ -45,7 +60,7 @@ commands:
   npc_edit_name:
     description: edits the name of an npc
 
-  # editing details for the vars to conclusion part of an npc
+  # editing details for the boolean part of an npc
   npc_edit_vars:
     description: starts an editing session to edit the vars to conclusion
   npc_edit_vars_specific:
@@ -60,7 +75,12 @@ commands:
     description: continues the editing session and creates a local comparison variable with a given uid
   npc_edit_vars_double_type:
     description: continues the editing session and asks what operators the new double expression will have
-
+  npc_edit_vars_item_isNot:
+    description: continues the editing session and asks the player if they want the expression to be a hasItem or not hasItem
+  npc_edit_vars_item_trackingtype:
+    description: continues the editing session and asks the player what they want to check about the item (local name, custom name)? (always type)
+  npc_edit_vars_item_set:
+    description: sets the item that the player is holding in thier hand to the variable
   # editing details for the conclusion to convo part of an npc
   npc_edit_concluToConvo_global:
     description: starts an editing session to edit the concluToConvo mapping to get the global category
@@ -84,7 +104,8 @@ commands:
     description: writes everything currently in the datastructures into the files
   npc_read:
     description: reads everything currently in the files into the data structures
-
+  npc_force_chat:
+    description: makes a player say something in chat
 
   # deal with normal post response editing
   npc_convo_edit_response_postresponse_make:

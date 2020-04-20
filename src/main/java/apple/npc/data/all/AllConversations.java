@@ -41,8 +41,8 @@ public class AllConversations {
         collectTags();
     }
 
-    private static void collectTags(){
-        for(ConversationGlobalCategory global:allConversations.values()){
+    private static void collectTags() {
+        for (ConversationGlobalCategory global : allConversations.values()) {
             global.collectTags();
         }
     }
