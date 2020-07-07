@@ -46,6 +46,6 @@ public class ClickListener implements Listener {
         NPCData npc = AllNPCs.getNPCFromUID(entity.getUniqueId().toString());
         PlayerData player = AllPlayers.getPlayer(p.getUniqueId().toString());
         if (npc != null)
-            npc.doEntireConversation(player, p);
+            npc.doEntireConversation(npc,player, p);
     }
 }

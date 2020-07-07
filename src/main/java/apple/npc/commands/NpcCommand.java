@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
 
 public class NpcCommand implements CommandExecutor {
     JavaPlugin plugin;
